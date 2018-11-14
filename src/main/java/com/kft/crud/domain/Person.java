@@ -1,7 +1,5 @@
 package com.kft.crud.domain;
 
-import com.kft.crud.domain.AbstractEntity;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +7,6 @@ import java.util.Date;
  * Created by Msolomon on 5/17/2018.
  */
 @Entity
-@Table()
 public class Person extends AbstractEntity {
 
     private String firstName;
@@ -20,7 +17,6 @@ public class Person extends AbstractEntity {
 
     private Date dateOfBirth;
 
-    @Column(name = "GENDER")
     private String gender;
 
     private String identificationNumber;

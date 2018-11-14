@@ -1,6 +1,6 @@
 package com.kft.security.dto;
 
-import com.kft.oms.constatns.GenderEnum;
+import com.kft.oms.constants.GenderEnum;
 import com.kft.security.domain.Role;
 import org.hibernate.validator.constraints.Length;
 

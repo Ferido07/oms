@@ -1,4 +1,4 @@
-package com.kft.oms.constatns;
+package com.kft.oms.constants;
 
 /**
  * Created by Msolomon on 5/18/2018.

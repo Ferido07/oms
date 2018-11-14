@@ -18,29 +18,22 @@ public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID", nullable= false)
     private Integer id;
 
-    @Column(name = "VERSION")
     @Version
     private Integer version = 0;
 
-    @Column(name = "DML_FLAG")
+    //QUESTION: What is this flag? What is its purpose?
     private Integer dmlFlag;
 
-    @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @Column(name = "CREATED_BY")
     private String createdBy;
 
-    @Column(name = "UPDATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @Column(name = "UPDATED_BY")
     private String updatedBy;
 
 
@@ -105,6 +98,7 @@ public abstract class AbstractEntity implements Serializable {
         return serialVersionUID;
     }
 
+
     @PreUpdate
     public void setUpdatedAt() {
         this.updatedAt = new Date();
@@ -114,6 +108,7 @@ public abstract class AbstractEntity implements Serializable {
         else
             this.updatedBy = "SYSTEM";
     }
+
     @PrePersist
     public void setCreatedAt() {
         this.createdAt = new Date();
@@ -123,6 +118,7 @@ public abstract class AbstractEntity implements Serializable {
         else
             this.createdBy = "SYSTEM";
     }
+
     @Override
     public boolean equals(Object object) {
         if (this == object)

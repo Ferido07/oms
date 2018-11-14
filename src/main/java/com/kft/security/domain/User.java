@@ -15,8 +15,10 @@ import java.util.List;
 @Entity
 public class User extends AbstractEntity {
 
+    //QUESTION: why is this used?
     private static final long serialVersionUID = 2353528370345499815L;
 
+    //QUESTION: why many-to-one instead of one-to-one
     @ManyToOne
     private Person person;
 
@@ -24,12 +26,15 @@ public class User extends AbstractEntity {
 
     private String password;
 
+    //QUESTION: why an integer instead of boolean
     private Integer isActive;
 
+    //QUESTION: why an integer instead of boolean
     private Integer isLoggedIn;
 
     private Integer failedLoginAttempts;
 
+    //QUESTION: why an integer instead of boolean
     private Integer isLocked;
 
     private Date lastLoginTimestamp;
