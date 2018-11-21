@@ -1,16 +1,17 @@
 package com.kft.oms.domain;
 
 import com.kft.crud.domain.AbstractEntity;
+import com.kft.crud.domain.Organization;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class Association extends AbstractEntity {
-
-    private String name;
+//@DiscriminatorValue("ASSOCIATION")
+public class Association extends Organization {
 
     @OneToMany(mappedBy = "association")
     private List<Vehicle> vehicles;
@@ -18,15 +19,6 @@ public class Association extends AbstractEntity {
     @ManyToMany
     private List<VehicleOwner> vehicleOwners;
 
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public List<Vehicle> getVehicles() {
         return vehicles;

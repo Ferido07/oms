@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Vehicle extends AbstractEntity {
 
     //stands for types like vitz, landcruser,..
@@ -21,7 +20,7 @@ public class Vehicle extends AbstractEntity {
     //@Max(99999)
     private Integer sideNo;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "vehicles")
     private List<VehicleOwner> owners;
 
     @ManyToOne

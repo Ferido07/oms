@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class VehicleOwner extends Person{
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "vehicleOwners")
     private List<Association> associations;
 
     @ManyToMany

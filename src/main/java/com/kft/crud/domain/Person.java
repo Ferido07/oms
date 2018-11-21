@@ -7,7 +7,8 @@ import java.util.Date;
  * Created by Msolomon on 5/17/2018.
  */
 @Entity
-public class Person extends AbstractEntity {
+@DiscriminatorValue("PERSON")
+public class Person extends OffenderEntity {
 
     private String firstName;
 

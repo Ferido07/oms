@@ -27,6 +27,9 @@ public class OffenceCode extends AbstractEntity{
     @NotNull
     private String description;
 
+    @NotNull
+    private boolean offenceRepetitionIsConsidered = true;
+
 
 
     public String getOffenderType() {
@@ -59,5 +62,13 @@ public class OffenceCode extends AbstractEntity{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isOffenceRepetitionIsConsidered() {
+        return offenceRepetitionIsConsidered;
+    }
+
+    public void setOffenceRepetitionIsConsidered(boolean offenceRepetitionIsConsidered) {
+        this.offenceRepetitionIsConsidered = offenceRepetitionIsConsidered;
     }
 }

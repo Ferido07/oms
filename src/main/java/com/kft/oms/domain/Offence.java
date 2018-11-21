@@ -1,10 +1,11 @@
 package com.kft.oms.domain;
 
 import com.kft.crud.domain.AbstractEntity;
-import com.kft.crud.domain.Person;
+import com.kft.crud.domain.OffenderEntity;
 import com.kft.oms.constants.OffenceStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class Offence extends AbstractEntity {
 
     private Long dispatchNo;
 
-    //Question: how to implement this cuz an offender can be Association or organization as noted in 9.3.6 and 9.3.8 of the rule book
+    //An offender can be Association or organization as noted in 9.3.6 and 9.3.8 of the rule book or a Person
+    @NotNull
     @ManyToOne
     private OffenderEntity offender;
 
