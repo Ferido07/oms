@@ -20,7 +20,7 @@ public interface CrudService<TEntity,TPrimaryKey extends Serializable,TRepositor
 
     void deleteAll(Iterable<TEntity> entities);
 
-    TEntity findOne(TPrimaryKey id);
+    TEntity findById(TPrimaryKey id);
 
     long count();
 

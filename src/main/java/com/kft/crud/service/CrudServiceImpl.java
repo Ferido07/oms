@@ -41,7 +41,7 @@ public abstract class CrudServiceImpl<TEntity,TPrimaryKey extends Serializable,T
     }
 
     @Override
-    public TEntity findOne(TPrimaryKey id) {
+    public TEntity findById(TPrimaryKey id) {
         return  repository.getOne(id);
     }
 
