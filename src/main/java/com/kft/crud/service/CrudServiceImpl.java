@@ -13,8 +13,12 @@ import java.util.Optional;
 public abstract class CrudServiceImpl<TEntity,TPrimaryKey extends Serializable,TRepository extends JpaRepository<TEntity,TPrimaryKey>>
         implements CrudService<TEntity,TPrimaryKey,TRepository> {
 
+    protected final TRepository repository;
+
     @Autowired
-    protected TRepository repository;
+    public CrudServiceImpl(TRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<TEntity> findAll() {

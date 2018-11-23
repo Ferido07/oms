@@ -17,6 +17,10 @@ import java.util.Optional;
 public class RoleServiceImpl extends CrudServiceImpl<Role,Integer,RoleRepository> implements RoleService {
 
 
+    public RoleServiceImpl(RoleRepository repository) {
+        super(repository);
+    }
+
     @Override
     public Role create(RoleModel model) {
 
@@ -50,7 +54,7 @@ public class RoleServiceImpl extends CrudServiceImpl<Role,Integer,RoleRepository
        role.ifPresent(role1 -> {
            role1.setName(model.getName());
            role1.setDescription(model.getDescription());
-           role1.setActive(model.getIsActive()== 1? true : false);
+           role1.setActive(model.getIsActive() == 1);
            updatedRole[0] = repository.save(role1);
        });
 

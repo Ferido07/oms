@@ -22,11 +22,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    CustomUserDetailService customUserDetailService;
+    private final CustomUserDetailService customUserDetailService;
+
+    private final SecurityService securityService;
 
     @Autowired
-    SecurityService securityService;
+    public WebSecurityConfig(CustomUserDetailService customUserDetailService, SecurityService securityService) {
+        this.customUserDetailService = customUserDetailService;
+        this.securityService = securityService;
+    }
 
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailService)
