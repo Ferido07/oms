@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Msolomon on 5/21/2018.
@@ -20,7 +21,7 @@ public interface CrudService<TEntity,TPrimaryKey extends Serializable,TRepositor
 
     void deleteAll(Iterable<TEntity> entities);
 
-    TEntity findById(TPrimaryKey id);
+    Optional<TEntity> findById(TPrimaryKey id);
 
     long count();
 

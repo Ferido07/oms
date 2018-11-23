@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Msolomon on 5/21/2018.
@@ -41,8 +42,8 @@ public abstract class CrudServiceImpl<TEntity,TPrimaryKey extends Serializable,T
     }
 
     @Override
-    public TEntity findById(TPrimaryKey id) {
-        return  repository.getOne(id);
+    public Optional<TEntity> findById(TPrimaryKey id) {
+        return  repository.findById(id);
     }
 
     @Override
