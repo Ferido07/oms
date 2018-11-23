@@ -7,4 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class VehicleServiceImpl extends CrudServiceImpl<Vehicle,Integer,VehicleRepository> implements VehicleService {
+    public VehicleServiceImpl(VehicleRepository repository) {
+        super(repository);
+    }
 }

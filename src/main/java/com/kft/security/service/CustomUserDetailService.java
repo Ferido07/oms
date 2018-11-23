@@ -18,8 +18,12 @@ import java.util.List;
 @Transactional
 public class CustomUserDetailService implements UserDetailsService {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public CustomUserDetailService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,7 +37,7 @@ public class CustomUserDetailService implements UserDetailsService {
         }
 
         List<GrantedAuthority> authority= user.getAuthorities();
-        UserDetails userDetails= new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User(
                user.getUserName(),
                 user.getPassword(),
                 user.getIsActive()== 1,
@@ -42,6 +46,5 @@ public class CustomUserDetailService implements UserDetailsService {
                 user.getIsLocked() == 0,
                 user.getAuthorities()
         );
-        return userDetails;
     }
 }

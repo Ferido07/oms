@@ -20,24 +20,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityServiceImpl  implements SecurityService{
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    private final UserService userService;
+
+    private final PersonService personService;
+
+    private final UserRoleService userRoleService;
 
     @Autowired
-    private UserService userService;
-
-
-    @Autowired
-    private PersonService personService;
-
-    @Autowired
-    private UserRoleService userRoleService;
+    public SecurityServiceImpl(PasswordEncoder passwordEncoder, UserService userService, PersonService personService, UserRoleService userRoleService) {
+        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
+        this.personService = personService;
+        this.userRoleService = userRoleService;
+    }
 
 
     @Override
     public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
     }
+
+//    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @Override
     public void createAdminUser(NewUser newUser) {
@@ -57,8 +64,8 @@ public class SecurityServiceImpl  implements SecurityService{
         user.setPerson(savedPerson);
         User savedUser= userService.save(user);
 
-        if (newUser.getRoles().size()== 0){
-        }
+//        if (newUser.getRoles().size()== 0){
+//        }
 
         for (Role role: newUser.getRoles()){
 
@@ -72,9 +79,7 @@ public class SecurityServiceImpl  implements SecurityService{
 
     }
 
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+
 
     @Override
     public org.springframework.security.core.userdetails.User getCurrentUserFromCtx() {
@@ -158,9 +163,7 @@ public class SecurityServiceImpl  implements SecurityService{
         try{
             org.springframework.security.core.userdetails.User currentUser=getCurrentUserFromCtx();
             User isUser=  userService.findByUserName(currentUser.getUsername());
-            if (isUser != null){
-                return true;
-            }else return false;
+            return isUser != null;
         }catch (Exception e){
             return false;
         }

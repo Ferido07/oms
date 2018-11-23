@@ -13,4 +13,7 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class UserRoleServiceImpl extends CrudServiceImpl<UserRole,Integer,UserRoleRepository> implements UserRoleService{
+    public UserRoleServiceImpl(UserRoleRepository repository) {
+        super(repository);
+    }
 }

@@ -24,12 +24,16 @@ import java.util.List;
 public class UserServiceImpl extends CrudServiceImpl<User,Integer,UserRepository> implements UserService{
 
 
-    @Autowired
-    private UserRoleRepository userRoleRepository;
+    private final UserRoleRepository userRoleRepository;
+
+    private final RoleRepository roleRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
+    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
+        super(repository);
+        this.roleRepository = roleRepository;
+        this.userRoleRepository = userRoleRepository;
+    }
 
 
     @Override

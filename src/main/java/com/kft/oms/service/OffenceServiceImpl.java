@@ -7,4 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceRepository> implements OffenceService {
+    public OffenceServiceImpl(OffenceRepository repository) {
+        super(repository);
+    }
 }

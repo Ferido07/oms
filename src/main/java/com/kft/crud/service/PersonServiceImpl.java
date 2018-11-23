@@ -12,4 +12,7 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class PersonServiceImpl extends CrudServiceImpl<Person,Integer,PersonRepository> implements PersonService {
+    public PersonServiceImpl(PersonRepository repository) {
+        super(repository);
+    }
 }
