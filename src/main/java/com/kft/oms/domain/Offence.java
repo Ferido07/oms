@@ -6,17 +6,17 @@ import com.kft.oms.constants.OffenceStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
 public class Offence extends AbstractEntity {
 
-    @Temporal(TemporalType.DATE)
-    private Date offenceDate;
-
-    @Temporal(TemporalType.TIME)
-    private Date offenceTime;
+    @NotNull
+    private LocalDate offenceDate;
+    @NotNull
+    private LocalTime offenceTime;
 
     private String place;
     private String description;
@@ -36,22 +36,23 @@ public class Offence extends AbstractEntity {
     @Embedded
     private ProofDocument proofDocument;
 
+    @NotNull
     @ManyToMany
     private List<OffenceCode> offenceCodes;
 
-    public Date getOffenceDate() {
+    public LocalDate getOffenceDate() {
         return offenceDate;
     }
 
-    public void setOffenceDate(Date offenceDate) {
+    public void setOffenceDate(LocalDate offenceDate) {
         this.offenceDate = offenceDate;
     }
 
-    public Date getOffenceTime() {
+    public LocalTime getOffenceTime() {
         return offenceTime;
     }
 
-    public void setOffenceTime(Date offenceTime) {
+    public void setOffenceTime(LocalTime offenceTime) {
         this.offenceTime = offenceTime;
     }
 
