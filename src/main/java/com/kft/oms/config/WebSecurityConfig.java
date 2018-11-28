@@ -22,15 +22,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailService customUserDetailService;
+    private CustomUserDetailService customUserDetailService;
 
-    private final SecurityService securityService;
+    private SecurityService securityService;
 
     @Autowired
-    public WebSecurityConfig(CustomUserDetailService customUserDetailService, SecurityService securityService) {
+    public void setCustomUserDetailService(CustomUserDetailService customUserDetailService) {
         this.customUserDetailService = customUserDetailService;
+    }
+
+    @Autowired
+    public void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
     }
+
+//    Constructor injection causes circular dependency with Security service and hence setter based injection is used
+//    @Autowired
+//    public WebSecurityConfig(CustomUserDetailService customUserDetailService, SecurityService securityService) {
+//        this.customUserDetailService = customUserDetailService;
+//        this.securityService = securityService;
+//    }
 
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailService)
