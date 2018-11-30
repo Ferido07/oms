@@ -24,7 +24,7 @@ public class Offence extends AbstractEntity {
     @Enumerated(value = EnumType.STRING)
     private OffenceStatus status;
 
-    private Long dispatchNo;
+    private Integer dispatchNo;
 
     //An offender can be Association or organization as noted in 9.3.6 and 9.3.8 of the rule book or a Person
     @NotNull
@@ -33,12 +33,26 @@ public class Offence extends AbstractEntity {
 
     private Integer penaltyAmount;
 
-    @Embedded
-    private ProofDocument proofDocument;
-
     @NotNull
     @ManyToMany
     private List<OffenceCode> offenceCodes;
+
+    /* Not really needed since the driver entity is referenced by offender_id
+    @ManyToOne
+    private Driver driver;
+    */
+    private boolean driversLicenseTaken;
+
+    @ManyToOne
+    private Vehicle vehicle;
+
+    private boolean vehiclePlateTaken;
+
+    private boolean vehicleBoloTaken;
+
+    private boolean vehicleLibreTaken;
+
+
 
     public LocalDate getOffenceDate() {
         return offenceDate;
@@ -96,19 +110,11 @@ public class Offence extends AbstractEntity {
         this.offender = offender;
     }
 
-    public ProofDocument getProofDocument() {
-        return proofDocument;
-    }
-
-    public void setProofDocument(ProofDocument proofDocument) {
-        this.proofDocument = proofDocument;
-    }
-
-    public Long getDispatchNo() {
+    public Integer getDispatchNo() {
         return dispatchNo;
     }
 
-    public void setDispatchNo(Long dispatchNo) {
+    public void setDispatchNo(Integer dispatchNo) {
         this.dispatchNo = dispatchNo;
     }
 
@@ -126,5 +132,53 @@ public class Offence extends AbstractEntity {
 
     public void setOffenceCodes(List<OffenceCode> offenceCodes) {
         this.offenceCodes = offenceCodes;
+    }
+
+/*    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }*/
+
+    public boolean isDriversLicenseTaken() {
+        return driversLicenseTaken;
+    }
+
+    public void setDriversLicenseTaken(boolean driversLicenseTaken) {
+        this.driversLicenseTaken = driversLicenseTaken;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public boolean isVehiclePlateTaken() {
+        return vehiclePlateTaken;
+    }
+
+    public void setVehiclePlateTaken(boolean vehiclePlateTaken) {
+        this.vehiclePlateTaken = vehiclePlateTaken;
+    }
+
+    public boolean isVehicleBoloTaken() {
+        return vehicleBoloTaken;
+    }
+
+    public void setVehicleBoloTaken(boolean vehicleBoloTaken) {
+        this.vehicleBoloTaken = vehicleBoloTaken;
+    }
+
+    public boolean isVehicleLibreTaken() {
+        return vehicleLibreTaken;
+    }
+
+    public void setVehicleLibreTaken(boolean vehicleLibreTaken) {
+        this.vehicleLibreTaken = vehicleLibreTaken;
     }
 }

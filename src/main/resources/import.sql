@@ -18,8 +18,8 @@ VALUES
 INSERT INTO
   offender_entity(id, entity_type, created_at, created_by, dml_flag, updated_at, updated_by, version)
 VALUES
-  (1, 'PERSON', NOW(), 'Ferid', 0, NULL, NULL, NULL),
-  (2, 'PERSON', NOW(), 'Ferid', 0, NULL, NULL ,NULL);
+  (1, 'DRIVER', NOW(), 'Ferid', 0, NULL, NULL, NULL),
+  (2, 'DRIVER', NOW(), 'Ferid', 0, NULL, NULL ,NULL);
 
 /*#Insert Persons*/
 INSERT INTO
@@ -35,20 +35,20 @@ VALUES
   (1, 087525, 'AUTO'),
   (2, 087526, 'AUTO');
 
-/*Insert Offences
-Note: I left added all the columns so that it is clear that there is some gap and this table requires improvement especially in the columns related to a driver and vehicle all those columns are unnecessary*/
+/*Insert Offences*/
 INSERT INTO
-  offence(id, created_at, created_by, dml_flag, updated_at, updated_by, version, description, dispatch_no, offence_date, offence_time, penalty_amount, place, bolo, license_no, license_type, libre, plate_code, plate_country, plate_no, plate_region, reporting_location, status, offender_id)
+  offence(id, created_at, created_by, dml_flag, updated_at, updated_by, version, description, dispatch_no, drivers_license_taken, offence_date, offence_time, penalty_amount, place, reporting_location, status, vehicle_bolo_taken, vehicle_libre_taken, vehicle_plate_taken, offender_id, vehicle_id)
 VALUES
-  (1, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, '2018-6-29', '4:20:20', NULL, 'Nifas Silk Lafto', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDING', 1),
-  (6, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, '2017-9-29', '4:20:20', NULL, 'Nifas Silk Lafto', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDING', 1),
-  (2, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, '2018-9-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDING', 1),
-  (3, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, '2018-10-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDING', 1),
-  (4, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, '2018-11-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDING', 1),
-  (5, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, '2018-12-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PENDING', 1);
+  (1, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2018-6-29', '4:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL),
+  (6, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2017-9-29', '4:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL),
+  (2, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2018-9-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL),
+  (3, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2018-10-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL),
+  (4, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2018-11-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL),
+  (5, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2018-12-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL);
 
 /*Insert offence_offence_codes
 Note: on different methods of penalty calculation currently i'm using method 1 but the one in rule book probably meant method 2
+Question: How is the gap between offence 6 and 2 treated? can offence 2 see offence 6 for calculation check LocalDate.minus(). It should not be visible
 offence with id of 6 has happened way before 4 of the others but is only visible for offence with id of 1
 calculation for the offences from 1 to 5 which are within the range of one year.
 if penalty is set to be

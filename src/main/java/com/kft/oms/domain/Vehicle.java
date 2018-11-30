@@ -7,13 +7,22 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"plateNo", "plateRegion", "plateCode", "plateCountry"}))
 public class Vehicle extends AbstractEntity {
 
     //stands for types like vitz, landcruser,..
     private String type;
 
+//    NOTE: All the attribute overrides are required otherwise jpa will not create a unique constraint on embeddable...
+//      type or implement the other constraints which are also defined in VehiclePlate Embeddable class
     @NotNull
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "plateNo", column = @Column(name = "plateNo", nullable = false, length = 6) ),
+            @AttributeOverride(name = "plateRegion", column = @Column(name = "plateRegion", nullable = false, length = 2) ),
+            @AttributeOverride(name = "plateCode", column = @Column(name = "plateCode", nullable = false) ),
+            @AttributeOverride(name = "plateCountry", column = @Column(name = "plateCountry", nullable = false, length = 2) )
+    })
     private VehiclePlate plate;
 
     //Todo: check uniqueness and add if necessary
@@ -25,6 +34,11 @@ public class Vehicle extends AbstractEntity {
 
     @ManyToOne
     private Association association;
+
+    //TODO: Add constraint for bolo and libre
+    private String bolo;
+
+    private String libre;
 
 
 
@@ -66,5 +80,21 @@ public class Vehicle extends AbstractEntity {
 
     public void setAssociation(Association association) {
         this.association = association;
+    }
+
+    public String getBolo() {
+        return bolo;
+    }
+
+    public void setBolo(String bolo) {
+        this.bolo = bolo;
+    }
+
+    public String getLibre() {
+        return libre;
+    }
+
+    public void setLibre(String libre) {
+        this.libre = libre;
     }
 }

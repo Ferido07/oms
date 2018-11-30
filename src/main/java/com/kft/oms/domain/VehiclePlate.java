@@ -22,7 +22,7 @@ public class VehiclePlate {
     @NotNull
     @Min(1)
     @Max(5)
-    private Integer plateCode;
+    private Short plateCode;
 
     @NotNull
     @Size(min = 2, max = 2)
@@ -46,11 +46,11 @@ public class VehiclePlate {
         this.plateRegion = plateRegion;
     }
 
-    public Integer getPlateCode() {
+    public Short getPlateCode() {
         return plateCode;
     }
 
-    public void setPlateCode(Integer plateCode) {
+    public void setPlateCode(Short plateCode) {
         this.plateCode = plateCode;
     }
 
