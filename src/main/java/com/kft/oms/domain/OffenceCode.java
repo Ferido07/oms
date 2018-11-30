@@ -10,10 +10,11 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"offenderType", "level", "penaltyAmount"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"offenderType", "level", "penaltyAmount", "numberLabel"}))
 public class OffenceCode extends AbstractEntity{
 
     //Driver, Association, VehicleOwner,... maybe use an enum or interface or Abstract superclass
+    //TODO: maybe add a column or foreign key to reference the entity_type from OffenderEntity
     @Column(unique = true)
     @NotNull
     private String offenderType;
@@ -23,6 +24,8 @@ public class OffenceCode extends AbstractEntity{
 
     @NotNull
     private Integer penaltyAmount;
+
+    private String numberLabel;
 
     @NotNull
     private String description;
@@ -54,6 +57,14 @@ public class OffenceCode extends AbstractEntity{
 
     public void setPenaltyAmount(Integer penaltyAmount) {
         this.penaltyAmount = penaltyAmount;
+    }
+
+    public String getNumberLabel() {
+        return numberLabel;
+    }
+
+    public void setNumberLabel(String numberLabel) {
+        this.numberLabel = numberLabel;
     }
 
     public String getDescription() {
