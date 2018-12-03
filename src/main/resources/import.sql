@@ -47,10 +47,10 @@ VALUES
   (5, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2018-12-29', '3:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL);
 
 /*Insert offence_offence_codes
-Note: on different methods of penalty calculation currently i'm using method 1 but the one in rule book probably meant method 2
+Note: on different methods of penalty calculation currently i'm using method 2
 Question: How is the gap between offence 6 and 2 treated? can offence 2 see offence 6 for calculation check LocalDate.minus(). It should not be visible
 offence with id of 6 has happened way before 4 of the others but is only visible for offence with id of 1
-calculation for the offences from 1 to 5 which are within the range of one year.
+calculation of penaltyAmount for offence 5 which includes the offences from 1 to 5 which are within the range of one year.
 if penalty is set to be
   maximum repetition * maximum penalty amount
   4(offence_code_id 2) * 100(which is that of offence code 3)

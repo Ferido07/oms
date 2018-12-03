@@ -7,7 +7,7 @@ import com.kft.oms.domain.OffenceCode;
 import com.kft.oms.repository.OffenceRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceRepository> implements OffenceService {
@@ -28,76 +28,35 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
 
     @Override
     public Integer calculatePenaltyAmount(Offence offence) {
-
-        Integer maxPenaltyAmount = getMaximumPenaltyAmount(offence);
-        Integer maxRepetition = getMaximumRepetitionFromListOfOffenceCodesInAnOffence(offence);
-
-        return maxPenaltyAmount * maxRepetition;
+        Map<OffenceCode, Integer> offenceCodeToRepetitionMap = getOffenceCodeToRepetitionMapFromOffence(offence);
+        List<Integer> penaltyAmounts = new ArrayList<>();
+        offenceCodeToRepetitionMap.forEach((offenceCode, repetition) -> penaltyAmounts.add(offenceCode.getPenaltyAmount() * repetition));
+        return Collections.max(penaltyAmounts);
     }
 
-    private Integer getMaximumRepetitionFromListOfOffenceCodesInAnOffence(Offence offence) {
-        //Check if the offence is a violation of only one offence code
-        if(offence.getOffenceCodes().size() == 1){
-            OffenceCode offenceCode = offence.getOffenceCodes().get(0);
+    private Map<OffenceCode, Integer> getOffenceCodeToRepetitionMapFromOffence(Offence offence) {
+        Map<OffenceCode, Integer> offenceCodeToRepetitionMap = new HashMap<>();
+        //variable to hold the count for an offence code
+        Integer offenceCodeRepetition;
 
-            if(offenceCode.isOffenceRepetitionConsidered()) {
-                //
-                Integer count =  repository.countOffencesByOffenderAndOffenceCodesContainsAndOffenceDateBetween(
+        for(OffenceCode offenceCode : offence.getOffenceCodes()){
+            if(offenceCode.isOffenceRepetitionConsidered()){
+                offenceCodeRepetition = repository.countOffencesByOffenderAndOffenceCodesContainsAndOffenceDateBetween(
                         offence.getOffender(),
                         offenceCode,
                         offence.getOffenceDate().minusYears(1L),
                         offence.getOffenceDate()
                 );
-                /* if the id is null then the offence record is new and is not in database so we need to increment the count
-                   since count is the value retrieved from the database alone
-                 */
-                return (offence.getId() == null)?  (count + 1) : count;
+                /* if the id is null then the offence record is new and is not in database so we need to increment the
+                count since count is the value retrieved from the database alone */
+                offenceCodeRepetition = (offence.getId() == null)?  (offenceCodeRepetition + 1) : offenceCodeRepetition;
             }
-            else
-                return 1;
-        }
-        //if more than one offence codes are violated at a time
-        else{
-            //variable to hold the maximum of all the counts for each offence code violation in the previous year
-            Integer maximumOffenceCodeCount = 0;
-            for(OffenceCode offenceCode : offence.getOffenceCodes()){
-                //variable to hold the count for an offence code
-                Integer offenceCodeCount;
-
-                if(offenceCode.isOffenceRepetitionConsidered()){
-                    offenceCodeCount = repository.countOffencesByOffenderAndOffenceCodesContainsAndOffenceDateBetween(
-                            offence.getOffender(),
-                            offenceCode,
-                            offence.getOffenceDate().minusYears(1L),
-                            offence.getOffenceDate()
-                    );
-                }
-                else{
-                    offenceCodeCount = 1;
-                }
-
-                if (offenceCodeCount > maximumOffenceCodeCount)
-                    maximumOffenceCodeCount = offenceCodeCount;
+            else{
+                offenceCodeRepetition = 1;
             }
-            /* if the id is null then the offence record is new and is not in database so we need to increment the
-               the maximumOffenceCount since maximumOffenceCount is the value retrieved from the database alone
-            */
-            return offence.getId() == null? maximumOffenceCodeCount + 1 : maximumOffenceCodeCount;
+            offenceCodeToRepetitionMap.put(offenceCode, offenceCodeRepetition);
         }
-    }
-
-    /**
-     * Find out the maximum penalty amount for an offence in the list of offenceCodes
-     * @param offence the offence
-     * @return the maximum penalty amount
-     */
-    private Integer getMaximumPenaltyAmount(Offence offence) {
-        Integer maxPenaltyAmount = offence.getOffenceCodes().get(0).getPenaltyAmount();
-        for (OffenceCode offenceCode : offence.getOffenceCodes()){
-            if(offenceCode.getPenaltyAmount() > maxPenaltyAmount)
-                maxPenaltyAmount = offenceCode.getPenaltyAmount();
-        }
-        return maxPenaltyAmount;
+        return offenceCodeToRepetitionMap;
     }
 
     @Override
