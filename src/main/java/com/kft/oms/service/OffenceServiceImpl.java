@@ -48,10 +48,10 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
                         offence.getOffenceDate().minusYears(1L),
                         offence.getOffenceDate()
                 );
-                /* if the penalty amount is null then the offence record is new and is not in database so we need to increment the count
+                /* if the id is null then the offence record is new and is not in database so we need to increment the count
                    since count is the value retrieved from the database alone
                  */
-                return (offence.getPenaltyAmount() == null)?  (count + 1) : count;
+                return (offence.getId() == null)?  (count + 1) : count;
             }
             else
                 return 1;
@@ -79,10 +79,10 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
                 if (offenceCodeCount > maximumOffenceCodeCount)
                     maximumOffenceCodeCount = offenceCodeCount;
             }
-            /* if the penalty amount is null then the offence record is new and is not in database so we need to increment the
+            /* if the id is null then the offence record is new and is not in database so we need to increment the
                the maximumOffenceCount since maximumOffenceCount is the value retrieved from the database alone
             */
-            return offence.getPenaltyAmount() == null? maximumOffenceCodeCount + 1 : maximumOffenceCodeCount;
+            return offence.getId() == null? maximumOffenceCodeCount + 1 : maximumOffenceCodeCount;
         }
     }
 
