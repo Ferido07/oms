@@ -41,16 +41,16 @@ public class Offence extends AbstractEntity {
     @ManyToOne
     private Driver driver;
     */
-    private boolean driversLicenseTaken;
+    private Boolean driversLicenseTaken;
 
     @ManyToOne
     private Vehicle vehicle;
 
-    private boolean vehiclePlateTaken;
+    private Boolean vehiclePlateTaken;
 
-    private boolean vehicleBoloTaken;
+    private Boolean vehicleBoloTaken;
 
-    private boolean vehicleLibreTaken;
+    private Boolean vehicleLibreTaken;
 
 
 
@@ -142,11 +142,11 @@ public class Offence extends AbstractEntity {
         this.driver = driver;
     }*/
 
-    public boolean isDriversLicenseTaken() {
+    public Boolean getDriversLicenseTaken() {
         return driversLicenseTaken;
     }
 
-    public void setDriversLicenseTaken(boolean driversLicenseTaken) {
+    public void setDriversLicenseTaken(Boolean driversLicenseTaken) {
         this.driversLicenseTaken = driversLicenseTaken;
     }
 
@@ -158,27 +158,27 @@ public class Offence extends AbstractEntity {
         this.vehicle = vehicle;
     }
 
-    public boolean isVehiclePlateTaken() {
+    public Boolean getVehiclePlateTaken() {
         return vehiclePlateTaken;
     }
 
-    public void setVehiclePlateTaken(boolean vehiclePlateTaken) {
+    public void setVehiclePlateTaken(Boolean vehiclePlateTaken) {
         this.vehiclePlateTaken = vehiclePlateTaken;
     }
 
-    public boolean isVehicleBoloTaken() {
+    public Boolean getVehicleBoloTaken() {
         return vehicleBoloTaken;
     }
 
-    public void setVehicleBoloTaken(boolean vehicleBoloTaken) {
+    public void setVehicleBoloTaken(Boolean vehicleBoloTaken) {
         this.vehicleBoloTaken = vehicleBoloTaken;
     }
 
-    public boolean isVehicleLibreTaken() {
+    public Boolean getVehicleLibreTaken() {
         return vehicleLibreTaken;
     }
 
-    public void setVehicleLibreTaken(boolean vehicleLibreTaken) {
+    public void setVehicleLibreTaken(Boolean vehicleLibreTaken) {
         this.vehicleLibreTaken = vehicleLibreTaken;
     }
 }
