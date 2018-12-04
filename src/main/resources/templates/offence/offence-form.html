@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Offence Form</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+
+    <link th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
+
+</head>
+<body>
+    <div class="container">
+        <h2>Offence Details</h2>
+        <div>
+            <!--Requires use of a model that is different from the domain object-->
+            <!--Todo: add a model object to be received from and passed to controller -->
+            <form id="regForm" th:action="@{/offence/create}" method="post">
+
+                <input type="hidden">
+
+                <!--Vehicle Detail-->
+                <div class="tab">Vehicle Detail
+                    <!--Vehicle Type-->
+                    <p><input placeholder="Vehicle Type"></p>
+
+                    <!--Vehicle Instance Type (Using Radio Buttons)-->
+                        <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
+
+                    <!--Vehicle Plate-->
+                        <!--Country-->
+                        <!--Region-->
+                        <!--Code-->
+                        <!--Plate No-->
+                    <p><input placeholder="Plate No"></p>
+
+                    <!--Vehicle Owner Detail-->
+                    <div class="form-group">Vehicle Owner
+                        <p><input id="fName" placeholder="First Name"></p>
+                        <p><input id="lName" placeholder="Last Name"></p>
+                    </div>
+
+                    <!--Association Detail-->
+                    <div>
+                        <p><input placeholder="Association"></p>
+                    </div>
+
+                    <!--Side No-->
+                    <p><input type="number" placeholder="Side No"></p>
+                </div>
+
+                <!--Dispatch Detail-->
+                <div class="tab">Dispatch Detail
+                    <!--Dispatch No-->
+                    <p><input placeholder="Dispatch Number"></p>
+
+                    <!--Tariff which is no included in domain-->
+
+                    <!--Route Start and End-->
+
+                </div>
+
+                <!--Driver's Detail-->
+                <div class="tab">Driver Detail
+                    <!--Driver's Name-->
+                    <p><input placeholder="First Name"></p>
+                    <p><input placeholder="Last Name"></p>
+
+                    <!--Driver's License No and Type-->
+                    <p><input placeholder="License No"></p>
+                    <p><input placeholder="Type"></p>
+                </div>
+
+                <!--Offence Detail-->
+                <div class="tab">Offence Detail
+                    <!--Offence Date and Time-->
+                    <p><input type="date" placeholder="Date"></p>
+                    <p><input type="time" placeholder="Time"></p>
+
+                    <!--Offence Location-->
+                    <p><input placeholder="Location"></p>
+
+                    <!--Offence Description-->
+                    <p><input placeholder="Description"></p>
+
+                    <!--Offence Codes-->
+
+                    <!--Proof Documents Taken (Using Checkbox and Value Field)-->
+
+                    <!--Reporting Location-->
+                    <p><input placeholder="Reporting Location"></p>
+
+                    <!--Action Taken by (Not included in domain)-->
+
+                </div>
+
+                <!--Supervisor Detail-->
+                <div class="tab">Supervisor Detail
+                    <!--Full Name-->
+                    <p><input placeholder="First Name"></p>
+                    <p><input placeholder="Last Name"></p>
+
+                </div>
+
+                <div style="overflow:auto;">
+                    <div style="float:right;">
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                </div>
+                <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!--Script Must be loaded at last-->
+    <script th:src="@{/js/offence-form.js}"></script>
+</body>
+</html>
