@@ -21,7 +21,7 @@ public class OffenceController {
         this.offenceService = offenceService;
     }
 
-    @RequestMapping({"","list"})
+    @RequestMapping({"","/list"})
     public String index(Model model){
         model.addAttribute("offences",offenceService.findAll());
         return "offence/list";
@@ -38,7 +38,7 @@ public class OffenceController {
     @RequestMapping("/create")
     public String createOffence(Model model){
         model.addAttribute("offence",new Offence());
-        return "offence/offence-form";
+        return "offence/form";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class OffenceController {
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("customer",offenceService.findById(id));
-        return "offence/offence-form";
+        return "offence/form";
     }
 
     @RequestMapping("/delete/{id}")
