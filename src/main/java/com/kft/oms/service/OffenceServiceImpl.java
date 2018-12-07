@@ -23,7 +23,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
      */
     @Override
     public List<Offence> getAllOffencesByOffenderBetween(OffenderEntity offenderEntity, LocalDate startingDate, LocalDate endDate) {
-        return repository.findAllByOffenderAndOffenceDateBetween(offenderEntity, startingDate, endDate);
+        return repository.findAllByOffenderAndDateBetween(offenderEntity, startingDate, endDate);
     }
 
     @Override
@@ -41,11 +41,11 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
 
         for(OffenceCode offenceCode : offence.getOffenceCodes()){
             if(offenceCode.isOffenceRepetitionConsidered()){
-                offenceCodeRepetition = repository.countOffencesByOffenderAndOffenceCodesContainsAndOffenceDateBetween(
+                offenceCodeRepetition = repository.countOffencesByOffenderAndOffenceCodesContainsAndDateBetween(
                         offence.getOffender(),
                         offenceCode,
-                        offence.getOffenceDate().minusYears(1L),
-                        offence.getOffenceDate()
+                        offence.getDate().minusYears(1L),
+                        offence.getDate()
                 );
                 /* if the id is null then the offence record is new and is not in database so we need to increment the
                 count since count is the value retrieved from the database alone */

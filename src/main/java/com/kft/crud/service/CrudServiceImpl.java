@@ -36,7 +36,7 @@ public abstract class CrudServiceImpl<TEntity,TPrimaryKey extends Serializable,T
     }
 
     @Override
-    public void delete(TPrimaryKey id) {
+    public void deleteById(TPrimaryKey id) {
         repository.deleteById(id);
     }
 

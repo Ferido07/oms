@@ -27,7 +27,7 @@ public class OffenceModel {
     private Map<ProofDocument,Boolean> proofDocumentTaken;
     private Integer penaltyAmount;
 
-    //Todo :add the person in offence who is submitting the charge in domain the name could be different than supervisor
+    //Done :add the person in offence who is submitting the charge in domain the name could be different than supervisor
     private Person supervisor;
 
 

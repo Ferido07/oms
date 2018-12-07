@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface OffenceRepository extends JpaRepository<Offence,Integer> {
 
-    List<Offence> findAllByOffenderAndOffenceDateBetween(OffenderEntity offenderEntity, LocalDate startingDate,LocalDate endDate);
-    Integer countOffencesByOffenderAndOffenceCodesContainsAndOffenceDateBetween(OffenderEntity offenderEntity, OffenceCode offenceCode, LocalDate startingDate, LocalDate endDate);
+    List<Offence> findAllByOffenderAndDateBetween(OffenderEntity offenderEntity, LocalDate startingDate, LocalDate endDate);
+    Integer countOffencesByOffenderAndOffenceCodesContainsAndDateBetween(OffenderEntity offenderEntity, OffenceCode offenceCode, LocalDate startingDate, LocalDate endDate);
 }

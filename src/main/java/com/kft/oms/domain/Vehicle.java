@@ -25,8 +25,9 @@ public class Vehicle extends AbstractEntity {
     })
     private VehiclePlate plate;
 
-    //Todo: check uniqueness and add if necessary
+    //Done: check uniqueness and add if necessary
     //@Max(99999)
+    @Column(unique = true)
     private Integer sideNo;
 
     @ManyToMany(mappedBy = "vehicles")

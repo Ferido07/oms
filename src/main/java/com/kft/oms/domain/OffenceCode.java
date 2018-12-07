@@ -1,8 +1,8 @@
 package com.kft.oms.domain;
 
 import com.kft.crud.domain.AbstractEntity;
+import com.kft.oms.constants.OffenceRepetitionTracker;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -14,8 +14,7 @@ import javax.validation.constraints.NotNull;
 public class OffenceCode extends AbstractEntity{
 
     //Driver, Association, VehicleOwner,... maybe use an enum or interface or Abstract superclass
-    //TODO: maybe add a column or foreign key to reference the entity_type from OffenderEntity
-    @Column(unique = true)
+    //Canceled: maybe add a column or foreign key to reference the entity_type from OffenderEntity
     @NotNull
     private String offenderType;
 
@@ -33,6 +32,7 @@ public class OffenceCode extends AbstractEntity{
     @NotNull
     private boolean offenceRepetitionConsidered = true;
 
+    private OffenceRepetitionTracker offenceRepetitionTrackedBy = OffenceRepetitionTracker.DRIVER;
 
 
     public String getOffenderType() {
@@ -81,5 +81,13 @@ public class OffenceCode extends AbstractEntity{
 
     public void setOffenceRepetitionConsidered(boolean offenceRepetitionConsidered) {
         this.offenceRepetitionConsidered = offenceRepetitionConsidered;
+    }
+
+    public OffenceRepetitionTracker getOffenceRepetitionTrackedBy() {
+        return offenceRepetitionTrackedBy;
+    }
+
+    public void setOffenceRepetitionTrackedBy(OffenceRepetitionTracker offenceRepetitionTrackedBy) {
+        this.offenceRepetitionTrackedBy = offenceRepetitionTrackedBy;
     }
 }

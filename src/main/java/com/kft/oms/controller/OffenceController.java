@@ -2,8 +2,6 @@ package com.kft.oms.controller;
 
 import com.kft.oms.domain.Driver;
 import com.kft.oms.domain.Offence;
-import com.kft.oms.domain.Vehicle;
-import com.kft.oms.domain.VehicleOwner;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -73,7 +69,7 @@ public class OffenceController {
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
-        offenceService.delete(id);
+        offenceService.deleteById(id);
         return "redirect:/offence";
     }
 }

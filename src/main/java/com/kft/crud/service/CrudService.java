@@ -17,7 +17,7 @@ public interface CrudService<TEntity,TPrimaryKey extends Serializable,TRepositor
 
     List<TEntity> save(Iterable<TEntity> entities);
 
-    void delete(TPrimaryKey id);
+    void deleteById(TPrimaryKey id);
 
     void deleteAll(Iterable<TEntity> entities);
 

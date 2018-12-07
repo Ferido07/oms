@@ -26,12 +26,12 @@
             </tr>
             <tr th:each="offence : ${offences}">
                 <td th:text="${offence.id}"></td>
-                <td th:text="${offence.offenceDate}"></td>
-                <td th:text="${offence.offenceTime}"></td>
+                <td th:text="${offence.date}"></td>
+                <td th:text="${offence.time}"></td>
                 <td th:text="${offence.description}"></td>
-                <td><a th:href="${'/offence/' + offence.id}">View</a></td>
-                <td><a th:href="${'/offence/edit/' + offence.id}">Edit</a></td>
-                <td><a th:href="${'/offence/delete/' + offence.id}">Delete</a></td>
+                <td><a th:href="${'/oms/offence/' + offence.id}">View</a></td>
+                <td><a th:href="${'/oms/offence/edit/' + offence.id}">Edit</a></td>
+                <td><a th:href="${'/oms/offence/delete/' + offence.id}">Delete</a></td>
             </tr>
         </table>
     </div>

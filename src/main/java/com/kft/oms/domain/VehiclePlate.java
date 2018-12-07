@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Embeddable
 public class VehiclePlate {
-    //Question: what to do with A and B prefixes for plate code 2? I think its better to use string and use formatting control
+    //QuestionAnswered: what to do with A and B prefixes for plate code 2? I think its better to use string and use formatting control
     //private Integer plateNo;//5 digit number
     //@Pattern(regexp = "")
     @NotNull

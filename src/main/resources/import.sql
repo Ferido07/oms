@@ -37,7 +37,7 @@ VALUES
 
 /*Insert Offences*/
 INSERT INTO
-  offence(id, created_at, created_by, dml_flag, updated_at, updated_by, version, description, dispatch_no, drivers_license_taken, offence_date, offence_time, penalty_amount, place, reporting_location, status, vehicle_bolo_taken, vehicle_libre_taken, vehicle_plate_taken, offender_id, vehicle_id)
+  offence(id, created_at, created_by, dml_flag, updated_at, updated_by, version, description, dispatch_no, drivers_license_taken, date, time, penalty_amount, location, reporting_location, status, vehicle_bolo_taken, vehicle_libre_taken, vehicle_plate_taken, offender_id, vehicle_id)
 VALUES
   (1, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2018-6-29', '4:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL),
   (6, NOW(), 'Ferid', 0, NULL, NULL, NULL, '', NULL, 1, '2017-9-29', '4:20:20', NULL, 'Nifas Silk Lafto', NULL, 'PENDING', NULL, NULL, NULL, 1, NULL),
