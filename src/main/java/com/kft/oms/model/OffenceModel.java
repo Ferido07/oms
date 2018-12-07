@@ -1,27 +1,21 @@
 package com.kft.oms.model;
 
+import com.kft.oms.domain.Driver;
+import com.kft.oms.domain.Vehicle;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Offence {
+public class OffenceModel {
 
-    private String vehicleType;
-    private String vehiclePlateNo;
+    private Vehicle vehicle;
 
     private String vehicleOwnerFirstName;
     private String vehicleOwnerMiddleName;
     private String vehicleOwnerLastName;
 
-    private String vehicleAssociation;
-    private Integer vehicleSideNo;
 
-
-
-    private String driverFirstName;
-    private String driverMiddleName;
-    private String driverLastName;
-    private Integer driverLicenseNo;
-    private String driverLicenseType;
+    private Driver driver;
 
 
     private Integer dispatchNo;
@@ -37,21 +31,6 @@ public class Offence {
     private String supervisorLastName;
 
 
-    public String getVehicleType() {
-        return vehicleType;
-    }
-
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
-
-    public String getVehiclePlateNo() {
-        return vehiclePlateNo;
-    }
-
-    public void setVehiclePlateNo(String vehiclePlateNo) {
-        this.vehiclePlateNo = vehiclePlateNo;
-    }
 
     public String getVehicleOwnerFirstName() {
         return vehicleOwnerFirstName;
@@ -77,7 +56,7 @@ public class Offence {
         this.vehicleOwnerLastName = vehicleOwnerLastName;
     }
 
-    public String getVehicleAssociation() {
+/*    public String getVehicleAssociation() {
         return vehicleAssociation;
     }
 
@@ -91,7 +70,7 @@ public class Offence {
 
     public void setVehicleSideNo(Integer vehicleSideNo) {
         this.vehicleSideNo = vehicleSideNo;
-    }
+    }*/
 
     public Integer getDispatchNo() {
         return dispatchNo;
@@ -99,46 +78,6 @@ public class Offence {
 
     public void setDispatchNo(Integer dispatchNo) {
         this.dispatchNo = dispatchNo;
-    }
-
-    public String getDriverFirstName() {
-        return driverFirstName;
-    }
-
-    public void setDriverFirstName(String driverFirstName) {
-        this.driverFirstName = driverFirstName;
-    }
-
-    public String getDriverMiddleName() {
-        return driverMiddleName;
-    }
-
-    public void setDriverMiddleName(String driverMiddleName) {
-        this.driverMiddleName = driverMiddleName;
-    }
-
-    public String getDriverLastName() {
-        return driverLastName;
-    }
-
-    public void setDriverLastName(String driverLastName) {
-        this.driverLastName = driverLastName;
-    }
-
-    public Integer getDriverLicenseNo() {
-        return driverLicenseNo;
-    }
-
-    public void setDriverLicenseNo(Integer driverLicenseNo) {
-        this.driverLicenseNo = driverLicenseNo;
-    }
-
-    public String getDriverLicenseType() {
-        return driverLicenseType;
-    }
-
-    public void setDriverLicenseType(String driverLicenseType) {
-        this.driverLicenseType = driverLicenseType;
     }
 
     public LocalDate getDate() {
@@ -203,5 +142,21 @@ public class Offence {
 
     public void setSupervisorLastName(String supervisorLastName) {
         this.supervisorLastName = supervisorLastName;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driverModel) {
+        this.driver = driverModel;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 }

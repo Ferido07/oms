@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
-class DriversLicense {
+public class DriversLicense {
 
     @NotNull
     private Integer licenseNo;
@@ -16,4 +16,20 @@ class DriversLicense {
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private LicenseType licenseType;
+
+    public Integer getLicenseNo() {
+        return licenseNo;
+    }
+
+    public void setLicenseNo(Integer licenseNo) {
+        this.licenseNo = licenseNo;
+    }
+
+    public LicenseType getLicenseType() {
+        return licenseType;
+    }
+
+    public void setLicenseType(LicenseType licenseType) {
+        this.licenseType = licenseType;
+    }
 }

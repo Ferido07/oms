@@ -17,14 +17,14 @@
         <div>
             <!--Requires use of a model that is different from the domain object-->
             <!--Todo: add a model object to be received from and passed to controller -->
-            <form id="regForm" th:action="@{/offence/create}" method="post">
+            <form id="regForm" th:object="${offenceModel}" th:action="@{/offence/create}" method="post">
 
                 <input type="hidden">
 
                 <!--Vehicle Detail-->
                 <div class="tab">Vehicle Detail
                     <!--Vehicle Type-->
-                    <p><input placeholder="Vehicle Type"></p>
+                    <p><input placeholder="Vehicle Type" th:field="vehicle.type"></p>
 
                     <!--Vehicle Instance Type (Using Radio Buttons)-->
                         <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
@@ -34,7 +34,7 @@
                         <!--Region-->
                         <!--Code-->
                         <!--Plate No-->
-                    <p><input placeholder="Plate No"></p>
+                    <p><input placeholder="Plate No" th:field="vehicle.plate.plateNo"></p>
 
                     <!--Vehicle Owner Detail-->
                     <div class="form-group">Vehicle Owner
@@ -65,12 +65,12 @@
                 <!--Driver's Detail-->
                 <div class="tab">Driver Detail
                     <!--Driver's Name-->
-                    <p><input placeholder="First Name"></p>
-                    <p><input placeholder="Last Name"></p>
+                    <p><input placeholder="First Name" th:field="*{driver.firstName}"></p>
+                    <p><input placeholder="Last Name" th:field="*{driver.lastName}"></p>
 
                     <!--Driver's License No and Type-->
-                    <p><input placeholder="License No"></p>
-                    <p><input placeholder="Type"></p>
+                    <p><input placeholder="License No" th:field="*{driver.driversLicense.licenseNo}"></p>
+                    <p><input placeholder="Type" th:field="*{driverModel.driversLicense.licenseType}"></p>
                 </div>
 
                 <!--Offence Detail-->
