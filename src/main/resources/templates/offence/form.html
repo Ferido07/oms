@@ -16,15 +16,15 @@
         <h2>Offence Details</h2>
         <div>
             <!--Requires use of a model that is different from the domain object-->
-            <!--Todo: add a model object to be received from and passed to controller -->
-            <form id="regForm" th:action="@{/offence/create}" method="post">
+            <!--Done: add a model object to be received from and passed to controller -->
+            <form id="regForm" th:object="${offenceModel}" th:action="@{/offence/create}" method="post">
 
                 <input type="hidden">
 
                 <!--Vehicle Detail-->
                 <div class="tab">Vehicle Detail
                     <!--Vehicle Type-->
-                    <p><input placeholder="Vehicle Type"></p>
+                    <p><input placeholder="Vehicle Type" th:field="*{vehicle.type}"></p>
 
                     <!--Vehicle Instance Type (Using Radio Buttons)-->
                         <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
@@ -34,27 +34,48 @@
                         <!--Region-->
                         <!--Code-->
                         <!--Plate No-->
-                    <p><input placeholder="Plate No"></p>
+                    <p><input placeholder="Plate No" th:field="*{vehicle.plate.plateNo}"></p>
 
                     <!--Vehicle Owner Detail-->
-                    <div class="form-group">Vehicle Owner
-                        <p><input id="fName" placeholder="First Name"></p>
-                        <p><input id="lName" placeholder="Last Name"></p>
+                    <div>Vehicle Owner
+                        <!--<div th:if="${#lists.size(vehicle.owners) == 1 }">-->
+                            <p><input id="fName" placeholder="First Name"></p>
+                            <p><input id="lName" placeholder="Last Name"></p>
+                        <!--</div>-->
+
+<!--                        <div th:if="${not #lists.isEmpty(vehicle.owners)}">
+                            <table>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                </tr>
+                                <tr th:each="owner : ${vehicle.owners}">
+                                    <td th:field="*{owner.firstName}"></td>
+                                    <td th:field="*{owner.middleName}"></td>
+                                    <td th:field="*{owner.lastName}"></td>
+                                </tr>
+                                &lt;!&ndash;
+
+                                &ndash;&gt;
+                            </table>
+                        </div>-->
+
                     </div>
 
                     <!--Association Detail-->
                     <div>
-                        <p><input placeholder="Association"></p>
+                        <p><input placeholder="Association" th:field="*{vehicle.association.name}"></p>
                     </div>
 
                     <!--Side No-->
-                    <p><input type="number" placeholder="Side No"></p>
+                    <p><input type="number" placeholder="Side No" th:field="*{vehicle.sideNo}"></p>
                 </div>
 
                 <!--Dispatch Detail-->
                 <div class="tab">Dispatch Detail
                     <!--Dispatch No-->
-                    <p><input placeholder="Dispatch Number"></p>
+                    <p><input placeholder="Dispatch Number" th:field="*{dispatchNo}"></p>
 
                     <!--Tariff which is no included in domain-->
 
@@ -65,32 +86,33 @@
                 <!--Driver's Detail-->
                 <div class="tab">Driver Detail
                     <!--Driver's Name-->
-                    <p><input placeholder="First Name"></p>
-                    <p><input placeholder="Last Name"></p>
+                    <p><input placeholder="First Name" th:field="*{driver.firstName}"></p>
+                    <p><input placeholder="Middle Name" th:field="*{driver.middleName}"></p>
+                    <p><input placeholder="Last Name" th:field="*{driver.lastName}"></p>
 
                     <!--Driver's License No and Type-->
-                    <p><input placeholder="License No"></p>
-                    <p><input placeholder="Type"></p>
+                    <p><input th:type="number" placeholder="License No" th:field="*{driver.driversLicense.licenseNo}"></p>
+                    <p><input placeholder="Type" th:field="*{driver.driversLicense.licenseType}"></p>
                 </div>
 
-                <!--Offence Detail-->
+                <!--OffenceModel Detail-->
                 <div class="tab">Offence Detail
-                    <!--Offence Date and Time-->
-                    <p><input type="date" placeholder="Date"></p>
-                    <p><input type="time" placeholder="Time"></p>
+                    <!--OffenceModel Date and Time-->
+                    <p><input type="date" placeholder="Date" th:field="*{date}"></p>
+                    <p><input type="time" placeholder="Time" th:field="*{time}"></p>
 
-                    <!--Offence Location-->
-                    <p><input placeholder="Location"></p>
+                    <!--OffenceModel Location-->
+                    <p><input placeholder="Location" th:field="*{location}"></p>
 
-                    <!--Offence Description-->
-                    <p><input placeholder="Description"></p>
+                    <!--OffenceModel Description-->
+                    <p><input placeholder="Description" th:field="*{description}"></p>
 
-                    <!--Offence Codes-->
+                    <!--OffenceModel Codes-->
 
                     <!--Proof Documents Taken (Using Checkbox and Value Field)-->
 
                     <!--Reporting Location-->
-                    <p><input placeholder="Reporting Location"></p>
+                    <p><input placeholder="Reporting Location" th:field="*{reportingLocation}"></p>
 
                     <!--Action Taken by (Not included in domain)-->
 
@@ -99,8 +121,9 @@
                 <!--Supervisor Detail-->
                 <div class="tab">Supervisor Detail
                     <!--Full Name-->
-                    <p><input placeholder="First Name"></p>
-                    <p><input placeholder="Last Name"></p>
+                    <p><input placeholder="First Name" th:field="*{supervisor.firstName}"></p>
+                    <p><input placeholder="Middle Name" th:field="*{supervisor.middleName}"></p>
+                    <p><input placeholder="Last Name" th:field="*{supervisor.lastName}"></p>
 
                 </div>
 
