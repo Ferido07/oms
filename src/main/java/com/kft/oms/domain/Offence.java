@@ -4,7 +4,6 @@ import com.kft.crud.domain.AbstractEntity;
 import com.kft.crud.domain.OffenderEntity;
 import com.kft.crud.domain.Person;
 import com.kft.oms.constants.OffenceStatus;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -39,8 +38,22 @@ public class Offence extends AbstractEntity {
     private Boolean vehiclePlateTaken;
     private Boolean vehicleBoloTaken;
     private Boolean vehicleLibreTaken;
+    /*Supervisor is the person who submits the charges according to the requirements it can be either the terminal
+      supervisor or traffic police
+     */
     @ManyToOne
     private Person supervisor;
+    /* NOTE: On driver entity in offence while there is also offender entity
+      *  Driver is included because it is present in their manual offence registration form. The offenderEntity can be
+      *  a driver but this driver property serves for data keeping purposes. Their typical offence  code
+      *  9.3.1. level 2 2000 birr no 1 charges the vehicle owner which in this entity would be the offenderEntity
+      *  and their form also records the driver so this driver property is needed and can have many uses. Even though
+      *  the drivers are not those punished in this specific offence code they are the ones who actually commit the
+      *  offence and should be recorded to know which drivers are violating more often. Other Entity types like
+      *  association may be added when needed if the forms for other specialized offence types of offences require it.
+     */
+    @ManyToOne
+    private Driver driver;
 
 
 
@@ -170,5 +183,13 @@ public class Offence extends AbstractEntity {
 
     public void setSupervisor(Person supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 }
