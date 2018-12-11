@@ -1,8 +1,10 @@
 package com.kft.oms.domain;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("CARGO_VEHICLE")
 public class CargoVehicle extends Vehicle {
 
     private Integer loadInQuintals;

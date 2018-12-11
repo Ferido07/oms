@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-//@DiscriminatorValue("ASSOCIATION")
+@DiscriminatorValue("ASSOCIATION")
 public class Association extends Organization {
 
     @OneToMany(mappedBy = "association")

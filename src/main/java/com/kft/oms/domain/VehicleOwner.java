@@ -2,11 +2,13 @@ package com.kft.oms.domain;
 
 import com.kft.crud.domain.Person;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue(value = "VEHICLE_OWNER")
 public class VehicleOwner extends Person{
 
     @ManyToMany(mappedBy = "vehicleOwners")

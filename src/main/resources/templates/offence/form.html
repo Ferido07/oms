@@ -39,8 +39,8 @@
                     <!--Vehicle Owner Detail-->
                     <div>Vehicle Owner
                         <!--<div th:if="${#lists.size(vehicle.owners) == 1 }">-->
-                            <p><input id="fName" placeholder="First Name"></p>
-                            <p><input id="lName" placeholder="Last Name"></p>
+                            <p><input id="fName" placeholder="First Name" th:field="*{vehicle.owners[0].firstName}"></p>
+                            <p><input id="lName" placeholder="Last Name" th:field="*{vehicle.owners[0].lastName}"></p>
                         <!--</div>-->
 
 <!--                        <div th:if="${not #lists.isEmpty(vehicle.owners)}">

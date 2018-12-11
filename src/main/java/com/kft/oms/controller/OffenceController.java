@@ -2,6 +2,8 @@ package com.kft.oms.controller;
 
 import com.kft.oms.domain.Driver;
 import com.kft.oms.domain.Offence;
+import com.kft.oms.domain.Vehicle;
+import com.kft.oms.domain.VehicleOwner;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -60,6 +63,12 @@ public class OffenceController {
                 Driver driver = ((Driver) offence.getOffender());
                 OffenceModel offenceModel = new OffenceModel();
                 offenceModel.setDriver(driver);
+                model.addAttribute("offenceModel", offenceModel);
+            }
+            else if (offence.getOffender() instanceof VehicleOwner){
+                OffenceModel offenceModel = new OffenceModel();
+                offenceModel.setDriver(offence.getDriver());
+                offenceModel.setVehicle(offence.getVehicle());
                 model.addAttribute("offenceModel", offenceModel);
             }
         });

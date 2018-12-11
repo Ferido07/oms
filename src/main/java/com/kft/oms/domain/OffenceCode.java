@@ -3,9 +3,7 @@ package com.kft.oms.domain;
 import com.kft.crud.domain.AbstractEntity;
 import com.kft.oms.constants.OffenceRepetitionTracker;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
@@ -32,6 +30,7 @@ public class OffenceCode extends AbstractEntity{
     @NotNull
     private boolean offenceRepetitionConsidered = true;
 
+    @Enumerated(EnumType.STRING)
     private OffenceRepetitionTracker offenceRepetitionTrackedBy = OffenceRepetitionTracker.DRIVER;
 
 

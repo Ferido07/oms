@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"plateNo", "plateRegion", "plateCode", "plateCountry"}))
+@DiscriminatorColumn(name = "vehicle_type")
 public class Vehicle extends AbstractEntity {
 
     //stands for types like vitz, landcruser,..
