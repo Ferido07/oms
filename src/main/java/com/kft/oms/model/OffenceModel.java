@@ -6,6 +6,8 @@ import com.kft.oms.constants.ProofDocument;
 import com.kft.oms.domain.Driver;
 import com.kft.oms.domain.OffenceCode;
 import com.kft.oms.domain.Vehicle;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -13,11 +15,14 @@ import java.util.Map;
 
 public class OffenceModel {
 
+    private Integer id;
     private Vehicle vehicle;
     private Driver driver;
 
     private Integer dispatchNo;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime time;
     private String location;
     private String description;
@@ -31,6 +36,14 @@ public class OffenceModel {
     private Person supervisor;
 
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Vehicle getVehicle() {
         return vehicle;

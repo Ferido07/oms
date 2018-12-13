@@ -26,7 +26,7 @@ public class Offence extends AbstractEntity {
 
     //An offender can be Association or organization as noted in 9.3.6 and 9.3.8 of the rule book or a Person
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private OffenderEntity offender;
     private Integer penaltyAmount;
     @NotNull

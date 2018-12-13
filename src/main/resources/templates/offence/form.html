@@ -19,10 +19,11 @@
             <!--Done: add a model object to be received from and passed to controller -->
             <form id="regForm" th:object="${offenceModel}" th:action="@{/offence/create}" method="post">
 
-                <input type="hidden">
+                <input type="hidden" th:field="*{id}">
 
                 <!--Vehicle Detail-->
                 <div class="tab">Vehicle Detail
+                    <input type="hidden" th:field="*{vehicle.id}">
                     <!--Vehicle Type-->
                     <p><input placeholder="Vehicle Type" th:field="*{vehicle.type}"></p>
 
@@ -65,6 +66,7 @@
 
                     <!--Association Detail-->
                     <div>
+                        <input type="hidden" th:field="*{vehicle.association.id}">
                         <p><input placeholder="Association" th:field="*{vehicle.association.name}"></p>
                     </div>
 
@@ -85,6 +87,7 @@
 
                 <!--Driver's Detail-->
                 <div class="tab">Driver Detail
+                    <input type="hidden" th:field="*{driver.id}">
                     <!--Driver's Name-->
                     <p><input placeholder="First Name" th:field="*{driver.firstName}"></p>
                     <p><input placeholder="Middle Name" th:field="*{driver.middleName}"></p>
@@ -120,6 +123,7 @@
 
                 <!--Supervisor Detail-->
                 <div class="tab">Supervisor Detail
+                    <input type="hidden" th:field="*{supervisor.id}">
                     <!--Full Name-->
                     <p><input placeholder="First Name" th:field="*{supervisor.firstName}"></p>
                     <p><input placeholder="Middle Name" th:field="*{supervisor.middleName}"></p>

@@ -62,7 +62,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
     @Override
     public Offence save(Offence offence) {
         //calculate or recalculate penalty amount whenever an offence is created or updated
-        offence.setPenaltyAmount(calculatePenaltyAmount(offence));
+        //offence.setPenaltyAmount(calculatePenaltyAmount(offence));
         return super.save(offence);
     }
 }
