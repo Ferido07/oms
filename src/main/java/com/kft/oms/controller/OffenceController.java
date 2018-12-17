@@ -44,7 +44,7 @@ public class OffenceController {
     //Todo: create and pass a different model than offence object to the view. Maybe all controller actions could use a different model
     @GetMapping("/create")
     public String createOffence(Model model){
-        model.addAttribute("offenceModel",new OffenceModel());
+        model.addAttribute("offenceModel", new OffenceModel());
         return "offence/form";
     }
 
@@ -66,28 +66,13 @@ public class OffenceController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-        Optional<Offence> offenceOptional = offenceService.findById(id);
-
-        offenceOptional.ifPresent(offence -> {
-            if(offence.getOffender() instanceof Driver){
-                Driver driver = ((Driver) offence.getOffender());
-                OffenceModel offenceModel = new OffenceModel();
-                offenceModel.setId(offence.getId());
-                offenceModel.setDriver(driver);
-                offenceModel.setSupervisor(offence.getSupervisor());
-                model.addAttribute("offenceModel", offenceModel);
-            }
-            else if (offence.getOffender() instanceof VehicleOwner){
-                OffenceModel offenceModel = new OffenceModel();
-                offenceModel.setId(offence.getId());
-                offenceModel.setDriver(offence.getDriver());
-                offenceModel.setVehicle(offence.getVehicle());
-                offenceModel.setSupervisor(offence.getSupervisor());
-                model.addAttribute("offenceModel", offenceModel);
-            }
-        });
-
-        return "offence/form";
+        Optional<OffenceModel> offenceModel = offenceService.findOffenceModelById(id);
+        if(offenceModel.isPresent()){
+            model.addAttribute("offenceModel", offenceModel.get());
+            return "offence/form";
+        }else{
+            throw new OffenceNotFoundException();
+        }
     }
 
     @GetMapping("/delete/{id}")
