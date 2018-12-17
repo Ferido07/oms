@@ -16,9 +16,6 @@ public class Mapper extends ConfigurableMapper {
     protected void configure(MapperFactory factory) {
 
         factory.registerClassMap(factory.classMap(Offence.class, OffenceModel.class)
-                .field("offenceDate", "date")
-                .field("offenceTime", "time")
-                .field("place", "location")
                // .field("offender","")
                 .byDefault()
                 .toClassMap());
