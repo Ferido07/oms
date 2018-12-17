@@ -11,9 +11,9 @@
             th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}" ></script>
 </head>
 <body>
-<!--/*@thymesVar id="offences" type="List<com.kft.oms.domain.Offence>"*/-->
+<!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
 <div class="container">
-    <div th:if="${not #lists.isEmpty(offences)}">
+    <div th:if="${not #lists.isEmpty(offenceModels)}">
         <h2>List Offences</h2>
         <table class="table table-striped">
             <tr>
@@ -25,15 +25,15 @@
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <tr th:each="offence : ${offences}">
-                <!--/*@thymesVar id="offence" type="com.kft.oms.domain.Offence"*/-->
-                <td th:text="${offence.id}"></td>
-                <td th:text="${offence.date}"></td>
-                <td th:text="${offence.time}"></td>
-                <td th:text="${offence.description}"></td>
-                <td><a th:href="${'/oms/offence/' + offence.id}">View</a></td>
-                <td><a th:href="${'/oms/offence/edit/' + offence.id}">Edit</a></td>
-                <td><a th:href="${'/oms/offence/delete/' + offence.id}">Delete</a></td>
+            <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
+            <tr th:each="offenceModel : ${offenceModels}">
+                <td th:text="${offenceModel.id}"></td>
+                <td th:text="${offenceModel.date}"></td>
+                <td th:text="${offenceModel.time}"></td>
+                <td th:text="${offenceModel.description}"></td>
+                <td><a th:href="${'/oms/offence/' + offenceModel.id}">View</a></td>
+                <td><a th:href="${'/oms/offence/edit/' + offenceModel.id}">Edit</a></td>
+                <td><a th:href="${'/oms/offence/delete/' + offenceModel.id}">Delete</a></td>
             </tr>
         </table>
     </div>

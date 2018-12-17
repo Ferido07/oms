@@ -73,6 +73,20 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         return super.save(offence);
     }
 
+    public List<OffenceModel> getAllAsOffenceModel(){
+        List<Offence> offenceList = repository.findAll();
+        return mapper.mapAsList(offenceList, OffenceModel.class);
+    }
+
+    public Optional<OffenceModel> findOffenceModelById(Integer id){
+        Optional<Offence> offenceOptional = repository.findById(id);
+
+        Optional<OffenceModel> offenceModelOptional;
+        offenceModelOptional = offenceOptional.map(offence -> mapper.map(offence, OffenceModel.class));
+
+        return offenceModelOptional;
+    }
+
     @Override
     public OffenceModel save(OffenceModel offenceModel) {
 
