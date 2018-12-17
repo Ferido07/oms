@@ -47,23 +47,17 @@ public class OffenceController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createOrUpdate(OffenceModel offenceModel){
-        Offence offence = new Offence();
+
         List<OffenceCode> offenceCodes = new ArrayList<>();
         OffenceCode offenceCode = new OffenceCode();
         offenceCode.setId(1);
         offenceCodes.add(offenceCode);
-        offence.setOffenceCodes(offenceCodes);
-        offence.setDate(offenceModel.getDate());
-        offence.setTime(offenceModel.getTime());
-        Driver driver = offenceModel.getDriver();
-//        Driver driver = new Driver();
-//        driver.setId(offenceModel.getDriver().getId());
-//        if (driver.getId()==null)
-//            driver.setId(1);
-        offence.setOffender(driver);
-        offence.setDriver(driver);
-        //offence.setId();
-        Offence savedOffence = offenceService.save(offence);
+        offenceModel.setOffenceCodes(offenceCodes);
+        //todo: add a check to find out if vehicle owner and vehicle pass requirements and remove the code below
+        offenceModel.setVehicle(null);
+
+        OffenceModel savedOffence = offenceService.save(offenceModel);
+        System.out.println("successfully persisted");
         return "redirect:/offence/" + savedOffence.getId();
     }
 
@@ -77,6 +71,7 @@ public class OffenceController {
                 OffenceModel offenceModel = new OffenceModel();
                 offenceModel.setId(offence.getId());
                 offenceModel.setDriver(driver);
+                offenceModel.setSupervisor(offence.getSupervisor());
                 model.addAttribute("offenceModel", offenceModel);
             }
             else if (offence.getOffender() instanceof VehicleOwner){
@@ -84,6 +79,7 @@ public class OffenceController {
                 offenceModel.setId(offence.getId());
                 offenceModel.setDriver(offence.getDriver());
                 offenceModel.setVehicle(offence.getVehicle());
+                offenceModel.setSupervisor(offence.getSupervisor());
                 model.addAttribute("offenceModel", offenceModel);
             }
         });

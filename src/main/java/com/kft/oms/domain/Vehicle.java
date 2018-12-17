@@ -34,7 +34,7 @@ public class Vehicle extends AbstractEntity {
     @ManyToMany(mappedBy = "vehicles")
     private List<VehicleOwner> owners;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Association association;
 
     //TODO: Add constraint for bolo and libre

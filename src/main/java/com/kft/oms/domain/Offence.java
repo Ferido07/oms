@@ -33,7 +33,7 @@ public class Offence extends AbstractEntity {
     @ManyToMany
     private List<OffenceCode> offenceCodes;
     private Boolean driversLicenseTaken;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Vehicle vehicle;
     private Boolean vehiclePlateTaken;
     private Boolean vehicleBoloTaken;
@@ -41,7 +41,7 @@ public class Offence extends AbstractEntity {
     /*Supervisor is the person who submits the charges according to the requirements it can be either the terminal
       supervisor or traffic police
      */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Person supervisor;
     /* NOTE: On driver entity in offence while there is also offender entity
       *  Driver is included because it is present in their manual offence registration form. The offenderEntity can be
@@ -52,7 +52,7 @@ public class Offence extends AbstractEntity {
       *  offence and should be recorded to know which drivers are violating more often. Other Entity types like
       *  association may be added when needed if the forms for other specialized offence types of offences require it.
      */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Driver driver;
 
 

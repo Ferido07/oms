@@ -2,9 +2,12 @@ package com.kft.oms.service;
 
 import com.kft.crud.domain.OffenderEntity;
 import com.kft.crud.service.CrudServiceImpl;
+import com.kft.oms.config.Mapper;
 import com.kft.oms.domain.Offence;
 import com.kft.oms.domain.OffenceCode;
+import com.kft.oms.model.OffenceModel;
 import com.kft.oms.repository.OffenceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
@@ -12,8 +15,12 @@ import java.util.*;
 @Service
 public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceRepository> implements OffenceService {
 
-    public OffenceServiceImpl(OffenceRepository repository) {
+    private final Mapper mapper;
+
+    @Autowired
+    public OffenceServiceImpl(OffenceRepository repository, Mapper mapper) {
         super(repository);
+        this.mapper = mapper;
     }
 
     /**
@@ -64,5 +71,32 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         //calculate or recalculate penalty amount whenever an offence is created or updated
         //offence.setPenaltyAmount(calculatePenaltyAmount(offence));
         return super.save(offence);
+    }
+
+    @Override
+    public OffenceModel save(OffenceModel offenceModel) {
+
+        Offence offence;
+        //check if item is new
+        if(offenceModel.getId() != null){
+            //check if the item exists
+            Optional<Offence> offenceOptional = repository.findById(offenceModel.getId());
+
+            //item exists and update is made to the same object
+            if(offenceOptional.isPresent()) {
+                offence = offenceOptional.get();
+                mapper.map(offenceModel, offence);
+            }
+            else
+                throw new RuntimeException("No offence with the given Id exists");
+        }else{
+            //else object is new so create a new offence object
+            offence = mapper.map(offenceModel, Offence.class);
+        }
+
+        offence.setOffender(offence.getDriver());
+        Offence savedOffence = repository.save(offence);
+//todo add a check if any of the entities that have associations with offence change id. the associations cannot change id.
+        return mapper.map(savedOffence, OffenceModel.class);
     }
 }
