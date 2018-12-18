@@ -1,10 +1,10 @@
 package com.kft.oms.controller;
 
 import com.kft.oms.domain.*;
+import com.kft.oms.exceptions.NotFoundException;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class OffenceController {
             model.addAttribute("offenceModel", offenceModel.get());
             return "offence/show";
         }else{
-            throw new OffenceNotFoundException();
+            throw new NotFoundException("Offence not found");
         }
     }
 
@@ -71,7 +71,7 @@ public class OffenceController {
             model.addAttribute("offenceModel", offenceModel.get());
             return "offence/form";
         }else{
-            throw new OffenceNotFoundException();
+            throw new NotFoundException("Offence not found");
         }
     }
 
@@ -80,7 +80,4 @@ public class OffenceController {
         offenceService.deleteById(id);
         return "redirect:/offence";
     }
-}
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Offence not found")
-class OffenceNotFoundException extends RuntimeException {
 }
