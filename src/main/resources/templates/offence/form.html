@@ -96,7 +96,16 @@
 
                     <!--Driver's License No and Type-->
                     <p><input th:type="number" placeholder="License No" th:field="*{driver.driversLicense.licenseNo}"></p>
-                    <p><input placeholder="Type" th:field="*{driver.driversLicense.licenseType}"></p>
+                    <p><label>License Type
+                        <select th:field="*{driver.driversLicense.licenseType}">
+                            <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
+                            <option th:each="licenseType : ${T(com.kft.oms.constants.LicenseType).values()}"
+                                    th:value="${licenseType.name()}"
+                                    th:text="${licenseType.name()}">
+                                val
+                            </option>
+                        </select>
+                    </label></p>
                 </div>
 
                 <!--OffenceModel Detail-->
