@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Offence Form</title>
@@ -112,21 +112,22 @@
                 <div class="tab">Offence Detail
                     <!--OffenceModel Date and Time-->
                     <p><input type="date" placeholder="Date" th:field="*{date}"></p>
+                    <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</p>
                     <p><input type="time" placeholder="Time" th:field="*{time}"></p>
-
+                    <p th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</p>
                     <!--OffenceModel Location-->
                     <p><input placeholder="Location" th:field="*{location}"></p>
-
+                    <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</p>
                     <!--OffenceModel Description-->
                     <p><input placeholder="Description" th:field="*{description}"></p>
-
+                    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
                     <!--OffenceModel Codes-->
 
                     <!--Proof Documents Taken (Using Checkbox and Value Field)-->
 
                     <!--Reporting Location-->
                     <p><input placeholder="Reporting Location" th:field="*{reportingLocation}"></p>
-
+                    <p th:if="${#fields.hasErrors('reportingLocation')}" th:errors="*{reportingLocation}">Reporting Location Error</p>
                     <!--Action Taken by (Not included in domain)-->
 
                 </div>

@@ -17,11 +17,12 @@ public class Offence extends AbstractEntity {
     private LocalDate date;
     @NotNull
     private LocalTime time;
+    @NotNull
     private String location;
     private String description;
     private String reportingLocation;
     @Enumerated(value = EnumType.STRING)
-    private OffenceStatus status;
+    private OffenceStatus status = OffenceStatus.PENDING;
     private Integer dispatchNo;
 
     //An offender can be Association or organization as noted in 9.3.6 and 9.3.8 of the rule book or a Person

@@ -8,6 +8,10 @@ import com.kft.oms.domain.OffenceCode;
 import com.kft.oms.domain.Vehicle;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -16,24 +20,36 @@ import java.util.Map;
 public class OffenceModel {
 
     private Integer id;
-    private Vehicle vehicle;
-    private Driver driver;
-
     private Integer dispatchNo;
+
+    @Past
+    @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
+
+    @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime time;
+
+    @NotBlank
+    @Size(max=255)
     private String location;
+
+    @Size(max=255)
     private String description;
+
+    @Size(max=255)
     private String reportingLocation;
-    private OffenceStatus status;
-    private List<OffenceCode> offenceCodes;
-    private Map<ProofDocument,Boolean> proofDocumentTaken;
+
+    private OffenceStatus status = OffenceStatus.PENDING;
+
     private Integer penaltyAmount;
 
-    //Done :add the person in offence who is submitting the charge in domain the name could be different than supervisor
+    private Vehicle vehicle;
+    private Driver driver;
     private Person supervisor;
+    private List<OffenceCode> offenceCodes;
+    private Map<ProofDocument,Boolean> proofDocumentTaken;
 
 
 
