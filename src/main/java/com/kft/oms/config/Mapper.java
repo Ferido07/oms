@@ -18,6 +18,8 @@ public class Mapper extends ConfigurableMapper {
 
         factory.registerClassMap(factory.classMap(Offence.class, OffenceModel.class)
                // .field("offender","")
+                .field("driver","driverModel")
+                .field("vehicle", "vehicleModel")
                 .byDefault().toClassMap());
 
         factory.registerClassMap(factory.classMap(Driver.class, DriverModel.class)

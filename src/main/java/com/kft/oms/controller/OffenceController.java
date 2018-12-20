@@ -58,7 +58,7 @@ public class OffenceController {
             offenceCodes.add(offenceCode);
             offenceModel.setOffenceCodes(offenceCodes);
             //todo: add a check to find out if vehicle owner and vehicle pass requirements and remove the code below
-            offenceModel.setVehicle(null);
+            offenceModel.setVehicleModel(null);
 
             OffenceModel savedOffence = offenceService.save(offenceModel);
             System.out.println("successfully persisted");

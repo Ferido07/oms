@@ -24,9 +24,9 @@
 
                 <!--Vehicle Detail-->
                 <div class="tab">Vehicle Detail
-                    <input type="hidden" th:field="*{vehicle.id}">
+                    <input type="hidden" th:field="*{vehicleModel.id}">
                     <!--Vehicle Type-->
-                    <p><input placeholder="Vehicle Type" th:field="*{vehicle.type}"></p>
+                    <p><input placeholder="Vehicle Type" th:field="*{vehicleModel.type}"></p>
 
                     <!--Vehicle Instance Type (Using Radio Buttons)-->
                         <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
@@ -36,43 +36,25 @@
                         <!--Region-->
                         <!--Code-->
                         <!--Plate No-->
-                    <p><input placeholder="Plate No" th:field="*{vehicle.plate.plateNo}"></p>
+                    <p><input placeholder="Plate No" th:field="*{vehicleModel.plateNo}"></p>
 
                     <!--Vehicle Owner Detail-->
                     <div>Vehicle Owner
-                        <!--<div th:if="${#lists.size(vehicle.owners) == 1 }">-->
-                            <p><input id="fName" placeholder="First Name" th:field="*{vehicle.owners[0].firstName}"></p>
-                            <p><input id="lName" placeholder="Last Name" th:field="*{vehicle.owners[0].lastName}"></p>
+                        <!--<div th:if="${#lists.size(vehicleModel.owners) == 1 }">-->
+                            <p><input id="fName" placeholder="First Name" th:field="*{vehicleModel.owner.firstName}"></p>
+                            <p><input id="mName" placeholder="Middle Name" th:field="*{vehicleModel.owner.middleName}"></p>
+                            <p><input id="lName" placeholder="Last Name" th:field="*{vehicleModel.owner.lastName}"></p>
                         <!--</div>-->
-
-<!--                        <div th:if="${not #lists.isEmpty(vehicle.owners)}">
-                            <table>
-                                <tr>
-                                    <th>First Name</th>
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
-                                </tr>
-                                <tr th:each="owner : ${vehicle.owners}">
-                                    <td th:field="*{owner.firstName}"></td>
-                                    <td th:field="*{owner.middleName}"></td>
-                                    <td th:field="*{owner.lastName}"></td>
-                                </tr>
-                                &lt;!&ndash;
-
-                                &ndash;&gt;
-                            </table>
-                        </div>-->
-
                     </div>
 
                     <!--Association Detail-->
                     <div>
-                        <input type="hidden" th:field="*{vehicle.association.id}">
-                        <p><input placeholder="Association" th:field="*{vehicle.association.name}"></p>
+                        <input type="hidden" th:field="*{vehicleModel.associationModel.id}">
+                        <p><input placeholder="Association" th:field="*{vehicleModel.associationModel.name}"></p>
                     </div>
 
                     <!--Side No-->
-                    <p><input type="number" placeholder="Side No" th:field="*{vehicle.sideNo}"></p>
+                    <p><input type="number" placeholder="Side No" th:field="*{vehicleModel.sideNo}"></p>
                 </div>
 
                 <!--Dispatch Detail-->
@@ -88,16 +70,16 @@
 
                 <!--Driver's Detail-->
                 <div class="tab">Driver Detail
-                    <input type="hidden" th:field="*{driver.id}">
+                    <input type="hidden" th:field="*{driverModel.id}">
                     <!--Driver's Name-->
-                    <p><input placeholder="First Name" th:field="*{driver.firstName}"></p>
-                    <p><input placeholder="Middle Name" th:field="*{driver.middleName}"></p>
-                    <p><input placeholder="Last Name" th:field="*{driver.lastName}"></p>
+                    <p><input placeholder="First Name" th:field="*{driverModel.firstName}"></p>
+                    <p><input placeholder="Middle Name" th:field="*{driverModel.middleName}"></p>
+                    <p><input placeholder="Last Name" th:field="*{driverModel.lastName}"></p>
 
                     <!--Driver's License No and Type-->
-                    <p><input th:type="number" placeholder="License No" th:field="*{driver.driversLicense.licenseNo}"></p>
+                    <p><input th:type="number" placeholder="License No" th:field="*{driverModel.licenseNo}"></p>
                     <p><label>License Type
-                        <select th:field="*{driver.driversLicense.licenseType}">
+                        <select th:field="*{driverModel.licenseType}">
                             <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
                             <option th:each="licenseType : ${T(com.kft.oms.constants.LicenseType).values()}"
                                     th:value="${licenseType.name()}"

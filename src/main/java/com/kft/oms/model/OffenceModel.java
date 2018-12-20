@@ -1,17 +1,10 @@
 package com.kft.oms.model;
 
-import com.kft.crud.domain.Person;
 import com.kft.oms.constants.OffenceStatus;
 import com.kft.oms.constants.ProofDocument;
-import com.kft.oms.domain.Driver;
 import com.kft.oms.domain.OffenceCode;
-import com.kft.oms.domain.Vehicle;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -22,8 +15,8 @@ public class OffenceModel {
     private Integer id;
     private Integer dispatchNo;
 
-    @Past
     @NotNull
+    @PastOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
 
@@ -45,9 +38,10 @@ public class OffenceModel {
 
     private Integer penaltyAmount;
 
-    private Vehicle vehicle;
-    private Driver driver;
-    private Person supervisor;
+    private VehicleModel vehicleModel;
+    private DriverModel driverModel;
+    private PersonModel supervisor;
+
     private List<OffenceCode> offenceCodes;
     private Map<ProofDocument,Boolean> proofDocumentTaken;
 
@@ -61,12 +55,12 @@ public class OffenceModel {
         this.id = id;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public VehicleModel getVehicleModel() {
+        return vehicleModel;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setVehicleModel(VehicleModel vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 
     public Integer getDispatchNo() {
@@ -77,12 +71,12 @@ public class OffenceModel {
         this.dispatchNo = dispatchNo;
     }
 
-    public Driver getDriver() {
-        return driver;
+    public DriverModel getDriverModel() {
+        return driverModel;
     }
 
-    public void setDriver(Driver driverModel) {
-        this.driver = driverModel;
+    public void setDriverModel(DriverModel driverModel) {
+        this.driverModel = driverModel;
     }
 
     public LocalDate getDate() {
@@ -125,11 +119,11 @@ public class OffenceModel {
         this.reportingLocation = reportingLocation;
     }
 
-    public Person getSupervisor() {
+    public PersonModel getSupervisor() {
         return supervisor;
     }
 
-    public void setSupervisor(Person supervisor) {
+    public void setSupervisor(PersonModel supervisor) {
         this.supervisor = supervisor;
     }
 
