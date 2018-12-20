@@ -61,4 +61,9 @@ public class VehiclePlate {
     public void setPlateCountry(String plateCountry) {
         this.plateCountry = plateCountry;
     }
+
+    @Override
+    public String toString() {
+        return plateCode + "-" + plateNo + "-" + plateRegion; //+ "-" + plateCountry;
+    }
 }
