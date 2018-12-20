@@ -27,6 +27,14 @@ public class VehicleModel {
 
     private VehicleInstanceType vehicleInstanceType;
 
+    private AssociationModel associationModel;
+
+    private PersonModel owner;
+
+    private PersonModel owner2;
+
+    private PersonModel owner3;
+
 
     public Integer getId() {
         return id;
@@ -100,7 +108,39 @@ public class VehicleModel {
         this.vehicleInstanceType = vehicleInstanceType;
     }
 
+    public AssociationModel getAssociationModel() {
+        return associationModel;
+    }
+
+    public void setAssociationModel(AssociationModel associationModel) {
+        this.associationModel = associationModel;
+    }
+
     public enum VehicleInstanceType{
         PUBLIC_TRANSPORT, CARGO_VEHICLE
+    }
+
+    public PersonModel getOwner() {
+        return owner;
+    }
+
+    public void setOwner(PersonModel owner) {
+        this.owner = owner;
+    }
+
+    public PersonModel getOwner2() {
+        return owner2;
+    }
+
+    public void setOwner2(PersonModel owner2) {
+        this.owner2 = owner2;
+    }
+
+    public PersonModel getOwner3() {
+        return owner3;
+    }
+
+    public void setOwner3(PersonModel owner3) {
+        this.owner3 = owner3;
     }
 }

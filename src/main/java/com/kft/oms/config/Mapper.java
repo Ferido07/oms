@@ -1,9 +1,8 @@
 package com.kft.oms.config;
 
+import com.kft.crud.domain.Person;
 import com.kft.oms.domain.*;
-import com.kft.oms.model.DriverModel;
-import com.kft.oms.model.OffenceModel;
-import com.kft.oms.model.VehicleModel;
+import com.kft.oms.model.*;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
@@ -19,17 +18,24 @@ public class Mapper extends ConfigurableMapper {
 
         factory.registerClassMap(factory.classMap(Offence.class, OffenceModel.class)
                // .field("offender","")
-                .byDefault()
-                .toClassMap());
+                .byDefault().toClassMap());
 
         factory.registerClassMap(factory.classMap(Driver.class, DriverModel.class)
                 .field("driversLicense.licenseNo","licenseNo")
                 .field("driversLicense.licenseType","licenseType")
-                .byDefault()
-                .toClassMap());
+                .byDefault().toClassMap());
+
+        factory.registerClassMap(factory.classMap(Person.class, PersonModel.class)
+                .byDefault().toClassMap());
+
+        factory.registerClassMap(factory.classMap(Association.class, AssociationModel.class)
+                .byDefault().toClassMap());
 
         factory.registerClassMap(factory.classMap(Vehicle.class, VehicleModel.class)
                 .byDefault()
+                .field("owners[0]", "owner")
+                .field("owners[1]", "owner2")
+                .field("owners[2]", "owner3")
                 .customize(new CustomMapper<Vehicle, VehicleModel>(){
                     @Override
                     public void mapAtoB(Vehicle vehicle, VehicleModel vehicleModel, MappingContext context) {

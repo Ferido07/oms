@@ -1,9 +1,8 @@
 package com.kft.oms.config;
 
-import com.kft.oms.domain.CargoVehicle;
-import com.kft.oms.domain.PublicTransport;
-import com.kft.oms.domain.Vehicle;
-import com.kft.oms.domain.VehiclePlate;
+import com.kft.crud.domain.Person;
+import com.kft.oms.domain.*;
+import com.kft.oms.model.PersonModel;
 import com.kft.oms.model.VehicleModel;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,6 +11,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -34,6 +36,30 @@ public class MapperTest {
         vehiclePlate.setPlateNo("34567");
         vehiclePlate.setPlateRegion("AA");
 
+        List<VehicleOwner> vehicleOwners = new ArrayList<>();
+
+        VehicleOwner vehicleOwner1 = new VehicleOwner();
+        vehicleOwner1.setId(6);
+        vehicleOwner1.setFirstName("vehicleOwner1 firstName");
+        vehicleOwner1.setMiddleName("vehicleOwner1 middleName");
+        vehicleOwner1.setLastName("vehicleOwner1 lastName");
+        vehicleOwners.add(vehicleOwner1);
+
+        VehicleOwner vehicleOwner2 = new VehicleOwner();
+        vehicleOwner2.setId(7);
+        vehicleOwner2.setFirstName("vehicleOwner2 firstName");
+        vehicleOwner2.setMiddleName("vehicleOwner2 middleName");
+        vehicleOwner2.setLastName("vehicleOwner2 lastName");
+        vehicleOwners.add(vehicleOwner2);
+
+        VehicleOwner vehicleOwner3 = new VehicleOwner();
+        vehicleOwner3.setId(8);
+        vehicleOwner3.setFirstName("vehicleOwner3 firstName");
+        vehicleOwner3.setMiddleName("vehicleOwner3 middleName");
+        vehicleOwner3.setLastName("vehicleOwner3 lastName");
+        vehicleOwners.add(vehicleOwner3);
+
+
 
         publicTransport = new PublicTransport();
         publicTransport.setId(1);
@@ -43,6 +69,7 @@ public class MapperTest {
         publicTransport.setSideNo(34);
         publicTransport.setSeatingCapacity(60);
         publicTransport.setPlate(vehiclePlate);
+        publicTransport.setOwners(vehicleOwners);
 
 
         cargoVehicle = new CargoVehicle();
@@ -74,8 +101,12 @@ public class MapperTest {
         assertEquals(publicTransport.getType(), publicTransportModel.getType());
         assertEquals(publicTransport.getSideNo(), publicTransportModel.getSideNo());
         assertEquals(publicTransport.getSeatingCapacity(), publicTransportModel.getSeatingCapacity());
-        assertEquals(publicTransportModel.getVehicleInstanceType(), VehicleModel.VehicleInstanceType.PUBLIC_TRANSPORT);
-        assertEquals(publicTransportModel.getPlateNo(), publicTransport.getPlate().toString());
+        assertEquals(VehicleModel.VehicleInstanceType.PUBLIC_TRANSPORT, publicTransportModel.getVehicleInstanceType());
+        assertEquals(publicTransport.getPlate().toString(), publicTransportModel.getPlateNo());
+
+        assertEquals(publicTransport.getOwners().get(0).getFirstName(), publicTransportModel.getOwner().getFirstName());
+        assertEquals(publicTransport.getOwners().get(1).getFirstName(), publicTransportModel.getOwner2().getFirstName());
+        assertEquals(publicTransport.getOwners().get(2).getFirstName(), publicTransportModel.getOwner3().getFirstName());
     }
 
     @Test
@@ -133,6 +164,41 @@ public class MapperTest {
         assertEquals(vehicleModel.getType(), vehicle.getType());
         assertEquals(vehicleModel.getSideNo(), vehicle.getSideNo());
         assertEquals(vehicleModel.getPlateNo(), vehicle.getPlate().toString());
+
+    }
+
+    @Test
+    public void testPersonMapping(){
+        Person person = new Person();
+        person.setId(5);
+        person.setFirstName("TestPerson1 firstName");
+        person.setMiddleName("TestPerson1 middleName");
+        person.setLastName("TestPerson1 lastName");
+        person.setGender("Male");
+
+        PersonModel personModel = mapper.map(person, PersonModel.class);
+
+        assertEquals(personModel.getId(), person.getId());
+        assertEquals(personModel.getFirstName(), person.getFirstName());
+        assertEquals(personModel.getMiddleName(), person.getMiddleName());
+        assertEquals(personModel.getLastName(), person.getLastName());
+
+        Person vehicleOwner = mapper.map(personModel, VehicleOwner.class);
+
+        assertEquals(vehicleOwner.getId(), personModel.getId());
+        assertEquals(vehicleOwner.getFirstName(), personModel.getFirstName());
+        assertEquals(vehicleOwner.getMiddleName(), personModel.getMiddleName());
+        assertEquals(vehicleOwner.getLastName(), personModel.getLastName());
+
+
+        /*Orika is weird it doesn't even create error when mapping the following it just copies
+        the id since it is in both classes while there is no configuration defined for personModel
+        and organization.
+        Organization organization= mapper.map(personModel, Organization.class);*/
+    }
+
+    @Test
+    public void testAssociationMapping(){
 
     }
 }
