@@ -1,8 +1,6 @@
 package com.kft.oms.model;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class VehicleModel {
 
@@ -10,7 +8,8 @@ public class VehicleModel {
 
     private String type;
 
-    @Size(max=9)
+    @NotBlank
+    //@Size(min=9, max=11)
     @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[aA-zZ]{2}")//matches codes like 1-A67876-eT
     private String plateNo;
 
@@ -21,6 +20,7 @@ public class VehicleModel {
 
     private String libre;
 
+    @Max(100)
     private Integer seatingCapacity;
 
     private Integer loadInQuintals;
@@ -29,6 +29,7 @@ public class VehicleModel {
 
     private AssociationModel associationModel;
 
+    @NotNull
     private PersonModel owner;
 
     private PersonModel owner2;

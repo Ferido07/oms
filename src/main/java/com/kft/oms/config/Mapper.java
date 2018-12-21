@@ -35,9 +35,10 @@ public class Mapper extends ConfigurableMapper {
 
         factory.registerClassMap(factory.classMap(Vehicle.class, VehicleModel.class)
                 .byDefault()
-                .field("owners[0]", "owner")
-                .field("owners[1]", "owner2")
-                .field("owners[2]", "owner3")
+                .fieldMap("owners[0]", "owner").mapNulls(false).mapNullsInReverse(false).add()
+                .fieldMap("owners[1]", "owner2").mapNulls(false).mapNullsInReverse(false).add()
+                .fieldMap("owners[2]", "owner3").mapNulls(false).mapNullsInReverse(false).add()
+                .field("association","associationModel")
                 .customize(new CustomMapper<Vehicle, VehicleModel>(){
                     @Override
                     public void mapAtoB(Vehicle vehicle, VehicleModel vehicleModel, MappingContext context) {
@@ -60,10 +61,13 @@ public class Mapper extends ConfigurableMapper {
                         if(vehicleModel.getVehicleInstanceType() == null){
                             String plateNo = vehicleModel.getPlateNo();
                             String[] plateParts = plateNo.split("-");
-                            vehicle.getPlate().setPlateCode(Short.parseShort(plateParts[0]));
-                            vehicle.getPlate().setPlateNo(plateParts[1]);
-                            vehicle.getPlate().setPlateRegion(plateParts[2]);
+                            VehiclePlate plate = new VehiclePlate();
+
+                            plate.setPlateCode(Short.parseShort(plateParts[0]));
+                            plate.setPlateNo(plateParts[1]);
+                            plate.setPlateRegion(plateParts[2]);
                             //todo code for country not yet resolved
+                            vehicle.setPlate(plate);
                         }
                         //The following code removed because it does not work resulting in class cast exception since vehicle would not be instance of any of its children
                         /* if(vehicleModel.getVehicleInstanceType() == VehicleModel.VehicleInstanceType.PUBLIC_TRANSPORT){

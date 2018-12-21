@@ -31,7 +31,7 @@ public class Vehicle extends AbstractEntity {
     @Column(unique = true)
     private Integer sideNo;
 
-    @ManyToMany(mappedBy = "vehicles")
+    @ManyToMany(mappedBy = "vehicles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<VehicleOwner> owners;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

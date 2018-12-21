@@ -41,6 +41,7 @@
                     <!--Vehicle Owner Detail-->
                     <div>Vehicle Owner
                         <!--<div th:if="${#lists.size(vehicleModel.owners) == 1 }">-->
+                        <input type="hidden" th:field="*{vehicleModel.owner.id}">
                             <p><input id="fName" placeholder="First Name" th:field="*{vehicleModel.owner.firstName}"></p>
                             <p><input id="mName" placeholder="Middle Name" th:field="*{vehicleModel.owner.middleName}"></p>
                             <p><input id="lName" placeholder="Last Name" th:field="*{vehicleModel.owner.lastName}"></p>

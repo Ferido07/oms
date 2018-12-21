@@ -5,6 +5,7 @@ import com.kft.crud.service.CrudServiceImpl;
 import com.kft.oms.config.Mapper;
 import com.kft.oms.domain.Offence;
 import com.kft.oms.domain.OffenceCode;
+import com.kft.oms.domain.Vehicle;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.repository.OffenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,19 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         }else{
             //else object is new so create a new offence object
             offence = mapper.map(offenceModel, Offence.class);
+            //add the vehicle to each vehicleOwner so that the relation between them is persisted since
+            //vehicleOwner is the owner of the relationship
+            offence.getVehicle().getOwners().forEach(
+                    vehicleOwner -> {
+                        if(vehicleOwner.getVehicles() != null)
+                            vehicleOwner.getVehicles().add(offence.getVehicle());
+                        else{
+                            List<Vehicle> vehicles = new ArrayList<>();
+                            vehicles.add(offence.getVehicle());
+                            vehicleOwner.setVehicles(vehicles);
+                        }
+                    }
+            );
         }
 
         offence.setOffender(offence.getDriver());

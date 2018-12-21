@@ -89,6 +89,20 @@ public class MapperTest {
         vehicleModel.setType("Vehicle Model Type");
         vehicleModel.setSideNo(36);
         vehicleModel.setPlateNo("3-33332-OR");
+
+        PersonModel ownerModel = new PersonModel();
+        ownerModel.setId(9);
+        ownerModel.setFirstName("OwnerModel firstName");
+        ownerModel.setMiddleName("OwnerModel middleName");
+        ownerModel.setLastName("OwnerModel lastName");
+        vehicleModel.setOwner(ownerModel);
+
+        PersonModel owner2Model = new PersonModel();
+        owner2Model.setId(10);
+        owner2Model.setFirstName("Owner2Model firstName");
+        owner2Model.setMiddleName("Owner2Model middleName");
+        owner2Model.setLastName("Owner2Model lastName");
+        vehicleModel.setOwner2(owner2Model);
     }
 
     @Test
@@ -165,6 +179,11 @@ public class MapperTest {
         assertEquals(vehicleModel.getSideNo(), vehicle.getSideNo());
         assertEquals(vehicleModel.getPlateNo(), vehicle.getPlate().toString());
 
+        assertEquals(vehicleModel.getOwner().getFirstName(), vehicle.getOwners().get(0).getFirstName());
+        assertEquals(vehicleModel.getOwner().getLastName(), vehicle.getOwners().get(0).getLastName());
+
+        assertEquals(vehicleModel.getOwner2().getFirstName(), vehicle.getOwners().get(1).getFirstName());
+        assertEquals(vehicleModel.getOwner2().getLastName(), vehicle.getOwners().get(1).getLastName());
     }
 
     @Test

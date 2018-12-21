@@ -1,12 +1,25 @@
 package com.kft.oms.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class PersonModel {
 
     private Integer id;
 
+    @NotBlank
+    @Size(max=50)
     private String firstName;
+
+    @NotBlank
+    @Size(max=50)
     private String middleName;
+
+    @NotBlank
+    @Size(max=50)
     private String lastName;
+
+
 
     public Integer getId() {
         return id;

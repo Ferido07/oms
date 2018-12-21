@@ -1,9 +1,14 @@
 package com.kft.oms.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class AssociationModel {
 
     private Integer id;
 
+    @Size(max=150)
+    @NotBlank
     private String name;
 
     public Integer getId() {
