@@ -104,7 +104,6 @@
                     <!--OffenceModel Description-->
                     <p><input placeholder="Description" th:field="*{description}"></p>
                     <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
-                    <!--OffenceModel Codes-->
 
                     <!--Proof Documents Taken (Using Checkbox and Value Field)-->
 
@@ -112,6 +111,27 @@
                     <p><input placeholder="Reporting Location" th:field="*{reportingLocation}"></p>
                     <p th:if="${#fields.hasErrors('reportingLocation')}" th:errors="*{reportingLocation}">Reporting Location Error</p>
                     <!--Action Taken by (Not included in domain)-->
+
+                    <!--OffenceCodeModels-->
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Offence Code ID</th>
+                            <th><button type="submit" name="addOffenceCodeModel" th:text="|Add Offence Code|">Add Offence Code</button></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
+                            <td>
+                                <input placeholder="Code" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
+                            </td>
+                            <td>
+                                <button type="submit" name="removeOffenceCodeModel" th:value="${OCMStat.index}"
+                                        th:text="|Remove Offence Code|">Remove Offence Code</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
                 </div>
 

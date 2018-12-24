@@ -122,16 +122,9 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
             );
         }
 
-        //TODO: remove after creating a way of persisting offenceCodes from offenceCodeModels
-        List<OffenceCode> offenceCodes = new ArrayList<>();
-        OffenceCode offenceCode = new OffenceCode();
-        offenceCode.setId(1);
-        offenceCodes.add(offenceCode);
-        offence.setOffenceCodes(offenceCodes);
-
         offence.setOffender(offence.getDriver());
         Offence savedOffence = repository.save(offence);
-//todo add a check if any of the entities that have associations with offence change id. the associations cannot change id.
+        //todo add a check if any of the entities that have associations with offence change id. the associations cannot change id.
         return mapper.map(savedOffence, OffenceModel.class);
     }
 }

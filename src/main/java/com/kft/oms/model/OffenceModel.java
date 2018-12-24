@@ -41,6 +41,7 @@ public class OffenceModel {
     private DriverModel driverModel;
     private PersonModel supervisor;
 
+    @NotEmpty
     private List<OffenceCodeModel> offenceCodeModels;
     private Map<ProofDocument,Boolean> proofDocumentTaken;
 

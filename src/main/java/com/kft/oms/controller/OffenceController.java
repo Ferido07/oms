@@ -1,6 +1,7 @@
 package com.kft.oms.controller;
 
 import com.kft.oms.exceptions.NotFoundException;
+import com.kft.oms.model.OffenceCodeModel;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
@@ -44,18 +47,6 @@ public class OffenceController {
         return "offence/form";
     }
 
-    @PostMapping("/create")
-    public String createOrUpdate(@Valid @ModelAttribute OffenceModel offenceModel, BindingResult bindingResult){
-
-        if (!bindingResult.hasErrors()) {
-            OffenceModel savedOffence = offenceService.save(offenceModel);
-            System.out.println("successfully persisted");
-            return "redirect:/offence/" + savedOffence.getId();
-        } else {
-            return "offence/form";
-        }
-    }
-
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         Optional<OffenceModel> offenceModel = offenceService.findOffenceModelById(id);
@@ -65,6 +56,31 @@ public class OffenceController {
         }else{
             throw new NotFoundException("Offence not found");
         }
+    }
+
+    @PostMapping("/create")
+    public String createOrUpdate(@Valid @ModelAttribute OffenceModel offenceModel, BindingResult bindingResult){
+        if (!bindingResult.hasErrors()) {
+            OffenceModel savedOffence = offenceService.save(offenceModel);
+            return "redirect:/offence/" + savedOffence.getId();
+        } else {
+            return "offence/form";
+        }
+    }
+
+    @RequestMapping(value = "/create", params = {"addOffenceCodeModel"})
+    public String addOffenceCodeModel(OffenceModel offenceModel){
+        if(offenceModel.getOffenceCodeModels() == null)
+            offenceModel.setOffenceCodeModels(new ArrayList<>());
+        offenceModel.getOffenceCodeModels().add(new OffenceCodeModel());
+        return "offence/form";
+    }
+
+    @RequestMapping(value = "/create", params = {"removeOffenceCodeModel"})
+    public String removeOffenceCodeModel(OffenceModel offenceModel, HttpServletRequest request){
+        Integer id = Integer.valueOf(request.getParameter("removeOffenceCodeModel"));
+        offenceModel.getOffenceCodeModels().remove(id.intValue());
+        return "offence/form";
     }
 
     @GetMapping("/delete/{id}")
