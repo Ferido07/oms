@@ -2,7 +2,6 @@ package com.kft.oms.model;
 
 import com.kft.oms.constants.OffenceStatus;
 import com.kft.oms.constants.ProofDocument;
-import com.kft.oms.domain.OffenceCode;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -42,7 +41,7 @@ public class OffenceModel {
     private DriverModel driverModel;
     private PersonModel supervisor;
 
-    private List<OffenceCode> offenceCodes;
+    private List<OffenceCodeModel> offenceCodeModels;
     private Map<ProofDocument,Boolean> proofDocumentTaken;
 
 
@@ -135,12 +134,12 @@ public class OffenceModel {
         this.status = status;
     }
 
-    public List<OffenceCode> getOffenceCodes() {
-        return offenceCodes;
+    public List<OffenceCodeModel> getOffenceCodeModels() {
+        return offenceCodeModels;
     }
 
-    public void setOffenceCodes(List<OffenceCode> offenceCodes) {
-        this.offenceCodes = offenceCodes;
+    public void setOffenceCodeModels(List<OffenceCodeModel> offenceCodeModels) {
+        this.offenceCodeModels = offenceCodeModels;
     }
 
     public Map<ProofDocument, Boolean> getProofDocumentTaken() {

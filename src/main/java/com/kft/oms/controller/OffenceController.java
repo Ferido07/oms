@@ -1,6 +1,5 @@
 package com.kft.oms.controller;
 
-import com.kft.oms.domain.*;
 import com.kft.oms.exceptions.NotFoundException;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
@@ -10,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -42,7 +39,6 @@ public class OffenceController {
         }
     }
 
-    //Todo: create and pass a different model than offence object to the view. Maybe all controller actions could use a different model
     @GetMapping("/create")
     public String createOffence(@ModelAttribute OffenceModel offenceModel){
         return "offence/form";
@@ -52,14 +48,6 @@ public class OffenceController {
     public String createOrUpdate(@Valid @ModelAttribute OffenceModel offenceModel, BindingResult bindingResult){
 
         if (!bindingResult.hasErrors()) {
-            List<OffenceCode> offenceCodes = new ArrayList<>();
-            OffenceCode offenceCode = new OffenceCode();
-            offenceCode.setId(1);
-            offenceCodes.add(offenceCode);
-            offenceModel.setOffenceCodes(offenceCodes);
-            //done: add a check to find out if vehicle owner and vehicle pass requirements and remove the code below
-            //offenceModel.setVehicleModel(null);
-
             OffenceModel savedOffence = offenceService.save(offenceModel);
             System.out.println("successfully persisted");
             return "redirect:/offence/" + savedOffence.getId();
