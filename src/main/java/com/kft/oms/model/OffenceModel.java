@@ -3,6 +3,8 @@ package com.kft.oms.model;
 import com.kft.oms.constants.OffenceStatus;
 import com.kft.oms.constants.ProofDocument;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,8 +39,13 @@ public class OffenceModel {
 
     private Integer penaltyAmount;
 
+    @Valid
     private VehicleModel vehicleModel;
+
+    @Valid
     private DriverModel driverModel;
+
+    @Valid
     private PersonModel supervisor;
 
     @NotEmpty

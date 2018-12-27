@@ -1,9 +1,14 @@
 package com.kft.oms.model;
 
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class DriverModel extends PersonModel{
 
+    @NotNull
     private Integer licenseNo;
+    @NotBlank
     private String licenseType;
 
 

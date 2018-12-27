@@ -40,6 +40,8 @@
                         <!--Code-->
                         <!--Plate No-->
                     <p><input placeholder="Plate No" th:field="*{vehicleModel.plateNo}"></p>
+                    <p th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:errors="*{vehicleModel.plateNo}">Plate No Error</p>
+                    <!--/*Todo: Fix plate no pattern validation error message*/-->
 
                     <!--Vehicle Owner Detail-->
                     <div>Vehicle Owner
@@ -77,11 +79,15 @@
                     <input type="hidden" th:field="*{driverModel.id}">
                     <!--Driver's Name-->
                     <p><input placeholder="First Name" th:field="*{driverModel.firstName}"></p>
+                    <p th:if="${#fields.hasErrors('driverModel.firstName')}" th:errors="*{driverModel.firstName}">Driver First Name Error</p>
                     <p><input placeholder="Middle Name" th:field="*{driverModel.middleName}"></p>
+                    <p th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</p>
                     <p><input placeholder="Last Name" th:field="*{driverModel.lastName}"></p>
+                    <p th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</p>
 
                     <!--Driver's License No and Type-->
                     <p><input th:type="number" placeholder="License No" th:field="*{driverModel.licenseNo}"></p>
+                    <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
                     <p><label>License Type
                         <select th:field="*{driverModel.licenseType}">
                             <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
@@ -143,8 +149,11 @@
                     <input type="hidden" th:field="*{supervisor.id}">
                     <!--Full Name-->
                     <p><input placeholder="First Name" th:field="*{supervisor.firstName}"></p>
+                    <p th:if="${#fields.hasErrors('supervisor.firstName')}" th:errors="*{supervisor.firstName}">Supervisor First Name Error</p>
                     <p><input placeholder="Middle Name" th:field="*{supervisor.middleName}"></p>
+                    <p th:if="${#fields.hasErrors('supervisor.middleName')}" th:errors="*{supervisor.middleName}">Supervisor Middle Name Error</p>
                     <p><input placeholder="Last Name" th:field="*{supervisor.lastName}"></p>
+                    <p th:if="${#fields.hasErrors('supervisor.lastName')}" th:errors="*{supervisor.lastName}">Supervisor Last Name Error</p>
 
                 </div>
 

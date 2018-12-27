@@ -44,6 +44,10 @@ public class OffenceController {
 
     @GetMapping("/create")
     public String createOffence(@ModelAttribute OffenceModel offenceModel){
+        if(offenceModel.getOffenceCodeModels() == null) {
+            offenceModel.setOffenceCodeModels(new ArrayList<>());
+            offenceModel.getOffenceCodeModels().add(new OffenceCodeModel());
+        }
         return "offence/form";
     }
 
