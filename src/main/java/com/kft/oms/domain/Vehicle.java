@@ -3,28 +3,21 @@ package com.kft.oms.domain;
 import com.kft.crud.domain.AbstractEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"plateNo", "plateRegion", "plateCode", "plateCountry"}))
 @DiscriminatorColumn(name = "vehicle_type")
 public class Vehicle extends AbstractEntity {
 
     //stands for types like vitz, landcruser,..
     private String type;
 
-//    NOTE: All the attribute overrides are required otherwise jpa will not create a unique constraint on embeddable...
-//      type or implement the other constraints which are also defined in VehiclePlate Embeddable class
-    @NotNull
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "plateNo", column = @Column(name = "plateNo", nullable = false, length = 6) ),
-            @AttributeOverride(name = "plateRegion", column = @Column(name = "plateRegion", nullable = false, length = 2) ),
-            @AttributeOverride(name = "plateCode", column = @Column(name = "plateCode", nullable = false) ),
-            @AttributeOverride(name = "plateCountry", column = @Column(name = "plateCountry", nullable = false, length = 2) )
-    })
-    private VehiclePlate plate;
+    @NotBlank
+    @Column(unique = true, nullable = false, length = 14)
+    @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[aA-zZ]{2}")
+    private String plateNo;
 
     //Done: check uniqueness and add if necessary
     //@Max(99999)
@@ -44,12 +37,12 @@ public class Vehicle extends AbstractEntity {
 
 
 
-    public VehiclePlate getPlate() {
-        return plate;
+    public String getPlateNo() {
+        return plateNo;
     }
 
-    public void setPlate(VehiclePlate plate) {
-        this.plate = plate;
+    public void setPlateNo(String plateNo) {
+        this.plateNo = plateNo;
     }
 
     public String getType() {

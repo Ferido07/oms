@@ -31,10 +31,7 @@ public class MapperTest {
 
     @BeforeClass
     public static void setup(){
-        VehiclePlate vehiclePlate = new VehiclePlate();
-        vehiclePlate.setPlateCode((short)3);
-        vehiclePlate.setPlateNo("34567");
-        vehiclePlate.setPlateRegion("AA");
+        String plateNo = "3-34567-AA";
 
         List<VehicleOwner> vehicleOwners = new ArrayList<>();
 
@@ -68,7 +65,7 @@ public class MapperTest {
         publicTransport.setType("Higer Bus");
         publicTransport.setSideNo(34);
         publicTransport.setSeatingCapacity(60);
-        publicTransport.setPlate(vehiclePlate);
+        publicTransport.setPlateNo(plateNo);
         publicTransport.setOwners(vehicleOwners);
 
 
@@ -79,7 +76,7 @@ public class MapperTest {
         cargoVehicle.setType("Sinotruk");
         cargoVehicle.setSideNo(35);
         cargoVehicle.setLoadInQuintals(100);
-        cargoVehicle.setPlate(vehiclePlate);
+        cargoVehicle.setPlateNo(plateNo);
 
         //initialize and set common attributes in vehicleModel
         vehicleModel = new VehicleModel();
@@ -116,7 +113,7 @@ public class MapperTest {
         assertEquals(publicTransport.getSideNo(), publicTransportModel.getSideNo());
         assertEquals(publicTransport.getSeatingCapacity(), publicTransportModel.getSeatingCapacity());
         assertEquals(VehicleModel.VehicleInstanceType.PUBLIC_TRANSPORT, publicTransportModel.getVehicleInstanceType());
-        assertEquals(publicTransport.getPlate().toString(), publicTransportModel.getPlateNo());
+        assertEquals(publicTransport.getPlateNo(), publicTransportModel.getPlateNo());
 
         assertEquals(publicTransport.getOwners().get(0).getFirstName(), publicTransportModel.getOwner().getFirstName());
         assertEquals(publicTransport.getOwners().get(1).getFirstName(), publicTransportModel.getOwner2().getFirstName());
@@ -134,7 +131,7 @@ public class MapperTest {
         assertEquals(cargoVehicle.getSideNo(), cargoVehicleModel.getSideNo());
         assertEquals(cargoVehicle.getLoadInQuintals(), cargoVehicleModel.getLoadInQuintals());
         assertEquals(cargoVehicleModel.getVehicleInstanceType(), VehicleModel.VehicleInstanceType.CARGO_VEHICLE);
-        assertEquals(cargoVehicleModel.getPlateNo(), cargoVehicle.getPlate().toString());
+        assertEquals(cargoVehicleModel.getPlateNo(), cargoVehicle.getPlateNo());
     }
 
     @Before
@@ -159,7 +156,7 @@ public class MapperTest {
         assertEquals(vehicleModel.getLibre(), vehicle.getLibre());
         assertEquals(vehicleModel.getType(), vehicle.getType());
         assertEquals(vehicleModel.getSideNo(), vehicle.getSideNo());
-        assertEquals(vehicleModel.getPlateNo(), vehicle.getPlate().toString());
+        assertEquals(vehicleModel.getPlateNo(), vehicle.getPlateNo());
     }
 
     @Test
@@ -177,7 +174,7 @@ public class MapperTest {
         assertEquals(vehicleModel.getLibre(), vehicle.getLibre());
         assertEquals(vehicleModel.getType(), vehicle.getType());
         assertEquals(vehicleModel.getSideNo(), vehicle.getSideNo());
-        assertEquals(vehicleModel.getPlateNo(), vehicle.getPlate().toString());
+        assertEquals(vehicleModel.getPlateNo(), vehicle.getPlateNo());
 
         assertEquals(vehicleModel.getOwner().getFirstName(), vehicle.getOwners().get(0).getFirstName());
         assertEquals(vehicleModel.getOwner().getLastName(), vehicle.getOwners().get(0).getLastName());
