@@ -10,8 +10,17 @@
     <script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1-1/jquery.min.js"
             th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
 
+<!--    <link href=""
+          th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}" rel="stylesheet">-->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-bootstrap/0.5pre/css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet"/>-->
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+
     <link href="../../static/css/offence-form.css"
           th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
+
+    <link href="../../static/css/autocomplete.css"
+          th:href="@{/css/autocomplete.css}" rel="stylesheet" media="screen">
 
 </head>
 <body>
@@ -27,9 +36,9 @@
 
                 <!--Vehicle Detail-->
                 <div class="tab">Vehicle Detail
-                    <input type="hidden" th:field="*{vehicleModel.id}">
+                    <input type="hidden" id="vehicle-id" th:field="*{vehicleModel.id}">
                     <!--Vehicle Type-->
-                    <p><input placeholder="Vehicle Type" th:field="*{vehicleModel.type}"></p>
+                    <p><input id="vehicle-type" placeholder="Vehicle Type" th:field="*{vehicleModel.type}"></p>
 
                     <!--Vehicle Instance Type (Using Radio Buttons)-->
                         <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
@@ -39,7 +48,11 @@
                         <!--Region-->
                         <!--Code-->
                         <!--Plate No-->
-                    <p><input placeholder="Plate No" th:field="*{vehicleModel.plateNo}"></p>
+
+                    <div class="form-group ui-widget">
+                        <input id="vehicle-plate-no" placeholder="Plate No" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}">
+                    </div>
+
                     <p th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:errors="*{vehicleModel.plateNo}">Plate No Error</p>
                     <!--/*Todo: Fix plate no pattern validation error message*/-->
 
@@ -47,20 +60,20 @@
                     <div>Vehicle Owner
                         <!--<div th:if="${#lists.size(vehicleModel.owners) == 1 }">-->
                         <input type="hidden" th:field="*{vehicleModel.owner.id}">
-                            <p><input id="fName" placeholder="First Name" th:field="*{vehicleModel.owner.firstName}"></p>
-                            <p><input id="mName" placeholder="Middle Name" th:field="*{vehicleModel.owner.middleName}"></p>
-                            <p><input id="lName" placeholder="Last Name" th:field="*{vehicleModel.owner.lastName}"></p>
+                            <p><input id="vo-fName" placeholder="First Name" th:field="*{vehicleModel.owner.firstName}"></p>
+                            <p><input id="vo-mName" placeholder="Middle Name" th:field="*{vehicleModel.owner.middleName}"></p>
+                            <p><input id="vo-lName" placeholder="Last Name" th:field="*{vehicleModel.owner.lastName}"></p>
                         <!--</div>-->
                     </div>
 
                     <!--Association Detail-->
                     <div>
-                        <input type="hidden" th:field="*{vehicleModel.associationModel.id}">
-                        <p><input placeholder="Association" th:field="*{vehicleModel.associationModel.name}"></p>
+                        <input type="hidden" id="vehicle-association-id" th:field="*{vehicleModel.associationModel.id}">
+                        <p><input id="vehicle-association-name" placeholder="Association" th:field="*{vehicleModel.associationModel.name}"></p>
                     </div>
 
                     <!--Side No-->
-                    <p><input type="number" placeholder="Side No" th:field="*{vehicleModel.sideNo}"></p>
+                    <p><input id="vehicle-side-no" type="number" placeholder="Side No" th:field="*{vehicleModel.sideNo}"></p>
                 </div>
 
                 <!--Dispatch Detail-->
@@ -179,5 +192,45 @@
     <!--Script Must be loaded at last-->
     <script src="../../static/js/offence-form.js"
             th:src="@{/js/offence-form.js}"></script>
+
+    <script>
+        var getData = function (request, response) {
+            $.getJSON(
+                "/oms/vehicle?plateNo=" + request.term,
+                function (data) {
+                    response(data);
+                });
+        };
+
+        function populateVehicleInput(data){
+            //alert(data.id + " "+ data.type + " " +data.associationModel.id+" " + data.associationModel.name);
+            $( "#vehicle-id" ).val( data["id"] );
+            $( "#vehicle-type" ).val( data["type"] );
+            $( "#vehicle-plate-no" ).val( data["plateNo"] );
+            $( "#vo-fName" ).val( data["owner"]["firstName"] );
+            $( "#vo-mName" ).val( data["owner"]["middleName"] );
+            $( "#vo-lName" ).val( data["owner"]["lastName"] );
+            $( "#vehicle-association-id" ).val( data["associationModel"]["id"] );
+            $( "#vehicle-association-name" ).val( data["associationModel"]["name"] );
+            $( "#vehicle-side-no" ).val( data["sideNo"] );
+        }
+
+        function selectVehicle(event, ui) {
+            //alert(ui.item.value);
+            $.getJSON(
+                "/oms/vehicle/plate/" + ui.item.value,
+                function (data) {
+                   populateVehicleInput(data);
+                }
+            )
+        }
+
+        $(".autocomplete").autocomplete({
+            source :  getData,
+            minLength :3,
+            select : selectVehicle
+        });
+    </script>
+
 </body>
 </html>

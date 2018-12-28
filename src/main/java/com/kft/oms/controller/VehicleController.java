@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/vehicle")
@@ -28,9 +29,9 @@ public class VehicleController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/plate")
-    public List<VehicleModel> getVehiclesByPlateNoStartingWith(@RequestParam("term") String plateNo){
-        return vehicleService.findByPlateNoStartingWith(plateNo);
+    @RequestMapping
+    public List<String> getPlateNosStartingWith(@RequestParam String plateNo){
+        return vehicleService.findByPlateNoStartingWith(plateNo).stream().map(VehicleModel::getPlateNo).collect(Collectors.toList());
     }
 
     @ResponseBody
