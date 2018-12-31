@@ -89,20 +89,20 @@
 
                 <!--Driver's Detail-->
                 <div class="tab">Driver Detail
-                    <input type="hidden" th:field="*{driverModel.id}">
+                    <input id="driver-id" type="hidden" th:field="*{driverModel.id}">
                     <!--Driver's Name-->
-                    <p><input placeholder="First Name" th:field="*{driverModel.firstName}"></p>
+                    <p><input id="driver-fn" placeholder="First Name" th:field="*{driverModel.firstName}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.firstName')}" th:errors="*{driverModel.firstName}">Driver First Name Error</p>
-                    <p><input placeholder="Middle Name" th:field="*{driverModel.middleName}"></p>
+                    <p><input id="driver-mn" placeholder="Middle Name" th:field="*{driverModel.middleName}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</p>
-                    <p><input placeholder="Last Name" th:field="*{driverModel.lastName}"></p>
+                    <p><input id="driver-ln" placeholder="Last Name" th:field="*{driverModel.lastName}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</p>
 
                     <!--Driver's License No and Type-->
-                    <p><input th:type="number" placeholder="License No" th:field="*{driverModel.licenseNo}"></p>
+                    <p><input id="driver-license-no" th:type="number" placeholder="License No" th:field="*{driverModel.licenseNo}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
                     <p><label>License Type
-                        <select th:field="*{driverModel.licenseType}">
+                        <select id="driver-license-type" th:field="*{driverModel.licenseType}">
                             <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
                             <option th:each="licenseType : ${T(com.kft.oms.constants.LicenseType).values()}"
                                     th:value="${licenseType.name()}"
@@ -194,7 +194,7 @@
             th:src="@{/js/offence-form.js}"></script>
 
     <script>
-        var getData = function (request, response) {
+        var getVehiclesByPlateNo = function (request, response) {
             $.getJSON(
                 "/oms/vehicle?plateNo=" + request.term,
                 function (data) {
@@ -203,7 +203,6 @@
         };
 
         function populateVehicleInput(data){
-            //alert(data.id + " "+ data.type + " " +data.associationModel.id+" " + data.associationModel.name);
             $( "#vehicle-id" ).val( data["id"] );
             $( "#vehicle-type" ).val( data["type"] );
             $( "#vehicle-plate-no" ).val( data["plateNo"] );
@@ -216,7 +215,6 @@
         }
 
         function selectVehicle(event, ui) {
-            //alert(ui.item.value);
             $.getJSON(
                 "/oms/vehicle/plate/" + ui.item.value,
                 function (data) {
@@ -225,11 +223,34 @@
             )
         }
 
-        $(".autocomplete").autocomplete({
-            source :  getData,
+        $("#vehicle-plate-no").autocomplete({
+            source :  getVehiclesByPlateNo,
             minLength :3,
             select : selectVehicle
         });
+
+        function populateDriverInput(driver){
+            $( "#driver-id" ).val( driver["id"] );
+            $( "#driver-fn" ).val( driver["firstName"] );
+            $( "#driver-mn" ).val( driver["middleName"] );
+            $( "#driver-ln" ).val( driver["lastName"] );
+            $( "#driver-license-type" ).val( driver["licenseType"] );
+        }
+
+        function getDriverByLicenseNo(licenseNo){
+            alert("getting driver with license no " +licenseNo );
+            $.getJSON(
+                "/oms/driver/" + licenseNo,
+                function (data) {
+                    populateDriverInput(data);
+                }
+            )
+        }
+
+        $("#driver-license-no").on("blur", function(){
+            getDriverByLicenseNo($(this).val());
+        });
+
     </script>
 
 </body>
