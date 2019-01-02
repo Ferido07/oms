@@ -138,17 +138,27 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Offence Code ID</th>
+                            <th></th>
+                            <th>Offence Code</th>
+                            <th>Description</th>
                             <th><button type="submit" name="addOffenceCodeModel" th:text="|Add Offence Code|">Add Offence Code</button></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="offence-codes-body">
                         <tr th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
+                             <!--todo: get full code and description to be retained after each visit to server including when adding code and when editing  -->
+                             <!--todo: pressing enter after typing full code but not after selection causes for to be submitted to add offence code fix it-->
                             <td>
-                                <input placeholder="Code" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
+                                <input type="hidden" placeholder="Code Id" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
                             </td>
                             <td>
-                                <button type="submit" name="removeOffenceCodeModel" th:value="${OCMStat.index}"
+                                <input placeholder="Full Code">
+                            </td>
+                            <td>
+                                <input placeholder="description" disabled="disabled">
+                            </td>
+                            <td>
+                                <button th:if="${OCMStat.size > 1}" type="submit" name="removeOffenceCodeModel" th:value="${OCMStat.index}"
                                         th:text="|Remove Offence Code|">Remove Offence Code</button>
                             </td>
                         </tr>
@@ -249,6 +259,60 @@
 
         $("#driver-license-no").on("blur", function(){
             getDriverByLicenseNo($(this).val());
+        });
+
+        function getOffenceCodesList(request,response){
+            var offenceCode = request.term;
+            var offenceCodeParts = offenceCode.split(' ', 4);
+            var sectionHeaderLabel = offenceCodeParts[0];
+            var level = offenceCodeParts[1];
+            var penaltyAmount = (offenceCodeParts[2] === undefined)? '' : offenceCodeParts[2];
+
+            var url = "/oms/offence-code?sectionHeaderLabel=" + sectionHeaderLabel +
+                "&level=" + level + "&penaltyAmount=" + penaltyAmount;
+            //alert("getting data from url : " + url);
+            $.getJSON(
+                url,
+                function (data) {
+                    response(data);
+                }
+            );
+        }
+
+        function populateOffenceCodeData(event,data){
+            var offenceCodeInputColumnTd = $(event.target).parent();
+            offenceCodeInputColumnTd.prev().children("input").val(data["id"]);
+            offenceCodeInputColumnTd.next().children("input").val(data["description"]);
+        }
+
+        function getOffenceCode(event, ui) {
+            var fullyQualifiedOffenceCode = ui.item.value;
+            var offenceCodeParts =fullyQualifiedOffenceCode.split(' ', 4);
+            var sectionHeaderLabel = offenceCodeParts[0];
+            var level = offenceCodeParts[1];
+            var penaltyAmount = offenceCodeParts[2];
+            var numberLabel = offenceCodeParts[3];
+
+            var url = "/oms/offence-code/get?sectionHeaderLabel=" + sectionHeaderLabel +
+                      "&level=" + level + "&penaltyAmount=" + penaltyAmount +
+                      "&numberLabel=" + numberLabel;
+            //alert("getting data from url : " + url);
+            $.getJSON(
+                url,
+                function (data) {
+                    //set the id and also good for client side checks to see all offence codes
+                    //have same offenderType and sectionHeaderLabel
+                    populateOffenceCodeData(event, data);
+                }
+            )
+        }
+
+        var offenceCodeInputs = $("#offence-codes-body").find("tr td:nth-child(2)").children("input");
+
+        offenceCodeInputs.autocomplete({
+            source :  getOffenceCodesList,
+            minLength :6,
+            select : getOffenceCode
         });
 
     </script>

@@ -2,6 +2,8 @@ package com.kft.oms.model;
 
 import com.kft.oms.constants.OffenceRepetitionTracker;
 import com.kft.oms.constants.OffenderType;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,6 +13,7 @@ public class OffenceCodeModel {
 
     // The next 2 are only added for convenience purposes to the user.
     //Header like 9.3.3
+    @NotBlank
     @Size(max = 9)
     private String sectionHeaderLabel;
 

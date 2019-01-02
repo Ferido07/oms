@@ -7,12 +7,12 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"offenderType", "level", "penaltyAmount", "numberLabel"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"sectionHeaderLabel", "level", "penaltyAmount", "numberLabel"}))
 public class OffenceCode extends AbstractEntity{
 
     // The next 2 are only added for convenience purposes to the user.
     //Header like 9.3.3
-    @Column(length = 9)
+    @Column(length = 9, nullable = false)
     private String sectionHeaderLabel;
 
     //like አሽከርካሪ ረዳትን የሚያስጠይቁ that describes the section.
