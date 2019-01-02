@@ -146,16 +146,21 @@
                         </thead>
                         <tbody id="offence-codes-body">
                         <tr th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
-                             <!--todo: get full code and description to be retained after each visit to server including when adding code and when editing  -->
+                             <!--done: get full code and description to be retained after each visit to server including when adding code and when editing  -->
                              <!--todo: pressing enter after typing full code but not after selection causes for to be submitted to add offence code fix it-->
                             <td>
-                                <input type="hidden" placeholder="Code Id" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
+                                <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
+                                <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].sectionHeaderLabel}">
+                                <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].level}">
+                                <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].penaltyAmount}">
+                                <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].numberLabel}">
+                                <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].offenderType}">
                             </td>
                             <td>
                                 <input placeholder="Full Code">
                             </td>
                             <td>
-                                <input placeholder="description" disabled="disabled">
+                                <input placeholder="Description" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}">
                             </td>
                             <td>
                                 <button th:if="${OCMStat.size > 1}" type="submit" name="removeOffenceCodeModel" th:value="${OCMStat.index}"
@@ -240,15 +245,17 @@
         });
 
         function populateDriverInput(driver){
-            $( "#driver-id" ).val( driver["id"] );
-            $( "#driver-fn" ).val( driver["firstName"] );
-            $( "#driver-mn" ).val( driver["middleName"] );
-            $( "#driver-ln" ).val( driver["lastName"] );
-            $( "#driver-license-type" ).val( driver["licenseType"] );
+            if(driver !== null) {
+                $("#driver-id").val(driver["id"]);
+                $("#driver-fn").val(driver["firstName"]);
+                $("#driver-mn").val(driver["middleName"]);
+                $("#driver-ln").val(driver["lastName"]);
+                $("#driver-license-type").val(driver["licenseType"]);
+            }
         }
 
         function getDriverByLicenseNo(licenseNo){
-            alert("getting driver with license no " +licenseNo );
+            //alert("getting driver with license no " +licenseNo );
             $.getJSON(
                 "/oms/driver/" + licenseNo,
                 function (data) {
@@ -281,8 +288,16 @@
 
         function populateOffenceCodeData(event,data){
             var offenceCodeInputColumnTd = $(event.target).parent();
-            offenceCodeInputColumnTd.prev().children("input").val(data["id"]);
-            offenceCodeInputColumnTd.next().children("input").val(data["description"]);
+
+            var offenceCodeHiddenColumnTd = offenceCodeInputColumnTd.prev();
+            offenceCodeHiddenColumnTd.children("input:nth-child(1)").val(data["id"]);
+            offenceCodeHiddenColumnTd.children("input:nth-child(2)").val(data["sectionHeaderLabel"]);
+            offenceCodeHiddenColumnTd.children("input:nth-child(3)").val(data["level"]);
+            offenceCodeHiddenColumnTd.children("input:nth-child(4)").val(data["penaltyAmount"]);
+            offenceCodeHiddenColumnTd.children("input:nth-child(5)").val(data["numberLabel"]);
+            offenceCodeHiddenColumnTd.children("input:nth-child(6)").val(data["offenderType"]);
+
+            offenceCodeInputColumnTd.next().children("input:nth-child(1)").val(data["description"]);
         }
 
         function getOffenceCode(event, ui) {
@@ -314,6 +329,29 @@
             minLength :6,
             select : getOffenceCode
         });
+
+        function loadQualifiedName() {
+            offenceCodeInputs.each(function () {
+                var offenceCodeIdInput = $(this).parent().prev().children("input:nth-child(1)");
+                if(offenceCodeIdInput.val() !== null && offenceCodeIdInput.val() !== undefined && offenceCodeIdInput.val() !== ''){
+                    var offenceCodeSectionHeaderLabelInput = offenceCodeIdInput.next();
+                    var offenceCodeLevelInput = offenceCodeSectionHeaderLabelInput.next();
+                    var offenceCodePenaltyAmount = offenceCodeLevelInput.next();
+                    var offenceCodeNumberLabel = offenceCodePenaltyAmount.next();
+
+                    var fullQualifiedOffenceCodeName =  offenceCodeSectionHeaderLabelInput.val() + ' ' +
+                        offenceCodeLevelInput.val() + ' ' +
+                        offenceCodePenaltyAmount.val() + ' ' +
+                        offenceCodeNumberLabel.val();
+                    $(this).val(fullQualifiedOffenceCodeName);
+                }
+            });
+        }
+
+        $(document).ready(function(){
+            loadQualifiedName();
+        });
+
 
     </script>
 
