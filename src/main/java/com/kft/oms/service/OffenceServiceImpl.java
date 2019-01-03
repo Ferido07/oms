@@ -3,6 +3,7 @@ package com.kft.oms.service;
 import com.kft.crud.domain.OffenderEntity;
 import com.kft.crud.service.CrudServiceImpl;
 import com.kft.oms.config.Mapper;
+import com.kft.oms.constants.OffenderType;
 import com.kft.oms.domain.Offence;
 import com.kft.oms.domain.OffenceCode;
 import com.kft.oms.domain.Vehicle;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceRepository> implements OffenceService {
@@ -121,10 +123,34 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
                     }
             );
         }
+        switch(determineOffender(offence)){
+            case DRIVER: offence.setOffender(offence.getDriver()); break;
+            case VEHICLE_OWNER: //cannot get from vehicle cuz which owner is accused is not known
+                //offence.setOffender(null);break;
+            case PERSON:
+            case ASSOCIATION:
+            case ORGANIZATION:
+                throw new UnsupportedOperationException("Not yet implemented");
+            default: throw new RuntimeException("Cannot determine offender: Offence Codes don't have same sectionHeaderLabel and OffenderType");
+        }
 
-        offence.setOffender(offence.getDriver());
         Offence savedOffence = repository.save(offence);
         //todo add a check if any of the entities that have associations with offence change id. the associations cannot change id.
         return mapper.map(savedOffence, OffenceModel.class);
+    }
+
+    @Override
+    public OffenderType determineOffender(Offence offence) {
+        List<String> stringList = offence.getOffenceCodes()
+                .stream()
+                .map(offenceCode -> offenceCode.getSectionHeaderLabel().trim() + " " + offenceCode.getOffenderType())
+                .distinct()
+                .collect(Collectors.toList());
+        if(stringList.size() == 1){
+            String sectionLabelAndOffenderType = stringList.get(0);
+            String[] split = sectionLabelAndOffenderType.split(" ", 2);
+            return OffenderType.valueOf(split[1]);
+        }else
+            return null;
     }
 }
