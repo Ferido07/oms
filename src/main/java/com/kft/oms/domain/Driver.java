@@ -12,7 +12,7 @@ public class Driver extends Person {
     @NotNull
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "licenseNo", column = @Column(name = "licenseNo", nullable = false, unique = true)),
+            @AttributeOverride(name = "licenseNo", column = @Column(name = "licenseNo", nullable = false, unique = true , length = 10)),
             @AttributeOverride(name = "licenseType", column = @Column(name = "licenseType", nullable = false, length = 10))
     })
     private DriversLicense driversLicense;

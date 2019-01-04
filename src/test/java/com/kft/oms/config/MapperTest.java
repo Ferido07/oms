@@ -63,7 +63,7 @@ public class MapperTest {
         publicTransport.setBolo("Public Transport Bolo");
         publicTransport.setLibre("Public Transport Libre");
         publicTransport.setType("Higer Bus");
-        publicTransport.setSideNo(34);
+        publicTransport.setSideNo("34");
         publicTransport.setSeatingCapacity(60);
         publicTransport.setPlateNo(plateNo);
         publicTransport.setOwners(vehicleOwners);
@@ -74,7 +74,7 @@ public class MapperTest {
         cargoVehicle.setBolo("Cargo Vehicle Bolo");
         cargoVehicle.setLibre("Cargo Vehicle Libre");
         cargoVehicle.setType("Sinotruk");
-        cargoVehicle.setSideNo(35);
+        cargoVehicle.setSideNo("35");
         cargoVehicle.setLoadInQuintals(100);
         cargoVehicle.setPlateNo(plateNo);
 
@@ -84,7 +84,7 @@ public class MapperTest {
         vehicleModel.setBolo("Vehicle Model Bolo");
         vehicleModel.setLibre("Vehicle Model Libre");
         vehicleModel.setType("Vehicle Model Type");
-        vehicleModel.setSideNo(36);
+        vehicleModel.setSideNo("36");
         vehicleModel.setPlateNo("3-33332-OR");
 
         PersonModel ownerModel = new PersonModel();

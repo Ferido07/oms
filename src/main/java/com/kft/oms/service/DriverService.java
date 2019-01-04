@@ -8,5 +8,5 @@ import com.kft.oms.repository.DriverRepository;
 import java.util.Optional;
 
 public interface DriverService extends CrudService<Driver,Integer,DriverRepository>{
-    Optional<DriverModel> findByDriversLicenseNo(Integer licenseNo);
+    Optional<DriverModel> findByDriversLicenseNo(String licenseNo);
 }

@@ -21,8 +21,8 @@ public class Vehicle extends AbstractEntity {
 
     //Done: check uniqueness and add if necessary
     //@Max(99999)
-    @Column(unique = true)
-    private Integer sideNo;
+    @Column(unique = true, length = 10)
+    private String sideNo;
 
     @ManyToMany(mappedBy = "vehicles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<VehicleOwner> owners;
@@ -33,6 +33,7 @@ public class Vehicle extends AbstractEntity {
     //TODO: Add constraint for bolo and libre
     private String bolo;
 
+    @Column(unique = true, length = 20)
     private String libre;
 
 
@@ -53,11 +54,11 @@ public class Vehicle extends AbstractEntity {
         this.type = type;
     }
 
-    public Integer getSideNo() {
+    public String getSideNo() {
         return sideNo;
     }
 
-    public void setSideNo(Integer sideNo) {
+    public void setSideNo(String sideNo) {
         this.sideNo = sideNo;
     }
 

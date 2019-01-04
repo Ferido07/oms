@@ -6,6 +6,7 @@ import com.kft.crud.domain.Person;
 import com.kft.oms.constants.OffenceStatus;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -23,7 +24,8 @@ public class Offence extends AbstractEntity {
     private String reportingLocation;
     @Enumerated(value = EnumType.STRING)
     private OffenceStatus status = OffenceStatus.PENDING;
-    private Integer dispatchNo;
+    @Size(max = 12)
+    private String dispatchNo;
 
     //An offender can be Association or organization as noted in 9.3.6 and 9.3.8 of the rule book or a Person
     @NotNull
@@ -114,11 +116,11 @@ public class Offence extends AbstractEntity {
         this.offender = offender;
     }
 
-    public Integer getDispatchNo() {
+    public String getDispatchNo() {
         return dispatchNo;
     }
 
-    public void setDispatchNo(Integer dispatchNo) {
+    public void setDispatchNo(String dispatchNo) {
         this.dispatchNo = dispatchNo;
     }
 

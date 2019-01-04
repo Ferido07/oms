@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface VehicleRepository extends JpaRepository<Vehicle,Integer> {
     Optional<Vehicle> findByPlateNo(String plateNo);
     List<Vehicle> findAllByPlateNoStartingWith(String plateNo);
-    Optional<Vehicle> findVehicleBySideNo(Integer sideNo);
+    Optional<Vehicle> findVehicleBySideNo(String sideNo);
 }

@@ -14,7 +14,8 @@ import java.util.Map;
 public class OffenceModel {
 
     private Integer id;
-    private Integer dispatchNo;
+    @Size(max = 12)
+    private String dispatchNo;
 
     @NotNull
     @PastOrPresent
@@ -70,11 +71,11 @@ public class OffenceModel {
         this.vehicleModel = vehicleModel;
     }
 
-    public Integer getDispatchNo() {
+    public String getDispatchNo() {
         return dispatchNo;
     }
 
-    public void setDispatchNo(Integer dispatchNo) {
+    public void setDispatchNo(String dispatchNo) {
         this.dispatchNo = dispatchNo;
     }
 

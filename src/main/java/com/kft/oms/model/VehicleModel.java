@@ -13,11 +13,12 @@ public class VehicleModel {
     @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[aA-zZ]{2}")//matches codes like 1-A67876-eT
     private String plateNo;
 
-    @Max(9999)
-    private Integer sideNo;
+    @Size(max = 10)
+    private String sideNo;
 
     private String bolo;
 
+    @Size(max = 20)
     private String libre;
 
     @Max(100)
@@ -61,11 +62,11 @@ public class VehicleModel {
         this.plateNo = plateNo;
     }
 
-    public Integer getSideNo() {
+    public String getSideNo() {
         return sideNo;
     }
 
-    public void setSideNo(Integer sideNo) {
+    public void setSideNo(String sideNo) {
         this.sideNo = sideNo;
     }
 

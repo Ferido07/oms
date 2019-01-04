@@ -21,7 +21,7 @@ public class DriverController {
 
     @ResponseBody
     @GetMapping("/{licenseNo}")
-    public Optional<DriverModel> findDriverByLicenseNo(@PathVariable Integer licenseNo){
+    public Optional<DriverModel> findDriverByLicenseNo(@PathVariable String licenseNo){
         return driverService.findByDriversLicenseNo(licenseNo);
     }
 }

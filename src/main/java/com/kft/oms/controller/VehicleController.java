@@ -36,7 +36,7 @@ public class VehicleController {
 
     @ResponseBody
     @RequestMapping(value = "/sideNo/{sideNo}")
-    public Optional<VehicleModel> getVehiclesBySideNo(@PathVariable Integer sideNo){
+    public Optional<VehicleModel> getVehiclesBySideNo(@PathVariable String sideNo){
         return vehicleService.findBySideNo(sideNo);
     }
 }

@@ -5,24 +5,27 @@ import com.kft.oms.constants.LicenseType;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Embeddable
 public class DriversLicense {
 
-    @NotNull
-    private Integer licenseNo;
+    @NotBlank
+    @Size(max = 10)
+    private String licenseNo;
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private LicenseType licenseType;
 
 
-    public Integer getLicenseNo() {
+    public String getLicenseNo() {
         return licenseNo;
     }
 
-    public void setLicenseNo(Integer licenseNo) {
+    public void setLicenseNo(String licenseNo) {
         this.licenseNo = licenseNo;
     }
 

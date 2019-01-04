@@ -3,20 +3,22 @@ package com.kft.oms.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class DriverModel extends PersonModel{
 
-    @NotNull
-    private Integer licenseNo;
+    @NotBlank
+    @Size(max = 10)
+    private String licenseNo;
     @NotBlank
     private String licenseType;
 
 
-    public Integer getLicenseNo() {
+    public String getLicenseNo() {
         return licenseNo;
     }
 
-    public void setLicenseNo(Integer licenseNo) {
+    public void setLicenseNo(String licenseNo) {
         this.licenseNo = licenseNo;
     }
 

@@ -20,7 +20,7 @@ public class DriverServiceImpl extends CrudServiceImpl<Driver,Integer,DriverRepo
     }
 
     @Override
-    public Optional<DriverModel> findByDriversLicenseNo(Integer licenseNo) {
+    public Optional<DriverModel> findByDriversLicenseNo(String licenseNo) {
         Optional<Driver> driverOptional = repository.findByDriversLicenseLicenseNo(licenseNo);
         return driverOptional.map(driver -> mapper.map(driver, DriverModel.class));
     }
