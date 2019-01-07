@@ -209,13 +209,13 @@
             th:src="@{/js/offence-form.js}"></script>
 
     <script>
-        var getVehiclesByPlateNo = function (request, response) {
+        function getVehiclesByPlateNo(request, response) {
             $.getJSON(
                 "/oms/vehicle?plateNo=" + request.term,
                 function (data) {
                     response(data);
                 });
-        };
+        }
 
         function populateVehicleInput(data){
             $( "#vehicle-id" ).val( data["id"] );
@@ -229,9 +229,10 @@
             $( "#vehicle-side-no" ).val( data["sideNo"] );
         }
 
-        function selectVehicle(event, ui) {
+        function getVehicleByPlateNo(event, ui) {
+            var plateNo = ui.item.value;
             $.getJSON(
-                "/oms/vehicle/plate/" + ui.item.value,
+                "/oms/vehicle/plate/" + plateNo,
                 function (data) {
                    populateVehicleInput(data);
                 }
@@ -241,8 +242,16 @@
         $("#vehicle-plate-no").autocomplete({
             source :  getVehiclesByPlateNo,
             minLength :3,
-            select : selectVehicle
+            select : getVehicleByPlateNo
         });
+
+        function getDriversByLicenseNo(request, response) {
+            $.getJSON(
+                "/oms/driver?licenseNo=" + request.term,
+                function (data) {
+                    response(data);
+                });
+        }
 
         function populateDriverInput(driver){
             if(driver !== null) {
@@ -254,8 +263,9 @@
             }
         }
 
-        function getDriverByLicenseNo(licenseNo){
+        function getDriverByLicenseNo(event, ui){
             //alert("getting driver with license no " +licenseNo );
+            var licenseNo = ui.item.value;
             $.getJSON(
                 "/oms/driver/" + licenseNo,
                 function (data) {
@@ -264,8 +274,10 @@
             )
         }
 
-        $("#driver-license-no").on("blur", function(){
-            getDriverByLicenseNo($(this).val());
+        $("#driver-license-no").autocomplete({
+            source : getDriversByLicenseNo,
+            minLength : 3,
+            select : getDriverByLicenseNo
         });
 
         function getOffenceCodesList(request,response){
@@ -351,7 +363,6 @@
         $(document).ready(function(){
             loadQualifiedName();
         });
-
 
     </script>
 

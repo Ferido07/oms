@@ -31,12 +31,15 @@ public class VehicleController {
     @ResponseBody
     @RequestMapping
     public List<String> getPlateNosStartingWith(@RequestParam String plateNo){
-        return vehicleService.findByPlateNoStartingWith(plateNo).stream().map(VehicleModel::getPlateNo).collect(Collectors.toList());
+        return vehicleService.findByPlateNoStartingWith(plateNo)
+                .stream()
+                .map(VehicleModel::getPlateNo)
+                .collect(Collectors.toList());
     }
 
     @ResponseBody
     @RequestMapping(value = "/sideNo/{sideNo}")
-    public Optional<VehicleModel> getVehiclesBySideNo(@PathVariable String sideNo){
+    public Optional<VehicleModel> getVehicleBySideNo(@PathVariable String sideNo){
         return vehicleService.findBySideNo(sideNo);
     }
 }
