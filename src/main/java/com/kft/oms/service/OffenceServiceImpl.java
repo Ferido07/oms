@@ -4,10 +4,12 @@ import com.kft.crud.domain.OffenderEntity;
 import com.kft.crud.service.CrudServiceImpl;
 import com.kft.oms.config.Mapper;
 import com.kft.oms.constants.OffenderType;
+import com.kft.oms.domain.Driver;
 import com.kft.oms.domain.Offence;
 import com.kft.oms.domain.OffenceCode;
 import com.kft.oms.domain.Vehicle;
 import com.kft.oms.model.OffenceModel;
+import com.kft.oms.repository.DriverRepository;
 import com.kft.oms.repository.OffenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,13 @@ import java.util.stream.Collectors;
 public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceRepository> implements OffenceService {
 
     private final Mapper mapper;
+    private final DriverRepository driverRepository;
 
     @Autowired
-    public OffenceServiceImpl(OffenceRepository repository, Mapper mapper) {
+    public OffenceServiceImpl(OffenceRepository repository, Mapper mapper, DriverRepository driverRepository) {
         super(repository);
         this.mapper = mapper;
+        this.driverRepository = driverRepository;
     }
 
     /**
@@ -83,17 +87,37 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
 
     public Optional<OffenceModel> findOffenceModelById(Integer id){
         Optional<Offence> offenceOptional = repository.findById(id);
-
-        Optional<OffenceModel> offenceModelOptional;
-        offenceModelOptional = offenceOptional.map(offence -> mapper.map(offence, OffenceModel.class));
-
-        return offenceModelOptional;
+        return offenceOptional.map(offence -> mapper.map(offence, OffenceModel.class));
     }
 
     @Override
     public OffenceModel save(OffenceModel offenceModel) {
 
         Offence offence;
+        Driver driver;
+
+        /* check if driver exists or not using id or licenseNo depending on which is set
+                if exists then set the driver to the one found
+                else set the driver to new one from model
+        */
+        //check if driver exists using Id
+        if(offenceModel.getDriverModel().getId() != null){
+            Integer driverId = offenceModel.getDriverModel().getId();
+            Optional<Driver> driverOptional = driverRepository.findById(driverId);
+            if(driverOptional.isPresent()) {
+                driver = driverOptional.get();
+            } else{
+                throw new RuntimeException("Driver with Id of " + driverId + "does not exist");
+            }
+        }
+        //check if driver exists using Driver's licenseNo
+        else{
+            Optional<Driver> driverOptional = driverRepository
+                    .findByDriversLicenseLicenseNo(offenceModel.getDriverModel().getLicenseNo());
+            //if driver is present then return that to driver else assign driver the result of the map from driverModel
+            driver = driverOptional.orElseGet(() -> mapper.map(offenceModel.getDriverModel(), Driver.class));
+        }
+
         //check if item is new
         if(offenceModel.getId() != null){
             //check if the item exists
@@ -102,13 +126,21 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
             //item exists and update is made to the same object
             if(offenceOptional.isPresent()) {
                 offence = offenceOptional.get();
+                //copy everything from Model to domain but the whole system of persisting offence
+                //counts on the mapper not mapping the driverModel to driver so that this part doesn't
+                //overwrite data retrieved from database
                 mapper.map(offenceModel, offence);
             }
             else
-                throw new RuntimeException("No offence with the given Id exists");
+                throw new RuntimeException("No offence with the given Id exists. Id : " + offenceModel.getId());
         }else{
             //else object is new so create a new offence object
             offence = mapper.map(offenceModel, Offence.class);
+
+            //set the driver resolved above
+            offence.setDriver(driver);
+
+            //todo: execute the code below only if vehicle is new
             //add the vehicle to each vehicleOwner so that the relation between them is persisted since
             //vehicleOwner is the owner of the relationship
             offence.getVehicle().getOwners().forEach(

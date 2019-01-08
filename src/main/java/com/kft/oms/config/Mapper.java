@@ -18,7 +18,9 @@ public class Mapper extends ConfigurableMapper {
 
         factory.registerClassMap(factory.classMap(Offence.class, OffenceModel.class)
                // .field("offender","")
-                .field("driver","driverModel")
+                // driverModel should not be mapped to driver only mapped explicitly when needed or if always mapped then
+                // overwrite the mapped value when needed but that just adds more execution code
+                .fieldAToB("driver","driverModel")
                 .field("vehicle", "vehicleModel")
                 .field("offenceCodes", "offenceCodeModels")
                 .byDefault().toClassMap());

@@ -4,31 +4,27 @@ import com.kft.oms.config.Mapper;
 import com.kft.oms.constants.OffenderType;
 import com.kft.oms.domain.Offence;
 import com.kft.oms.domain.OffenceCode;
+import com.kft.oms.repository.DriverRepository;
 import com.kft.oms.repository.OffenceRepository;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
+@RunWith(MockitoJUnitRunner.StrictStubs.class)
 public class OffenceServiceImplTest {
 
+    @InjectMocks
     private OffenceServiceImpl offenceService;
 
-    @Mock
-    private OffenceRepository repository;
-    @Mock
-    private Mapper mapper;
-
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-        offenceService = new OffenceServiceImpl(repository, mapper);
-    }
+    @Mock private OffenceRepository repository;
+    @Mock private Mapper mapper;
+    @Mock private DriverRepository driverRepository;
 
     @Test
     public void determineOffender() throws Exception {
