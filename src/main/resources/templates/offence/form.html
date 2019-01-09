@@ -91,18 +91,18 @@
                 <div class="tab">Driver Detail
                     <input id="driver-id" type="hidden" th:field="*{driverModel.id}">
                     <!--Driver's Name-->
-                    <p><input id="driver-fn" placeholder="First Name" th:field="*{driverModel.firstName}"></p>
+                    <p><input id="driver-fn" placeholder="First Name" th:field="*{driverModel.firstName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.firstName')}" th:errors="*{driverModel.firstName}">Driver First Name Error</p>
-                    <p><input id="driver-mn" placeholder="Middle Name" th:field="*{driverModel.middleName}"></p>
+                    <p><input id="driver-mn" placeholder="Middle Name" th:field="*{driverModel.middleName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</p>
-                    <p><input id="driver-ln" placeholder="Last Name" th:field="*{driverModel.lastName}"></p>
+                    <p><input id="driver-ln" placeholder="Last Name" th:field="*{driverModel.lastName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</p>
 
                     <!--Driver's License No and Type-->
-                    <p><input id="driver-license-no" th:type="number" placeholder="License No" th:field="*{driverModel.licenseNo}"></p>
+                    <p><input id="driver-license-no" th:type="number" placeholder="License No" th:field="*{driverModel.licenseNo}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}"></p>
                     <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
                     <p><label>License Type
-                        <select id="driver-license-type" th:field="*{driverModel.licenseType}">
+                        <select id="driver-license-type" th:field="*{driverModel.licenseType}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
                             <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
                             <option th:each="licenseType : ${T(com.kft.oms.constants.LicenseType).values()}"
                                     th:value="${licenseType.name()}"
@@ -254,18 +254,25 @@
         }
 
         function populateDriverInput(driver){
+            console.log('driver in populateDriverInput ' + driver);
             if(driver !== null) {
                 $("#driver-id").val(driver["id"]);
-                $("#driver-fn").val(driver["firstName"]);
-                $("#driver-mn").val(driver["middleName"]);
-                $("#driver-ln").val(driver["lastName"]);
-                $("#driver-license-type").val(driver["licenseType"]);
+                $("#driver-fn").val(driver["firstName"]).attr("readonly", "readonly");
+                $("#driver-mn").val(driver["middleName"]).attr("readonly", "readonly");
+                $("#driver-ln").val(driver["lastName"]).attr("readonly", "readonly");
+                $("#driver-license-type").val(driver["licenseType"]).attr("readonly", "readonly");
+            }
+            else{
+                $("#driver-id").val("");
+                $("#driver-fn").removeAttr("readonly");
+                $("#driver-mn").removeAttr("readonly");
+                $("#driver-ln").removeAttr("readonly");
+                $("#driver-license-type").removeAttr("readonly");
             }
         }
 
-        function getDriverByLicenseNo(event, ui){
-            //alert("getting driver with license no " +licenseNo );
-            var licenseNo = ui.item.value;
+        function getDriverByLicenseNo(licenseNo){
+            console.log("getting driver with license no " + licenseNo );
             $.getJSON(
                 "/oms/driver/" + licenseNo,
                 function (data) {
@@ -274,10 +281,20 @@
             )
         }
 
+        function driverLicenseNoInputChanged(event, ui){
+            console.log('ui.item in driverLicenseNoInputChanged ' + ui.item);
+            var licenseNo = $("#driver-license-no").val();
+            if(ui.item === null)
+                getDriverByLicenseNo(licenseNo);
+        }
+
         $("#driver-license-no").autocomplete({
             source : getDriversByLicenseNo,
             minLength : 3,
-            select : getDriverByLicenseNo
+            select : function(event,ui){
+                        getDriverByLicenseNo(ui.item.value);
+                     },
+            change : driverLicenseNoInputChanged
         });
 
         function getOffenceCodesList(request,response){
