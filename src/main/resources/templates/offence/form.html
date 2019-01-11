@@ -192,7 +192,7 @@
                             <th></th>
                             <th>Offence Code</th>
                             <th>Description</th>
-                            <th><button type="submit" class="btn btn-success" name="addOffenceCodeModel" th:text="|Add Offence Code|">Add Offence Code</button></th>
+                            <th><button type="button" onclick="addOffenceCode()" class="btn btn-success" name="addOffenceCodeModel" th:text="|Add Offence Code|">Add Offence Code</button></th>
                         </tr>
                         </thead>
                         <tbody id="offence-codes-body">
@@ -214,7 +214,7 @@
                                 <input class="form-control" placeholder="Description" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}">
                             </td>
                             <td>
-                                <button class="btn btn-danger" th:if="${OCMStat.size > 1}" type="submit" name="removeOffenceCodeModel" th:value="${OCMStat.index}"
+                                <button class="btn btn-danger" th:if="${OCMStat.size > 1}" type="button" onclick="removeOffenceCode(event)" name="removeOffenceCodeModel" th:value="${OCMStat.index}"
                                         th:text="|Remove Offence Code|">Remove Offence Code</button>
                             </td>
                         </tr>
@@ -413,11 +413,13 @@
 
         var offenceCodeInputs = $("#offence-codes-body").find("tr td:nth-child(2)").children("input");
 
-        offenceCodeInputs.autocomplete({
+        var offenceCodeAutoComplete = {
             source :  getOffenceCodesList,
             minLength :6,
             select : getOffenceCode
-        });
+        };
+
+        offenceCodeInputs.autocomplete(offenceCodeAutoComplete);
 
         function loadQualifiedName() {
             offenceCodeInputs.each(function () {
@@ -435,6 +437,55 @@
                     $(this).val(fullQualifiedOffenceCodeName);
                 }
             });
+        }
+
+        var offenceCodes = 1;
+        function addOffenceCode(){
+
+            var newOffenceCode =
+            $("<tr>\n" +
+                "\t<td>\n" +
+                "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".id\" name=\"offenceCodeModels[" + offenceCodes + "].id\" value=\"\">\n" +
+                "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".sectionHeaderLabel\" name=\"offenceCodeModels[" + offenceCodes + "].sectionHeaderLabel\" value=\"\">\n" +
+                "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".level\" name=\"offenceCodeModels[" + offenceCodes + "].level\" value=\"\">\n" +
+                "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".penaltyAmount\" name=\"offenceCodeModels[" + offenceCodes + "].penaltyAmount\" value=\"\">\n" +
+                "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".numberLabel\" name=\"offenceCodeModels[" + offenceCodes + "].numberLabel\" value=\"\">\n" +
+                "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".offenderType\" name=\"offenceCodeModels[" + offenceCodes + "].offenderType\" value=\"\">\n" +
+                "\t</td>\n" +
+                "\t<td>\n" +
+                "\t\t<input class=\"form-control ui-autocomplete-input\" placeholder=\"Full Code\">\n" +
+                "\t</td>\n" +
+                "\t<td>\n" +
+                "\t\t<input class=\"form-control\" placeholder=\"Description\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value=\"\">\n" +
+                "\t</td>\n" +
+                "\t<td>\n" +
+                "\t\t<button class=\"btn btn-danger\" type=\"button\" onclick=\"removeOffenceCode(event)\" name=\"removeOffenceCodeModel\" value=\"" + offenceCodes + "\">Remove Offence Code</button>\n" +
+                "\t</td>\n" +
+                "</tr>");
+
+            var newOffenceCodeInput = newOffenceCode.children("td:nth-child(2)").children("input");
+            newOffenceCodeInput.autocomplete(offenceCodeAutoComplete);
+            newOffenceCode.appendTo("#offence-codes-body");
+
+            offenceCodes++;
+
+            if(offenceCodes === 2){
+                var firstRowButtonColumn = $("#offence-codes-body").children("tr:nth-child(1)").children("td:nth-child(4)");
+                $("<button class=\"btn btn-danger\" type=\"button\" onclick=\"removeOffenceCode(event)\" name=\"removeOffenceCodeModel\" value=\"0\">Remove Offence Code</button>")
+                    .appendTo(firstRowButtonColumn);
+            }
+
+        }
+        
+        function removeOffenceCode(event) {
+            $(event.target).parent().parent().remove();
+            offenceCodes--;
+            console.log("offence Codes = " + offenceCodes);
+            console.log(event.target);
+            if(offenceCodes === 1){
+                var firstRowButtonColumn = $("#offence-codes-body").children("tr:nth-child(1)").children("td:nth-child(4)");
+                firstRowButtonColumn.children().remove();
+            }
         }
 
         $(document).ready(function(){
