@@ -1,3 +1,12 @@
+var this_js_script = $('script[src*=offence-form]');
+var next = this_js_script.attr('data-next');
+var submit = this_js_script.attr('data-submit');
+if (typeof next === "undefined" ) {
+    next = 'Next';
+}if (typeof submit === "undefined" ) {
+    submit = 'Submit';
+}
+
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
@@ -12,9 +21,9 @@ function showTab(n) {
         document.getElementById("prevBtn").style.display = "inline";
     }
     if (n === (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
+        document.getElementById("nextBtn").innerHTML = submit;
     } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("nextBtn").innerHTML = next;
     }
     //... and run a function that will display the correct step indicator:
     fixStepIndicator(n)
