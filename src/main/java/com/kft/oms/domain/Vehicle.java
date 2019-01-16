@@ -5,6 +5,7 @@ import com.kft.crud.domain.AbstractEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 @DiscriminatorColumn(name = "vehicle_type")
@@ -31,6 +32,9 @@ public class Vehicle extends AbstractEntity {
 
     @Column(unique = true, length = 30)
     private String libre;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VehicleOwnership> vehicleOwnershipList;
 
 
 

@@ -5,15 +5,19 @@ import com.kft.crud.domain.Organization;
 import com.kft.crud.domain.Person;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "VEHICLE_OWNERSHIP")
 public class VehicleOwnership extends AbstractEntity{
 
+    @NotEmpty
     @Column(unique = true, length = 30, nullable = false)
     private String libreNo;
 
+    @NotNull
     @ManyToOne(optional = false)
     private Vehicle vehicle;
 
@@ -36,6 +40,7 @@ public class VehicleOwnership extends AbstractEntity{
     /**
      * Shows which one of the properties (
      * */
+    @NotEmpty
     @Column(length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private OwnerType ownerType;
@@ -107,4 +112,5 @@ public class VehicleOwnership extends AbstractEntity{
     //then maybe update the libre of the vehicle or leave it to be edited at a later time by users when they add offence
     //actually better update it here to have data integrity and when the users update through the ui they will be creating
     //new instance of this class nad hence it must be updated here.
+    //or implement that in vehicle since vehicle is the parent
 }
