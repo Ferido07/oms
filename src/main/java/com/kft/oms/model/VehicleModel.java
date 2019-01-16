@@ -1,6 +1,7 @@
 package com.kft.oms.model;
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class VehicleModel {
 
@@ -30,12 +31,9 @@ public class VehicleModel {
 
     private AssociationModel associationModel;
 
-    @NotNull
-    private PersonModel owner;
+    @NotEmpty
+    private List<VehicleOwnershipModel> vehicleOwnershipModels;
 
-    private PersonModel owner2;
-
-    private PersonModel owner3;
 
 
     public Integer getId() {
@@ -122,27 +120,11 @@ public class VehicleModel {
         PUBLIC_TRANSPORT, CARGO_VEHICLE
     }
 
-    public PersonModel getOwner() {
-        return owner;
+    public List<VehicleOwnershipModel> getVehicleOwnershipModels() {
+        return vehicleOwnershipModels;
     }
 
-    public void setOwner(PersonModel owner) {
-        this.owner = owner;
-    }
-
-    public PersonModel getOwner2() {
-        return owner2;
-    }
-
-    public void setOwner2(PersonModel owner2) {
-        this.owner2 = owner2;
-    }
-
-    public PersonModel getOwner3() {
-        return owner3;
-    }
-
-    public void setOwner3(PersonModel owner3) {
-        this.owner3 = owner3;
+    public void setVehicleOwnershipModels(List<VehicleOwnershipModel> vehicleOwnershipModels) {
+        this.vehicleOwnershipModels = vehicleOwnershipModels;
     }
 }

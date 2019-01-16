@@ -39,9 +39,15 @@ public class Mapper extends ConfigurableMapper {
         factory.registerClassMap(factory.classMap(Association.class, AssociationModel.class)
                 .byDefault().toClassMap());
 
+        factory.registerClassMap(factory.classMap(VehicleOwnership.class, VehicleOwnershipModel.class)
+                .field("vehicle.id","vehicleModelId")
+                .field("personOwners","personModelOwners")
+                .byDefault().toClassMap());
+
         factory.registerClassMap(factory.classMap(Vehicle.class, VehicleModel.class)
                 .byDefault()
                 .field("association","associationModel")
+                .field("vehicleOwnerships","vehicleOwnershipModels")
                 .customize(new CustomMapper<Vehicle, VehicleModel>(){
                     @Override
                     public void mapAtoB(Vehicle vehicle, VehicleModel vehicleModel, MappingContext context) {

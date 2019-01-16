@@ -34,7 +34,7 @@ public class Vehicle extends AbstractEntity {
     private String libre;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VehicleOwnership> vehicleOwnershipList;
+    private List<VehicleOwnership> vehicleOwnerships;
 
 
 
@@ -84,5 +84,13 @@ public class Vehicle extends AbstractEntity {
 
     public void setLibre(String libre) {
         this.libre = libre;
+    }
+
+    public List<VehicleOwnership> getVehicleOwnerships() {
+        return vehicleOwnerships;
+    }
+
+    public void setVehicleOwnerships(List<VehicleOwnership> vehicleOwnerships) {
+        this.vehicleOwnerships = vehicleOwnerships;
     }
 }

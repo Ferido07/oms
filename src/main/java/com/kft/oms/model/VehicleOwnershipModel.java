@@ -5,8 +5,9 @@ import java.util.List;
 public class VehicleOwnershipModel {
     private Integer id;
     private String libreNo;
-    private VehicleModel vehicleModel;
+    private Integer vehicleModelId;
     private List<PersonModel> personModelOwners;
+    private int status;
 
 
     public Integer getId() {
@@ -25,12 +26,12 @@ public class VehicleOwnershipModel {
         this.libreNo = libreNo;
     }
 
-    public VehicleModel getVehicleModel() {
-        return vehicleModel;
+    public Integer getVehicleModelId() {
+        return vehicleModelId;
     }
 
-    public void setVehicleModel(VehicleModel vehicleModel) {
-        this.vehicleModel = vehicleModel;
+    public void setVehicleModelId(Integer vehicleModelId) {
+        this.vehicleModelId = vehicleModelId;
     }
 
     public List<PersonModel> getPersonModelOwners() {
@@ -39,5 +40,13 @@ public class VehicleOwnershipModel {
 
     public void setPersonModelOwners(List<PersonModel> personModelOwners) {
         this.personModelOwners = personModelOwners;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
