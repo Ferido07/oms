@@ -143,7 +143,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
             //todo: execute the code below only if vehicle is new
             //add the vehicle to each vehicleOwner so that the relation between them is persisted since
             //vehicleOwner is the owner of the relationship
-            offence.getVehicle().getOwners().forEach(
+/*            offence.getVehicle().getOwners().forEach(
                     vehicleOwner -> {
                         if(vehicleOwner.getVehicles() != null)
                             vehicleOwner.getVehicles().add(offence.getVehicle());
@@ -153,7 +153,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
                             vehicleOwner.setVehicles(vehicles);
                         }
                     }
-            );
+            );*/
         }
         switch(determineOffender(offence)){
             case DRIVER: offence.setOffender(offence.getDriver()); break;

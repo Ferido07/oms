@@ -41,9 +41,6 @@ public class Mapper extends ConfigurableMapper {
 
         factory.registerClassMap(factory.classMap(Vehicle.class, VehicleModel.class)
                 .byDefault()
-                .fieldMap("owners[0]", "owner").mapNulls(false).mapNullsInReverse(false).add()
-                .fieldMap("owners[1]", "owner2").mapNulls(false).mapNullsInReverse(false).add()
-                .fieldMap("owners[2]", "owner3").mapNulls(false).mapNullsInReverse(false).add()
                 .field("association","associationModel")
                 .customize(new CustomMapper<Vehicle, VehicleModel>(){
                     @Override

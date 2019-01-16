@@ -5,7 +5,6 @@ import com.kft.crud.domain.AbstractEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 
 @Entity
 @DiscriminatorColumn(name = "vehicle_type")
@@ -24,16 +23,13 @@ public class Vehicle extends AbstractEntity {
     @Column(unique = true, length = 10)
     private String sideNo;
 
-    @ManyToMany(mappedBy = "vehicles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<VehicleOwner> owners;
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Association association;
 
     //TODO: Add constraint for bolo and libre
     private String bolo;
 
-    @Column(unique = true, length = 20)
+    @Column(unique = true, length = 30)
     private String libre;
 
 
@@ -60,14 +56,6 @@ public class Vehicle extends AbstractEntity {
 
     public void setSideNo(String sideNo) {
         this.sideNo = sideNo;
-    }
-
-    public List<VehicleOwner> getOwners() {
-        return owners;
-    }
-
-    public void setOwners(List<VehicleOwner> owners) {
-        this.owners = owners;
     }
 
     public Association getAssociation() {

@@ -33,28 +33,30 @@ public class MapperTest {
     public static void setup(){
         String plateNo = "3-34567-AA";
 
-        List<VehicleOwner> vehicleOwners = new ArrayList<>();
+/*
+        Just keeping these in case needed to test Person mapping
+        List<Person> vehicleOwners = new ArrayList<>();
 
-        VehicleOwner vehicleOwner1 = new VehicleOwner();
+        Person vehicleOwner1 = new Person();
         vehicleOwner1.setId(6);
         vehicleOwner1.setFirstName("vehicleOwner1 firstName");
         vehicleOwner1.setMiddleName("vehicleOwner1 middleName");
         vehicleOwner1.setLastName("vehicleOwner1 lastName");
         vehicleOwners.add(vehicleOwner1);
 
-        VehicleOwner vehicleOwner2 = new VehicleOwner();
+        Person vehicleOwner2 = new Person();
         vehicleOwner2.setId(7);
         vehicleOwner2.setFirstName("vehicleOwner2 firstName");
         vehicleOwner2.setMiddleName("vehicleOwner2 middleName");
         vehicleOwner2.setLastName("vehicleOwner2 lastName");
         vehicleOwners.add(vehicleOwner2);
 
-        VehicleOwner vehicleOwner3 = new VehicleOwner();
+        Person vehicleOwner3 = new Person();
         vehicleOwner3.setId(8);
         vehicleOwner3.setFirstName("vehicleOwner3 firstName");
         vehicleOwner3.setMiddleName("vehicleOwner3 middleName");
         vehicleOwner3.setLastName("vehicleOwner3 lastName");
-        vehicleOwners.add(vehicleOwner3);
+        vehicleOwners.add(vehicleOwner3);*/
 
 
 
@@ -66,7 +68,7 @@ public class MapperTest {
         publicTransport.setSideNo("34");
         publicTransport.setSeatingCapacity(60);
         publicTransport.setPlateNo(plateNo);
-        publicTransport.setOwners(vehicleOwners);
+        //publicTransport.setOwners(vehicleOwners);
 
 
         cargoVehicle = new CargoVehicle();
@@ -92,14 +94,14 @@ public class MapperTest {
         ownerModel.setFirstName("OwnerModel firstName");
         ownerModel.setMiddleName("OwnerModel middleName");
         ownerModel.setLastName("OwnerModel lastName");
-        vehicleModel.setOwner(ownerModel);
+        //vehicleModel.setOwner(ownerModel);
 
         PersonModel owner2Model = new PersonModel();
         owner2Model.setId(10);
         owner2Model.setFirstName("Owner2Model firstName");
         owner2Model.setMiddleName("Owner2Model middleName");
         owner2Model.setLastName("Owner2Model lastName");
-        vehicleModel.setOwner2(owner2Model);
+        //vehicleModel.setOwner2(owner2Model);
     }
 
     @Test
@@ -114,10 +116,6 @@ public class MapperTest {
         assertEquals(publicTransport.getSeatingCapacity(), publicTransportModel.getSeatingCapacity());
         assertEquals(VehicleModel.VehicleInstanceType.PUBLIC_TRANSPORT, publicTransportModel.getVehicleInstanceType());
         assertEquals(publicTransport.getPlateNo(), publicTransportModel.getPlateNo());
-
-        assertEquals(publicTransport.getOwners().get(0).getFirstName(), publicTransportModel.getOwner().getFirstName());
-        assertEquals(publicTransport.getOwners().get(1).getFirstName(), publicTransportModel.getOwner2().getFirstName());
-        assertEquals(publicTransport.getOwners().get(2).getFirstName(), publicTransportModel.getOwner3().getFirstName());
     }
 
     @Test
@@ -175,12 +173,6 @@ public class MapperTest {
         assertEquals(vehicleModel.getType(), vehicle.getType());
         assertEquals(vehicleModel.getSideNo(), vehicle.getSideNo());
         assertEquals(vehicleModel.getPlateNo(), vehicle.getPlateNo());
-
-        assertEquals(vehicleModel.getOwner().getFirstName(), vehicle.getOwners().get(0).getFirstName());
-        assertEquals(vehicleModel.getOwner().getLastName(), vehicle.getOwners().get(0).getLastName());
-
-        assertEquals(vehicleModel.getOwner2().getFirstName(), vehicle.getOwners().get(1).getFirstName());
-        assertEquals(vehicleModel.getOwner2().getLastName(), vehicle.getOwners().get(1).getLastName());
     }
 
     @Test
@@ -198,14 +190,6 @@ public class MapperTest {
         assertEquals(personModel.getFirstName(), person.getFirstName());
         assertEquals(personModel.getMiddleName(), person.getMiddleName());
         assertEquals(personModel.getLastName(), person.getLastName());
-
-        Person vehicleOwner = mapper.map(personModel, VehicleOwner.class);
-
-        assertEquals(vehicleOwner.getId(), personModel.getId());
-        assertEquals(vehicleOwner.getFirstName(), personModel.getFirstName());
-        assertEquals(vehicleOwner.getMiddleName(), personModel.getMiddleName());
-        assertEquals(vehicleOwner.getLastName(), personModel.getLastName());
-
 
         /*Orika is weird it doesn't even create error when mapping the following it just copies
         the id since it is in both classes while there is no configuration defined for personModel
