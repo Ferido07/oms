@@ -21,7 +21,7 @@ public class VehicleOwnership extends AbstractEntity{
     @ManyToOne(optional = false)
     private Vehicle vehicle;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<Person> personOwners;
 
     @ManyToMany
@@ -40,13 +40,14 @@ public class VehicleOwnership extends AbstractEntity{
     /**
      * Shows which one of the properties (
      * */
-    @NotEmpty
+    @NotNull
     @Column(length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private OwnerType ownerType;
 
 
     public VehicleOwnership() {
+        this.ownerType = OwnerType.PERSON;
     }
 
     public VehicleOwnership(String libreNo, Vehicle vehicle, OwnerType ownerType) {

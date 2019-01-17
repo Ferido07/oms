@@ -64,20 +64,24 @@
                     <!--Vehicle Owner Detail-->
                     <div>
                         <span th:text="#{vehicle.owner}">Vehicle Owner</span>
-                        <!--<div th:if="${#lists.size(vehicleModel.owners) == 1 }">-->
-                        <input type="hidden" th:field="*{vehicleModel.owner.id}">
-                        <div class="form-group">
-                            <label for="vo-fName" class="control-label" th:text="#{first.name}">First Name</label>
-                            <input id="vo-fName" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{vehicleModel.owner.firstName}">
-                        </div>
-                        <div class="form-group">
-                            <label for="vo-mName" class="control-label" th:text="#{middle.name}">Middle Name</label>
-                            <input id="vo-mName" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{vehicleModel.owner.middleName}">
-                        </div>
-                        <div class="form-group">
-                            <label for="vo-lName" class="control-label" th:text="#{last.name}">Last Name</label>
-                            <input id="vo-lName" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{vehicleModel.owner.lastName}">
-                        </div>
+                        <!--<div th:if="${#lists.size([__*{vehicleModel.vehicleOwnershipModels}__]) == 0 }">-->
+                            <input type="hidden" th:field="*{vehicleModel.vehicleOwnershipModels[0].id}">
+                            <div class="form-group">
+                                <label for="vo-libreNo" class="control-label" th:text="#{libre.No}">Libre No</label>
+                                <input id="vo-libreNo" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{vehicleModel.vehicleOwnershipModels[0].libreNo}">
+                            </div>
+                            <div class="form-group">
+                                <label for="vo-fName" class="control-label" th:text="#{first.name}">First Name</label>
+                                <input id="vo-fName" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}">
+                            </div>
+                            <div class="form-group">
+                                <label for="vo-mName" class="control-label" th:text="#{middle.name}">Middle Name</label>
+                                <input id="vo-mName" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}">
+                            </div>
+                            <div class="form-group">
+                                <label for="vo-lName" class="control-label" th:text="#{last.name}">Last Name</label>
+                                <input id="vo-lName" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}">
+                            </div>
                         <!--</div>-->
                     </div>
 

@@ -72,6 +72,9 @@ public class Mapper extends ConfigurableMapper {
                         }else if(vehicleModel.getVehicleInstanceType() == VehicleModel.VehicleInstanceType.CARGO_VEHICLE){
                             ((CargoVehicle)vehicle).setLoadInQuintals(vehicleModel.getLoadInQuintals());
                         }*/
+                        vehicle.getVehicleOwnerships().forEach(vehicleOwnership -> {
+                            vehicleOwnership.setVehicle(vehicle);
+                        });
                     }
                 })
                 .toClassMap());
