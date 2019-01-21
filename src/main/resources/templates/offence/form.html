@@ -286,20 +286,33 @@
                 });
         }
 
-        function populateVehicleInput(data){
-            $( "#vehicle-id" ).val( data["id"] );
-            $( "#vehicle-type" ).val( data["type"] );
-            $( "#vehicle-plate-no" ).val( data["plateNo"] );
-            $( "#vo-fName" ).val( data["owner"]["firstName"] );
-            $( "#vo-mName" ).val( data["owner"]["middleName"] );
-            $( "#vo-lName" ).val( data["owner"]["lastName"] );
-            $( "#vehicle-association-id" ).val( data["associationModel"]["id"] );
-            $( "#vehicle-association-name" ).val( data["associationModel"]["name"] );
-            $( "#vehicle-side-no" ).val( data["sideNo"] );
+        function populateVehicleInput(vehicle){
+            if(vehicle !== null) {
+                $("#vehicle-id").val(vehicle["id"]);
+                $("#vehicle-type").val(vehicle["type"]).attr("readonly", "readonly");
+                $("#vehicle-plate-no").val(vehicle["plateNo"]);
+                $("#vo-libreNo").val(vehicle["vehicleOwnershipModels"][0]["libreNo"]).attr("readonly", "readonly");
+                $("#vo-fName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["firstName"]).attr("readonly", "readonly");
+                $("#vo-mName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["middleName"]).attr("readonly", "readonly");
+                $("#vo-lName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["lastName"]).attr("readonly", "readonly");
+                //$("#vehicle-association-id").val(vehicle["associationModel"]["id"]);
+                $("#vehicle-association-name").val(vehicle["associationModel"]["name"]).attr("readonly", "readonly");
+                $("#vehicle-side-no").val(vehicle["sideNo"]).attr("readonly", "readonly");
+            }
+            else{
+                $("#vehicle-id").val("");
+                $("#vehicle-type").val("").removeAttr("readonly");
+                $("#vo-libreNo").val("").removeAttr("readonly");
+                $("#vo-fName").val("").removeAttr("readonly");
+                $("#vo-mName").val("").removeAttr("readonly");
+                $("#vo-lName").val("").removeAttr("readonly");
+                //$("#vehicle-association-id").val(");
+                $("#vehicle-association-name").val("").removeAttr("readonly");
+                $("#vehicle-side-no").val("").removeAttr("readonly");
+            }
         }
 
-        function getVehicleByPlateNo(event, ui) {
-            var plateNo = ui.item.value;
+        function getVehicleByPlateNo(plateNo) {
             $.getJSON(
                 "/oms/vehicle/plate/" + plateNo,
                 function (data) {
@@ -308,10 +321,19 @@
             )
         }
 
+        function vehiclePlateNoInputChanged(event, ui){
+            var plateNo = $("#vehicle-plate-no").val();
+            if(ui.item === null)
+                getVehicleByPlateNo(plateNo);
+        }
+
         $("#vehicle-plate-no").autocomplete({
             source :  getVehiclesByPlateNo,
             minLength :3,
-            select : getVehicleByPlateNo
+            select : function (event, ui) {
+                        getVehicleByPlateNo(ui.item.value);
+                     },
+            change : vehiclePlateNoInputChanged
         });
 
         function getDriversByLicenseNo(request, response) {
@@ -333,9 +355,9 @@
             }
             else{
                 $("#driver-id").val("");
-                $("#driver-fn").removeAttr("readonly");
-                $("#driver-mn").removeAttr("readonly");
-                $("#driver-ln").removeAttr("readonly");
+                $("#driver-fn").val("").removeAttr("readonly");
+                $("#driver-mn").val("").removeAttr("readonly");
+                $("#driver-ln").val("").removeAttr("readonly");
                 $("#driver-license-type").removeAttr("readonly");
             }
         }
