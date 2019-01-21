@@ -1,5 +1,6 @@
 package com.kft.oms.model;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class VehicleModel {
 
     @NotBlank
     //@Size(min=9, max=11)
-    @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[aA-zZ]{2}")//matches codes like 1-A67876-eT
+    @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[A-Z]{2}")//matches codes like 1-A67876-ET
     private String plateNo;
 
     @Size(max = 10)
@@ -31,6 +32,7 @@ public class VehicleModel {
 
     private AssociationModel associationModel;
 
+    @Valid
     @NotEmpty
     private List<VehicleOwnershipModel> vehicleOwnershipModels;
 

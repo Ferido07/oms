@@ -16,7 +16,7 @@ public class Vehicle extends AbstractEntity {
 
     @NotBlank
     @Column(unique = true, nullable = false, length = 14)
-    @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[aA-zZ]{2}")
+    @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[A-Z]{2}")
     private String plateNo;
 
     //Done: check uniqueness and add if necessary

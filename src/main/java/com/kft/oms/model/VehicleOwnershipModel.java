@@ -1,11 +1,16 @@
 package com.kft.oms.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 public class VehicleOwnershipModel {
     private Integer id;
+    @NotEmpty
     private String libreNo;
     private Integer vehicleModelId;
+    @Valid
+    @NotEmpty
     private List<PersonModel> personModelOwners;
     private int status;
 
