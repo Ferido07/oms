@@ -27,7 +27,7 @@ public class Vehicle extends AbstractEntity {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Association association;
 
-    //TODO: Add constraint for bolo and libre
+    //TODO: Add constraint for bolo
     private String bolo;
 
     @Column(unique = true, length = 30)

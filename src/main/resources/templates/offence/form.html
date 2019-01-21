@@ -38,6 +38,19 @@
                 <div class="tab">
                     <span th:text="#{vehicle.detail}">Vehicle Detail</span>
                     <input type="hidden" id="vehicle-id" th:field="*{vehicleModel.id}">
+
+                    <!--Vehicle Plate-->
+                        <!--Country-->
+                        <!--Region-->
+                        <!--Code-->
+                        <!--Plate No-->
+                    <div class="form-group ui-widget">
+                        <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
+                        <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}">
+                    </div>
+                    <p th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:errors="*{vehicleModel.plateNo}">Plate No Error</p>
+                    <!--/*Todo: Fix plate no pattern validation error message*/-->
+
                     <!--Vehicle Type-->
                     <div class="form-group">
                         <label for="vehicle-type" class="control-label" th:text="#{vehicle.type}">Vehicle Type</label>
@@ -46,20 +59,6 @@
 
                     <!--Vehicle Instance Type (Using Radio Buttons)-->
                         <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
-
-                    <!--Vehicle Plate-->
-                        <!--Country-->
-                        <!--Region-->
-                        <!--Code-->
-                        <!--Plate No-->
-
-                    <div class="form-group ui-widget">
-                        <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
-                        <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}">
-                    </div>
-
-                    <p th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:errors="*{vehicleModel.plateNo}">Plate No Error</p>
-                    <!--/*Todo: Fix plate no pattern validation error message*/-->
 
                     <!--Vehicle Owner Detail-->
                     <div>
@@ -120,6 +119,25 @@
                 <div class="tab">
                     <span th:text="#{driver.detail}">Driver Detail</span>
                     <input id="driver-id" type="hidden" th:field="*{driverModel.id}">
+
+                    <!--Driver's License No and Type-->
+                    <div class="form-group">
+                        <label for="driver-license-no" th:text="#{license.no}">License No</label>
+                        <input id="driver-license-no" class="form-control" th:type="number" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driverModel.licenseNo}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                    </div>
+                    <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
+                    <div class="form-group">
+                        <label for="driver-license-type" th:text="#{license.type}">License Type</label>
+                        <select id="driver-license-type" class="form-control" th:field="*{driverModel.licenseType}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                            <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
+                            <option th:each="licenseType : ${T(com.kft.oms.constants.LicenseType).values()}"
+                                    th:value="${licenseType.name()}"
+                                    th:text="${licenseType.name()}">
+                                License Type
+                            </option>
+                        </select>
+                    </div>
+
                     <!--Driver's Name-->
                     <div class="form-group">
                         <label for="driver-fn" th:text="#{first.name}">First Name</label>
@@ -138,23 +156,6 @@
                     </div>
                     <p th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</p>
 
-                    <!--Driver's License No and Type-->
-                    <div class="form-group">
-                        <label for="driver-license-no" th:text="#{license.no}">License No</label>
-                        <input id="driver-license-no" class="form-control" th:type="number" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driverModel.licenseNo}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
-                    </div>
-                    <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
-                    <div class="form-group">
-                        <label for="driver-license-type" th:text="#{license.type}">License Type</label>
-                        <select id="driver-license-type" class="form-control" th:field="*{driverModel.licenseType}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
-                            <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
-                            <option th:each="licenseType : ${T(com.kft.oms.constants.LicenseType).values()}"
-                                    th:value="${licenseType.name()}"
-                                    th:text="${licenseType.name()}">
-                                val
-                            </option>
-                        </select>
-                    </div>
                 </div>
 
                 <!--OffenceModel Detail-->
@@ -205,8 +206,6 @@
                         </thead>
                         <tbody id="offence-codes-body">
                         <tr th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
-                             <!--done: get full code and description to be retained after each visit to server including when adding code and when editing  -->
-                             <!--todo: pressing enter after typing full code but not after selection causes for to be submitted to add offence code fix it-->
                             <td>
                                 <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
                                 <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].sectionHeaderLabel}">
