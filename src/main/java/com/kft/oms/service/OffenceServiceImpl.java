@@ -11,6 +11,7 @@ import com.kft.oms.domain.Vehicle;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.repository.DriverRepository;
 import com.kft.oms.repository.OffenceRepository;
+import com.kft.oms.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -22,12 +23,14 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
 
     private final Mapper mapper;
     private final DriverRepository driverRepository;
+    private final VehicleRepository vehicleRepository;
 
     @Autowired
-    public OffenceServiceImpl(OffenceRepository repository, Mapper mapper, DriverRepository driverRepository) {
+    public OffenceServiceImpl(OffenceRepository repository, Mapper mapper, DriverRepository driverRepository, VehicleRepository vehicleRepository) {
         super(repository);
         this.mapper = mapper;
         this.driverRepository = driverRepository;
+        this.vehicleRepository = vehicleRepository;
     }
 
     /**
@@ -95,7 +98,79 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
 
         Offence offence;
         Driver driver;
+        Vehicle vehicle;
 
+        //check if item exists
+        if(offenceModel.getId() != null){
+            //check if the item exists
+            Optional<Offence> offenceOptional = repository.findById(offenceModel.getId());
+
+            //item exists and update is made to the same object
+            if(offenceOptional.isPresent()) {
+                offence = offenceOptional.get();
+                //Note: on handling related entities in offence
+                //copy everything from Model to domain but the whole system of persisting offence
+                //counts on the mapper not mapping the driverModel to driver so that this part doesn't
+                //overwrite data retrieved from database
+                //even though driver and vehicle are retrieved separately before retrieving offence
+                //when the offence is retrieved hibernate knows that it has the driver and vehicle so it
+                //doesn't issue another select and just returns the pointer of the previous values and
+                //hence mapping driverModel and vehicleModel in OffenceModel to driver and vehicle in
+                //Offence overwrites the values in offence leading to StaleObjectStateException error
+                //and also they are not supposed to be updated when updating offence.
+                //the same applies to any additional relations added in future.
+                mapper.map(offenceModel, offence);
+            }
+            else
+                throw new RuntimeException("No offence with the given Id exists. Id : " + offenceModel.getId());
+        }else{
+            //else object is new so create a new offence object
+            offence = mapper.map(offenceModel, Offence.class);
+            driver = getDriver(offenceModel);
+            vehicle = getVehicle(offenceModel);
+            //set the driver and vehicle resolved above
+            offence.setDriver(driver);
+            offence.setVehicle(vehicle);
+        }
+
+        switch(determineOffender(offence)){
+            case DRIVER: offence.setOffender(offence.getDriver()); break;
+            case VEHICLE_OWNER: //cannot get from vehicle cuz which owner is accused is not known
+                //offence.setOffender(null);break;
+            case PERSON:
+            case ASSOCIATION:
+            case ORGANIZATION:
+                throw new UnsupportedOperationException("Not yet implemented");
+            default: throw new RuntimeException("Cannot determine offender: Offence Codes don't have same sectionHeaderLabel and OffenderType");
+        }
+
+        Offence savedOffence = repository.save(offence);
+        //done: add a check if any of the entities that have associations with offence change id. the associations cannot change id.
+        //hibernate automatically checks if associations change id so it will throw error if the association of related entities change.
+        return mapper.map(savedOffence, OffenceModel.class);
+    }
+
+    private Vehicle getVehicle(OffenceModel offenceModel) {
+        Vehicle vehicle;//check if Vehicle exists
+        if(offenceModel.getVehicleModel().getId() != null){
+            Integer vehicleId = offenceModel.getVehicleModel().getId();
+            Optional<Vehicle> vehicleOptional = vehicleRepository.findById(vehicleId);
+            if(vehicleOptional.isPresent()){
+                vehicle = vehicleOptional.get();
+            }
+            else{
+                throw new RuntimeException("Vehicle with Id of " + vehicleId + "does not exist");
+            }
+        }
+        else{
+            Optional<Vehicle> vehicleOptional = vehicleRepository.findByPlateNo(offenceModel.getVehicleModel().getPlateNo());
+            vehicle = vehicleOptional.orElseGet(() -> mapper.map(offenceModel.getVehicleModel(), Vehicle.class));
+        }
+        return vehicle;
+    }
+
+    private Driver getDriver(OffenceModel offenceModel) {
+        Driver driver;
         /* check if driver exists or not using id or licenseNo depending on which is set
                 if exists then set the driver to the one found
                 else set the driver to new one from model
@@ -117,58 +192,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
             //if driver is present then return that to driver else assign driver the result of the map from driverModel
             driver = driverOptional.orElseGet(() -> mapper.map(offenceModel.getDriverModel(), Driver.class));
         }
-
-        //check if item is new
-        if(offenceModel.getId() != null){
-            //check if the item exists
-            Optional<Offence> offenceOptional = repository.findById(offenceModel.getId());
-
-            //item exists and update is made to the same object
-            if(offenceOptional.isPresent()) {
-                offence = offenceOptional.get();
-                //copy everything from Model to domain but the whole system of persisting offence
-                //counts on the mapper not mapping the driverModel to driver so that this part doesn't
-                //overwrite data retrieved from database
-                mapper.map(offenceModel, offence);
-            }
-            else
-                throw new RuntimeException("No offence with the given Id exists. Id : " + offenceModel.getId());
-        }else{
-            //else object is new so create a new offence object
-            offence = mapper.map(offenceModel, Offence.class);
-
-            //set the driver resolved above
-            offence.setDriver(driver);
-
-            //todo: execute the code below only if vehicle is new
-            //add the vehicle to each vehicleOwner so that the relation between them is persisted since
-            //vehicleOwner is the owner of the relationship
-/*            offence.getVehicle().getOwners().forEach(
-                    vehicleOwner -> {
-                        if(vehicleOwner.getVehicles() != null)
-                            vehicleOwner.getVehicles().add(offence.getVehicle());
-                        else{
-                            List<Vehicle> vehicles = new ArrayList<>();
-                            vehicles.add(offence.getVehicle());
-                            vehicleOwner.setVehicles(vehicles);
-                        }
-                    }
-            );*/
-        }
-        switch(determineOffender(offence)){
-            case DRIVER: offence.setOffender(offence.getDriver()); break;
-            case VEHICLE_OWNER: //cannot get from vehicle cuz which owner is accused is not known
-                //offence.setOffender(null);break;
-            case PERSON:
-            case ASSOCIATION:
-            case ORGANIZATION:
-                throw new UnsupportedOperationException("Not yet implemented");
-            default: throw new RuntimeException("Cannot determine offender: Offence Codes don't have same sectionHeaderLabel and OffenderType");
-        }
-
-        Offence savedOffence = repository.save(offence);
-        //todo add a check if any of the entities that have associations with offence change id. the associations cannot change id.
-        return mapper.map(savedOffence, OffenceModel.class);
+        return driver;
     }
 
     @Override

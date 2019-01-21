@@ -18,10 +18,9 @@ public class Mapper extends ConfigurableMapper {
 
         factory.registerClassMap(factory.classMap(Offence.class, OffenceModel.class)
                // .field("offender","")
-                // driverModel should not be mapped to driver only mapped explicitly when needed or if always mapped then
-                // overwrite the mapped value when needed but that just adds more execution code
+                // driverModel should not be mapped to driver only mapped explicitly when needed same for vehicle
                 .fieldAToB("driver","driverModel")
-                .field("vehicle", "vehicleModel")
+                .fieldAToB("vehicle", "vehicleModel")
                 .field("offenceCodes", "offenceCodeModels")
                 .byDefault().toClassMap());
 
@@ -72,9 +71,7 @@ public class Mapper extends ConfigurableMapper {
                         }else if(vehicleModel.getVehicleInstanceType() == VehicleModel.VehicleInstanceType.CARGO_VEHICLE){
                             ((CargoVehicle)vehicle).setLoadInQuintals(vehicleModel.getLoadInQuintals());
                         }*/
-                        vehicle.getVehicleOwnerships().forEach(vehicleOwnership -> {
-                            vehicleOwnership.setVehicle(vehicle);
-                        });
+                        vehicle.getVehicleOwnerships().forEach(vehicleOwnership -> vehicleOwnership.setVehicle(vehicle));
                     }
                 })
                 .toClassMap());
