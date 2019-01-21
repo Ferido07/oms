@@ -138,7 +138,7 @@ public class MapperTest {
         vehicleModel.setSeatingCapacity(null);
         vehicleModel.setLoadInQuintals(null);
     }
-
+/* Removed because the mapping function from model to domain has been removed.
     @Test
     public void testVehicleModelToPublicTransportMapping(){
         vehicleModel.setVehicleInstanceType(VehicleModel.VehicleInstanceType.PUBLIC_TRANSPORT);
@@ -174,7 +174,7 @@ public class MapperTest {
         assertEquals(vehicleModel.getSideNo(), vehicle.getSideNo());
         assertEquals(vehicleModel.getPlateNo(), vehicle.getPlateNo());
     }
-
+*/
     @Test
     public void testPersonMapping(){
         Person person = new Person();

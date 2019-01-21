@@ -76,13 +76,6 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         return offenceCodeToRepetitionMap;
     }
 
-    @Override
-    public Offence save(Offence offence) {
-        //calculate or recalculate penalty amount whenever an offence is created or updated
-        //offence.setPenaltyAmount(calculatePenaltyAmount(offence));
-        return super.save(offence);
-    }
-
     public List<OffenceModel> getAllAsOffenceModel(){
         List<Offence> offenceList = repository.findAll();
         return mapper.mapAsList(offenceList, OffenceModel.class);
@@ -97,8 +90,6 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
     public OffenceModel save(OffenceModel offenceModel) {
 
         Offence offence;
-        Driver driver;
-        Vehicle vehicle;
 
         //check if item exists
         if(offenceModel.getId() != null){
@@ -126,11 +117,9 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         }else{
             //else object is new so create a new offence object
             offence = mapper.map(offenceModel, Offence.class);
-            driver = getDriver(offenceModel);
-            vehicle = getVehicle(offenceModel);
-            //set the driver and vehicle resolved above
-            offence.setDriver(driver);
-            offence.setVehicle(vehicle);
+            //set the driver and vehicle resolved by helper methods
+            offence.setDriver(getDriver(offenceModel));
+            offence.setVehicle(getVehicle(offenceModel));
         }
 
         switch(determineOffender(offence)){
@@ -143,6 +132,13 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
                 throw new UnsupportedOperationException("Not yet implemented");
             default: throw new RuntimeException("Cannot determine offender: Offence Codes don't have same sectionHeaderLabel and OffenderType");
         }
+
+        //check if offender is already registered if not save offence so that offender gets saved otherwise transientObjectException will be thrown
+        if(offence.getOffender().getId() == null)
+            offence = repository.save(offence);
+
+        //calculate the penalty amount before create or update
+        offence.setPenaltyAmount(calculatePenaltyAmount(offence));
 
         Offence savedOffence = repository.save(offence);
         //done: add a check if any of the entities that have associations with offence change id. the associations cannot change id.
