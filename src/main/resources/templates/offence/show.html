@@ -220,18 +220,27 @@
                 </div>
                 <!-- Circles which indicates the steps of the form: -->
                 <div style="text-align:center;margin-top:40px;">
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
+                    <span class="step" data-step="0"></span>
+                    <span class="step" data-step="1"></span>
+                    <span class="step" data-step="2"></span>
+                    <span class="step" data-step="3"></span>
+                    <span class="step" data-step="4"></span>
+                    <span class="step" data-step="5"></span>
                 </div>
             </div>
     </div>
 
-    <script src="../../static/js/offence-form.js"
-            th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-show="true" th:data-done="#{done}"></script>
+    <script src="../../static/js/offence-show.js"
+            th:src="@{/js/offence-show.js}" th:data-next="#{next}" th:data-done="#{done}"></script>
+
+    <script>
+        $("span.step").on("click", function () {
+            $(".tab").css("display", "none");
+            var step = $(this).attr('data-step');
+           // console.log(step);
+            showTab(step);
+        });
+    </script>
 
 </body>
 </html>
