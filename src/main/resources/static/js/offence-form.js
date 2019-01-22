@@ -1,11 +1,19 @@
 var this_js_script = $('script[src*=offence-form]');
 var next = this_js_script.attr('data-next');
 var submit = this_js_script.attr('data-submit');
-if (typeof next === "undefined" ) {
+var show = this_js_script.attr('data-show');
+var done = this_js_script.attr('data-done');
+
+if (typeof next === "undefined" )
     next = 'Next';
-}if (typeof submit === "undefined" ) {
+if (typeof submit === "undefined" )
     submit = 'Submit';
-}
+if (typeof show === "undefined")
+    show = false;
+if (typeof  done === "undefined")
+    done = 'Done';
+
+var toListLink = "<a href='../offence'>" + done + "</a>"
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -21,7 +29,10 @@ function showTab(n) {
         document.getElementById("prevBtn").style.display = "inline";
     }
     if (n === (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = submit;
+        if(show){
+           document.getElementById("nextBtn").innerHTML = toListLink;
+        } else
+            document.getElementById("nextBtn").innerHTML = submit;
     } else {
         document.getElementById("nextBtn").innerHTML = next;
     }
@@ -40,9 +51,11 @@ function nextPrev(n) {
     currentTab = currentTab + n;
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
-        // ... the form gets submitted:
-        document.getElementById("regForm").submit();
-        return false;
+        if(show !== true) {
+            // ... the form gets submitted:
+            document.getElementById("regForm").submit();
+            return false;
+        }
     }
     // Otherwise, display the correct tab:
     showTab(currentTab);

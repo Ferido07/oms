@@ -7,49 +7,231 @@
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
 
+    <!--<script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"-->
+          <!--th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>-->
+
     <script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1-1/jquery.min.js"
             th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}" ></script>
+
+    <link href="../../static/css/offence-form.css"
+          th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
+
 </head>
 <body>
-<!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>Offence Details</h2>
-        </div>
+    <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
+    <div class="container">
+        <h2 th:text="#{offence.details}">Offence Details</h2>
+        <div th:object="${offenceModel}">
+
+                <!--Vehicle Detail-->
+                <div class="tab">
+                    <span th:text="#{vehicle.detail}">Vehicle Detail</span>
+
+                    <!--Vehicle Plate-->
+                    <div class="form-group ui-widget">
+                        <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
+                        <p id="vehicle-plate-no" class="form-control" th:text="*{vehicleModel.plateNo}">
+                    </div>
+
+                    <!--Vehicle Type-->
+                    <div class="form-group">
+                        <label for="vehicle-type" class="control-label" th:text="#{vehicle.type}">Vehicle Type</label>
+                        <p id="vehicle-type" class="form-control" th:text="*{vehicleModel.type}">
+                    </div>
+
+                    <!--Vehicle Instance Type-->
+                    <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
+
+                    <!--Vehicle Owner Detail-->
+                    <div>
+                        <span th:text="#{vehicle.owner}">Vehicle Owner</span>
+                        <!--<div th:if="${#lists.size([__*{vehicleModel.vehicleOwnershipModels}__]) == 0 }">-->
+                        <div class="form-group">
+                            <label for="vo-libreNo" class="control-label" th:text="#{libre.No}">Libre No</label>
+                            <p id="vo-libreNo" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].libreNo}">
+                        </div>
+                        <div class="form-group">
+                            <label for="vo-fName" class="control-label" th:text="#{first.name}">First Name</label>
+                            <p id="vo-fName" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="vo-mName" class="control-label" th:text="#{middle.name}">Middle Name</label>
+                            <p id="vo-mName" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="vo-lName" class="control-label" th:text="#{last.name}">Last Name</label>
+                            <p id="vo-lName" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}">
+                        </div>
+                        <!--</div>-->
+                    </div>
+
+                    <!--Association Detail-->
+                    <div>
+                        <div class="form-group">
+                            <label for="vehicle-association-name" class="control-label" th:text="#{association.name}">Association Name</label>
+                            <p id="vehicle-association-name" class="form-control" th:text="*{vehicleModel.associationModel.name}">
+                        </div>
+                    </div>
+
+                    <!--Side No-->
+                    <div class="form-group">
+                        <label for="vehicle-side-no" class="control-label" th:text="#{side.no}">Side No</label>
+                        <p id="vehicle-side-no" class="form-control" th:text="*{vehicleModel.sideNo}">
+                    </div>
+                </div>
+
+                <!--Dispatch Detail-->
+                <div class="tab">
+                    <span th:text="#{dispatch.detail}">Dispatch Detail</span>
+                    <!--Dispatch No-->
+                    <div class="form-group">
+                        <label for="dispatch-number" class="control-label" th:text="#{dispatch.no}">Dispatch Number</label>
+                        <p id="dispatch-number" class="form-control" th:text="*{dispatchNo}">
+                    </div>
+
+                    <!--Tariff which is no included in domain-->
+
+                    <!--Route Start and End-->
+
+                </div>
+
+                <!--Driver's Detail-->
+                <div class="tab">
+                    <span th:text="#{driver.detail}">Driver Detail</span>
+
+                    <!--Driver's License No and Type-->
+                    <div class="form-group">
+                        <label for="driver-license-no" th:text="#{license.no}">License No</label>
+                        <p id="driver-license-no" class="form-control" th:text="*{driverModel.licenseNo}">
+                    </div>
+                    <div class="form-group">
+                        <label for="driver-license-type" th:text="#{license.type}">License Type</label>
+                        <p id="driver-license-type" class="form-control" th:text="*{driverModel.licenseType}"></p>
+                    </div>
+
+                    <!--Driver's Name-->
+                    <div class="form-group">
+                        <label for="driver-fn" th:text="#{first.name}">First Name</label>
+                        <p id="driver-fn" class="form-control" th:text="*{driverModel.firstName}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="driver-mn" th:text="#{middle.name}">Middle Name</label>
+                        <p id="driver-mn" class="form-control" th:text="*{driverModel.middleName}">
+                    </div>
+                    <div class="form-group">
+                        <label for="driver-ln" th:text="#{last.name}">Last Name</label>
+                        <p id="driver-ln" class="form-control" th:text="*{driverModel.lastName}">
+                    </div>
+                </div>
+
+                <!--OffenceModel Detail-->
+                <div class="tab">
+                    <span th:text="#{offence.detail}">Offence Detail</span>
+                    <!--OffenceModel Date and Time-->
+                    <div class="form-group">
+                        <label for="date"  th:text="#{date}">Date</label>
+                        <p id="date" class="form-control" th:text="*{date}">
+                    </div>
+                    <div class="form-group">
+                        <label for="time" th:text="#{time}">Time</label>
+                        <p id="time" class="form-control" th:text="*{time}">
+                    </div>
+                    <!--OffenceModel Location-->
+                    <div class="form-group">
+                        <label for="location" th:text="#{location}">Location</label>
+                        <p id="location" class="form-control" th:text="*{location}">
+                    </div>
+                    <!--OffenceModel Description-->
+                    <div class="form-group">
+                        <label for="description" th:text="#{description}">Description</label>
+                        <p id="description" class="form-control" th:text="*{description}">
+                    </div>
+
+                    <!--Proof Documents Taken (Using Checkbox and Value Field)-->
+
+                    <!--Reporting Location-->
+                    <div class="form-group">
+                        <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
+                        <p id="reporting-location" class="form-control" th:text="*{reportingLocation}">
+                    </div>
+                    <!--Action Taken by (Not included in domain)-->
+
+                    <!--OffenceCodeModels-->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th th:text="#{offence.code}">Offence Code</th>
+                            <th th:text="#{description}">Description</th>
+                        </tr>
+                        </thead>
+                        <tbody id="offence-codes-body">
+                        <tr th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
+                            <td>
+                                <p th:text="${OCMStat.count}"></p>
+                            </td>
+                            <td>
+                                <p th:text="${offenceCodeModel.sectionHeaderLabel + ' ' + offenceCodeModel.level + ' ' + offenceCodeModel.penaltyAmount + ' ' + offenceCodeModel.numberLabel}">Full Offence Code</p>
+                            </td>
+                            <td>
+                                <p th:text="*{offenceCodeModels[__${OCMStat.index}__].description}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Supervisor Detail-->
+                <div class="tab">
+                    <span th:text="#{supervisor.detail}">Supervisor Detail</span>
+                    <!--Full Name-->
+                    <div class="form-group">
+                        <label for="supervisor-fn" th:text="#{first.name}">First Name</label>
+                        <p id="supervisor-fn" class="form-control" th:text="*{supervisor.firstName}">
+                    </div>
+                    <div class="form-group">
+                        <label for="supervisor-mn" th:text="#{middle.name}">Middle Name</label>
+                        <p id="supervisor-mn" class="form-control" th:text="*{supervisor.middleName}">
+                    </div>
+                    <div class="form-group">
+                        <label for="supervisor-ln" th:text="#{last.name}">Last Name</label>
+                        <p id="supervisor-ln" class="form-control" th:text="*{supervisor.lastName}">
+                    </div>
+                </div>
+
+                <!--Status and penalty-->
+                <div class="tab">
+                    <div class="form-group">
+                        <label for="offence-status" th:text="#{status}">Status</label>
+                        <p id="offence-status" class="form-control" th:text="*{status}">
+                    </div>
+                    <div class="form-group">
+                        <label for="penalty-amount" th:text="#{penalty.amount}">Penalty Amount</label>
+                        <p id="penalty-amount" class="form-control" th:text="*{penaltyAmount}">
+                    </div>
+                </div>
+
+                <div style="overflow:auto;">
+                    <div style="float:right;">
+                        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1)" th:text="#{previous}">Previous</button>
+                        <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)" th:text="#{next}">Next</button>
+                    </div>
+                </div>
+                <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+            </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Offence Id:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control" th:text="${offenceModel.id}">Offence Id</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Offence Date:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control" th:text="${offenceModel.date}">Offence Date</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Offence Time:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control" th:text="${offenceModel.time}">Offence Time</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Description:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control" th:text="${offenceModel.description}">Description</p>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    <script src="../../static/js/offence-form.js"
+            th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-show="true" th:data-done="#{done}"></script>
 
-</div>
 </body>
 </html>
