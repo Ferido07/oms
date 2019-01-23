@@ -9,6 +9,7 @@ import com.kft.oms.repository.OffenceRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface OffenceService extends CrudService<Offence,Integer,OffenceRepository> {
@@ -25,4 +26,5 @@ public interface OffenceService extends CrudService<Offence,Integer,OffenceRepos
     List<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId);
     List<OffenceModel> getRecordOffencesForOffenceAndOffenceCode(Integer offenceId, Integer offenceCodeId);
     OffenceModel clearStatus(Integer offenceId);
+    Map<Integer,Integer> getOffenceCodeRepetitionForOffenceInRecordKeepingTimeSpan(Integer offenceId);
 }

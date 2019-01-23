@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -119,6 +120,9 @@ public class OffenceController {
         Optional<OffenceModel> offenceModel = offenceService.findOffenceModelById(offenceId);
         if(offenceModel.isPresent()){
             model.addAttribute("offenceModel", offenceModel.get());
+            Map<Integer, Integer> offenceCodeRepetitionForOffenceInRecordKeepingTimeSpan =
+                    offenceService.getOffenceCodeRepetitionForOffenceInRecordKeepingTimeSpan(offenceModel.get().getId());
+            model.addAttribute("repetitionMap", offenceCodeRepetitionForOffenceInRecordKeepingTimeSpan);
             return "offence/status";
         }else{
             throw new NotFoundException("Offence not found");
@@ -127,7 +131,11 @@ public class OffenceController {
 
     @PostMapping("/{id}/clear")
     public String clearStatus(@PathVariable("id") Integer offenceId, Model model){
-         model.addAttribute("offenceModel", offenceService.clearStatus(offenceId));
-         return "offence/status";
+        OffenceModel offenceModel = offenceService.clearStatus(offenceId);
+        model.addAttribute("offenceModel", offenceModel);
+        Map<Integer, Integer> offenceCodeRepetitionForOffenceInRecordKeepingTimeSpan =
+                offenceService.getOffenceCodeRepetitionForOffenceInRecordKeepingTimeSpan(offenceModel.getId());
+        model.addAttribute("repetitionMap", offenceCodeRepetitionForOffenceInRecordKeepingTimeSpan);
+        return "offence/status";
     }
 }

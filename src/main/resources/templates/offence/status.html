@@ -19,6 +19,7 @@
                 <th></th>
                 <th th:text="#{offence.code}">Offence Code</th>
                 <th th:text="#{description}">Description</th>
+                <th>Repetition</th>
                 <th>Records</th>
             </tr>
             </thead>
@@ -28,10 +29,14 @@
                     <p th:text="${OCMStat.count}"></p>
                 </td>
                 <td>
-                    <p th:text="${offenceCodeModel.sectionHeaderLabel + ' ' + offenceCodeModel.level + ' ' + offenceCodeModel.penaltyAmount + ' ' + offenceCodeModel.numberLabel}">Full Offence Code</p>
+                    <p th:text="|${offenceCodeModel.sectionHeaderLabel + ' ' + offenceCodeModel.level + ' ' + offenceCodeModel.penaltyAmount + ' ' + offenceCodeModel.numberLabel}|">Full Offence Code</p>
                 </td>
                 <td>
                     <p th:text="*{offenceCodeModel.description}">
+                </td>
+                <td>
+                    <!--/*@thymesVar id="repetitionMap" type="java.util.Map<Integer,Integer>"*/-->
+                    <p th:text="${offenceCodeModel.penaltyAmount} + ' x ' + ${repetitionMap.get(offenceCodeModel.id)} +  ' = ' + ${repetitionMap.get(offenceCodeModel.id)} * ${offenceCodeModel.penaltyAmount}"></p>
                 </td>
                 <td>
                     <a th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=${offenceModel.id},offenceCodeId=${offenceCodeModel.id})}">View Records</a>

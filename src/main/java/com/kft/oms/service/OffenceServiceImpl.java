@@ -257,4 +257,16 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
 
         return mapper.map(savedOffence, OffenceModel.class);
     }
+
+    @Override
+    public Map<Integer, Integer> getOffenceCodeRepetitionForOffenceInRecordKeepingTimeSpan(Integer offenceId) {
+        Optional<Offence> offenceOptional = repository.findById(offenceId);
+        Map<Integer, Integer> offenceCodeIdToRepetitionMap = new HashMap<>();
+        if(offenceOptional.isPresent()){
+            Offence offence = offenceOptional.get();
+            Map<OffenceCode, Integer> offenceCodeToRepetitionMapFromOffence = getOffenceCodeToRepetitionMapFromOffence(offence);
+            offenceCodeToRepetitionMapFromOffence.forEach((offenceCode, repetition) -> offenceCodeIdToRepetitionMap.put(offenceCode.getId(), repetition) );
+        }
+        return  offenceCodeIdToRepetitionMap;
+    }
 }
