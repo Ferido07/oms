@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -91,5 +92,25 @@ public class OffenceController {
     public String delete(@PathVariable Integer id){
         offenceService.deleteById(id);
         return "redirect:/offence";
+    }
+
+    @ResponseBody
+    @GetMapping("/offender/{offenderId}")
+    public List<OffenceModel> getOffencesByOffender(@PathVariable Integer offenderId){
+        return offenceService.getAllOffencesByOffenderId(offenderId);
+    }
+
+    @ResponseBody
+    @GetMapping("/offender/{offenderId}/code/{offenceCodeId}")
+    public List<OffenceModel> getOffences(@PathVariable Integer offenderId, @PathVariable Integer offenceCodeId){
+        return offenceService.getAllOffencesByOffenderIdAndOffenceCodeId(offenderId, offenceCodeId);
+    }
+
+
+    @GetMapping("/{offenceId}/code/{offenceCodeId}")
+    public String getRecordOffencesForAnOffenceAndOffenceCode(@PathVariable Integer offenceId,@PathVariable Integer offenceCodeId, Model model){
+        List<OffenceModel> offenceModels = offenceService.getRecordOffencesForOffenceAndOffenceCode(offenceId, offenceCodeId);
+        model.addAttribute("offenceModels",offenceModels);
+        return "offence/list";
     }
 }

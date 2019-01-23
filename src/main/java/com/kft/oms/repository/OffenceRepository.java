@@ -11,4 +11,8 @@ public interface OffenceRepository extends JpaRepository<Offence,Integer> {
 
     List<Offence> findAllByOffenderAndDateBetween(OffenderEntity offenderEntity, LocalDate startingDate, LocalDate endDate);
     Integer countOffencesByOffenderAndOffenceCodesContainsAndDateBetween(OffenderEntity offenderEntity, OffenceCode offenceCode, LocalDate startingDate, LocalDate endDate);
+    List<Offence> findAllByOffenderIdAndDateBetween(Integer id, LocalDate startDate, LocalDate endDate);
+    List<Offence> findAllByOffenderId(Integer id);
+    List<Offence> findAllByOffenderIdAndOffenceCodesContains(Integer offenderId, OffenceCode offenceCode);
+    List<Offence> findAllByOffenderIdAndOffenceCodesContainsAndDateBetween(Integer offenderId, OffenceCode offenceCode, LocalDate startDate, LocalDate endDate);
 }

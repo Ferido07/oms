@@ -164,6 +164,7 @@
                             <th></th>
                             <th th:text="#{offence.code}">Offence Code</th>
                             <th th:text="#{description}">Description</th>
+                            <th>Records</th>
                         </tr>
                         </thead>
                         <tbody id="offence-codes-body">
@@ -176,6 +177,9 @@
                             </td>
                             <td>
                                 <p th:text="*{offenceCodeModels[__${OCMStat.index}__].description}">
+                            </td>
+                            <td>
+                                <a th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=*{id},offenceCodeId=${offenceCodeModel.id})}">View Records</a>
                             </td>
                         </tr>
                         </tbody>

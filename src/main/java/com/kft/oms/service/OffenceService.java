@@ -20,4 +20,8 @@ public interface OffenceService extends CrudService<Offence,Integer,OffenceRepos
     List<OffenceModel> getAllAsOffenceModel();
     Optional<OffenceModel> findOffenceModelById(Integer id);
     OffenceModel save(OffenceModel offenceModel);
+    List<OffenceModel> getAllOffencesByOffenderIdAndDateBetween(Integer id, LocalDate startDate, LocalDate endDate);
+    List<OffenceModel> getAllOffencesByOffenderId(Integer id);
+    List<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId);
+    List<OffenceModel> getRecordOffencesForOffenceAndOffenceCode(Integer offenceId, Integer offenceCodeId);
 }

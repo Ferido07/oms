@@ -205,4 +205,40 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         }else
             return null;
     }
+
+    @Override
+    public List<OffenceModel> getAllOffencesByOffenderIdAndDateBetween(Integer id, LocalDate startDate, LocalDate endDate) {
+        List<Offence> offences = repository.findAllByOffenderIdAndDateBetween(id, startDate, endDate);
+        return mapper.mapAsList(offences, OffenceModel.class);
+    }
+
+    @Override
+    public List<OffenceModel> getAllOffencesByOffenderId(Integer id) {
+        List<Offence> offences = repository.findAllByOffenderId(id);
+        return  mapper.mapAsList(offences, OffenceModel.class);
+    }
+
+    @Override
+    public List<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId) {
+        OffenceCode code = new OffenceCode();
+        code.setId(offenceCodeId);
+        List<Offence> offences = repository.findAllByOffenderIdAndOffenceCodesContains(offenderId, code);
+        return mapper.mapAsList(offences, OffenceModel.class);
+    }
+
+    @Override
+    public List<OffenceModel> getRecordOffencesForOffenceAndOffenceCode(Integer offenceId, Integer offenceCodeId) {
+        Optional<Offence> offenceOptional = repository.findById(offenceId);
+        if(offenceOptional.isPresent()){
+            Offence offence = offenceOptional.get();
+            OffenceCode code = new OffenceCode();
+            code.setId(offenceCodeId);
+            List<Offence> offences = repository.findAllByOffenderIdAndOffenceCodesContainsAndDateBetween(
+                    offence.getOffender().getId(), code, offence.getDate().minusYears(1L), offence.getDate());
+
+            return mapper.mapAsList(offences,OffenceModel.class);
+        }
+        else
+            return new ArrayList<>();
+    }
 }
