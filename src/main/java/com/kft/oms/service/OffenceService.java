@@ -24,4 +24,5 @@ public interface OffenceService extends CrudService<Offence,Integer,OffenceRepos
     List<OffenceModel> getAllOffencesByOffenderId(Integer id);
     List<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId);
     List<OffenceModel> getRecordOffencesForOffenceAndOffenceCode(Integer offenceId, Integer offenceCodeId);
+    OffenceModel clearStatus(Integer offenceId);
 }

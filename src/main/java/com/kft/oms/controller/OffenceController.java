@@ -113,4 +113,21 @@ public class OffenceController {
         model.addAttribute("offenceModels",offenceModels);
         return "offence/list";
     }
+
+    @GetMapping("/{id}/status")
+    public String status(@PathVariable("id") Integer offenceId, Model model){
+        Optional<OffenceModel> offenceModel = offenceService.findOffenceModelById(offenceId);
+        if(offenceModel.isPresent()){
+            model.addAttribute("offenceModel", offenceModel.get());
+            return "offence/status";
+        }else{
+            throw new NotFoundException("Offence not found");
+        }
+    }
+
+    @PostMapping("/{id}/clear")
+    public String clearStatus(@PathVariable("id") Integer offenceId, Model model){
+         model.addAttribute("offenceModel", offenceService.clearStatus(offenceId));
+         return "offence/status";
+    }
 }

@@ -3,6 +3,7 @@ package com.kft.oms.service;
 import com.kft.crud.domain.OffenderEntity;
 import com.kft.crud.service.CrudServiceImpl;
 import com.kft.oms.config.Mapper;
+import com.kft.oms.constants.OffenceStatus;
 import com.kft.oms.constants.OffenderType;
 import com.kft.oms.domain.Driver;
 import com.kft.oms.domain.Offence;
@@ -240,5 +241,20 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         }
         else
             return new ArrayList<>();
+    }
+
+    @Override
+    public OffenceModel clearStatus(Integer offenceId) {
+        Offence savedOffence;
+        Optional<Offence> offenceOptional = repository.findById(offenceId);
+        if(offenceOptional.isPresent()) {
+            Offence offence = offenceOptional.get();
+            offence.setStatus(OffenceStatus.CLEARED);
+            savedOffence = repository.save(offence);
+        }
+        else
+            throw new RuntimeException("Cannot find the offence specified to be cleared");
+
+        return mapper.map(savedOffence, OffenceModel.class);
     }
 }
