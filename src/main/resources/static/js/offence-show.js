@@ -56,3 +56,13 @@ function fixStepIndicator(n) {
     //... and adds the "active" class on the current step:
     x[n].className += " active";
 }
+
+/*
+ * Code to add navigation with span elements at the bottom of each page
+ */
+$("span.step").on("click", function () {
+    $(".tab").css("display", "none");
+    var step = $(this).attr('data-step');
+    // console.log(step);
+    showTab(step);
+});

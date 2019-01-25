@@ -1,61 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, content=~{::content}, footer_scripts=~{})">
 <head>
     <meta charset="UTF-8">
     <title>Offence Status</title>
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <!--Link only used in prototype mode-->
+    <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-<div class="container">
-    <h2> Offence Status</h2>
-    <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
-    <form th:action="@{/offence/{id}/clear(id=${offenceModel.id})}" method="post">
-        <!--OffenceCodeModels-->
-        <table class="table">
-            <thead>
-            <tr>
-                <th></th>
-                <th th:text="#{offence.code}">Offence Code</th>
-                <th th:text="#{description}">Description</th>
-                <th>Repetition</th>
-                <th>Records</th>
-            </tr>
-            </thead>
-            <tbody id="offence-codes-body">
-            <tr th:each="offenceCodeModel,OCMStat : *{offenceModel.offenceCodeModels}">
-                <td>
-                    <p th:text="${OCMStat.count}"></p>
-                </td>
-                <td>
-                    <p th:text="|${offenceCodeModel.sectionHeaderLabel + ' ' + offenceCodeModel.level + ' ' + offenceCodeModel.penaltyAmount + ' ' + offenceCodeModel.numberLabel}|">Full Offence Code</p>
-                </td>
-                <td>
-                    <p th:text="*{offenceCodeModel.description}">
-                </td>
-                <td>
-                    <!--/*@thymesVar id="repetitionMap" type="java.util.Map<Integer,Integer>"*/-->
-                    <p th:text="${offenceCodeModel.penaltyAmount} + ' x ' + ${repetitionMap.get(offenceCodeModel.id)} +  ' = ' + ${repetitionMap.get(offenceCodeModel.id)} * ${offenceCodeModel.penaltyAmount}"></p>
-                </td>
-                <td>
-                    <a th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=${offenceModel.id},offenceCodeId=${offenceCodeModel.id})}">View Records</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div>
-            <label th:text="#{penalty.amount}">Penalty Amount</label>
-            <p class="form-control" th:text="${offenceModel.penaltyAmount}"></p>
-        </div>
-        <div class="form-group">
-            <label th:text="#{status}">Status</label>
-            <p class="form-control" th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></p>
-        </div>
-        <div th:if="${offenceModel.status.toString()} == 'PENDING'">
-            <button type="submit" class="btn btn-primary">Clear</button>
-        </div>
-    </form>
-</div>
+    <div class="container" th:fragment="content">
+        <h2> Offence Status</h2>
+        <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
+        <form th:action="@{/offence/{id}/clear(id=${offenceModel.id})}" method="post">
+            <!--OffenceCodeModels-->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th th:text="#{offence.code}">Offence Code</th>
+                    <th th:text="#{description}">Description</th>
+                    <th>Repetition</th>
+                    <th>Records</th>
+                </tr>
+                </thead>
+                <tbody id="offence-codes-body">
+                <tr th:each="offenceCodeModel,OCMStat : *{offenceModel.offenceCodeModels}">
+                    <td>
+                        <p th:text="${OCMStat.count}"></p>
+                    </td>
+                    <td>
+                        <p th:text="|${offenceCodeModel.sectionHeaderLabel + ' ' + offenceCodeModel.level + ' ' + offenceCodeModel.penaltyAmount + ' ' + offenceCodeModel.numberLabel}|">Full Offence Code</p>
+                    </td>
+                    <td>
+                        <p th:text="*{offenceCodeModel.description}">
+                    </td>
+                    <td>
+                        <!--/*@thymesVar id="repetitionMap" type="java.util.Map<Integer,Integer>"*/-->
+                        <p th:text="${offenceCodeModel.penaltyAmount} + ' x ' + ${repetitionMap.get(offenceCodeModel.id)} +  ' = ' + ${repetitionMap.get(offenceCodeModel.id)} * ${offenceCodeModel.penaltyAmount}"></p>
+                    </td>
+                    <td>
+                        <a th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=${offenceModel.id},offenceCodeId=${offenceCodeModel.id})}">View Records</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <label th:text="#{penalty.amount}">Penalty Amount</label>
+                <p class="form-control" th:text="${offenceModel.penaltyAmount}"></p>
+            </div>
+            <div class="form-group">
+                <label th:text="#{status}">Status</label>
+                <p class="form-control" th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></p>
+            </div>
+            <div th:if="${offenceModel.status.toString()} == 'PENDING'">
+                <button type="submit" class="btn btn-primary">Clear</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

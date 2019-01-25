@@ -1,43 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, content=~{::content}, footer_scripts=~{})">
 <head>
     <meta charset="UTF-8">
     <title>Offence Form</title>
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
-
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1-1/jquery.min.js"
-            th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}" ></script>
+    <!--Link only used in prototype mode-->
+    <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-<!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
-<div class="container">
-    <div th:if="${not #lists.isEmpty(offenceModels)}">
-        <h2>List Offences</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Description</th>
-                <th>View</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
-            <tr th:each="offenceModel : ${offenceModels}">
-                <td th:text="${offenceModel.id}"></td>
-                <td th:text="${offenceModel.date}"></td>
-                <td th:text="${offenceModel.time}"></td>
-                <td th:text="${offenceModel.description}"></td>
-                <td><a th:href="${'/oms/offence/' + offenceModel.id}">View</a></td>
-                <td><a th:href="${'/oms/offence/edit/' + offenceModel.id}">Edit</a></td>
-                <td><a th:href="${'/oms/offence/delete/' + offenceModel.id}">Delete</a></td>
-            </tr>
-        </table>
+    <!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
+    <div class="container" th:fragment="content">
+        <div th:if="${not #lists.isEmpty(offenceModels)}">
+            <h2>List Offences</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Description</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
+                <tr th:each="offenceModel : ${offenceModels}">
+                    <td th:text="${offenceModel.id}"></td>
+                    <td th:text="${offenceModel.date}"></td>
+                    <td th:text="${offenceModel.time}"></td>
+                    <td th:text="${offenceModel.description}"></td>
+                    <td><a href="show.html" th:href="${'/oms/offence/' + offenceModel.id}">View</a></td>
+                    <td><a href="form.html" th:href="${'/oms/offence/edit/' + offenceModel.id}">Edit</a></td>
+                    <td><a href="#" th:href="${'/oms/offence/delete/' + offenceModel.id}">Delete</a></td>
+                </tr>
+            </table>
+        </div>
+        <p><a href="form.html" th:href="${'/oms/offence/create'}">New offence</a></p>
     </div>
-    <p><a th:href="${'/oms/offence/create'}">New offence</a></p>
-</div>
 </body>
 </html>

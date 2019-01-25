@@ -1,31 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:replace="layout :: layout(title=~{::title}, links=~{::link}, header_scripts=~{::header_script}, footer_scripts=~{::footer_script}, content=~{::content})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:replace="layout :: layout(title=~{::title}, links=~{::links}, header_scripts=~{}, content=~{::content}, footer_scripts=~{::footer_scripts})">
 <head>
     <meta charset="UTF-8">
     <title>Offence Form</title>
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <!--Link only used in prototype mode-->
+    <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
 
-    <link href="../../static/css/offence-form.css"
-          th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
-
-    <link href="../../static/css/autocomplete.css"
-          th:href="@{/css/autocomplete.css}" rel="stylesheet" media="screen">
-
-    <th:block th:fragment="header_script">
-        <script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1-1/jquery.min.js"
-                th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
-
-    <!--    <link href=""
-              th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}" rel="stylesheet">-->
-        <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-bootstrap/0.5pre/css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet"/>-->
-        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"
-                th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+    <th:block th:fragment="links">
+        <link href="../../static/css/offence-form.css" th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
+        <link href="../../static/css/autocomplete.css" th:href="@{/css/autocomplete.css}" rel="stylesheet" media="screen">
     </th:block>
 </head>
 <body>
-<!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
+    <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
     <div class="container" th:fragment="content">
         <h2 th:text="#{offence.details}">Offence Details</h2>
         <div>
@@ -126,8 +114,8 @@
                     <div class="form-group">
                         <label for="driver-license-no" th:text="#{license.no}">License No</label>
                         <input id="driver-license-no" class="form-control" th:type="number" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driverModel.licenseNo}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                        <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
                     <div class="form-group">
                         <label for="driver-license-type" th:text="#{license.type}">License Type</label>
                         <select id="driver-license-type" class="form-control" th:field="*{driverModel.licenseType}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
@@ -150,14 +138,13 @@
                     <div class="form-group">
                         <label for="driver-mn" th:text="#{middle.name}">Middle Name</label>
                         <input id="driver-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{driverModel.middleName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                        <p th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</p>
                     <div class="form-group">
                         <label for="driver-ln" th:text="#{last.name}">Last Name</label>
                         <input id="driver-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{driverModel.lastName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                        <p th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</p>
-
                 </div>
 
                 <!--OffenceModel Detail-->
@@ -167,24 +154,25 @@
                     <div class="form-group">
                         <label for="date"  th:text="#{date}">Date</label>
                         <input type="date" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}">
+                        <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</p>
                     <div class="form-group">
                         <label for="time" th:text="#{time}">Time</label>
                         <input type="time" id="time" class="form-control" placeholder="Time" th:placeholder="#{time}" th:field="*{time}">
+                        <p th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</p>
                     <!--OffenceModel Location-->
                     <div class="form-group">
                         <label for="location" th:text="#{location}">Location</label>
-                        <input id="location" class="form-control" placeholder="Location" th:placeholder="#{location}" th:field="*{location}"></div>
-                    <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</p>
+                        <input id="location" class="form-control" placeholder="Location" th:placeholder="#{location}" th:field="*{location}">
+                        <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</p>
+                    </div>
                     <!--OffenceModel Description-->
                     <div class="form-group">
                         <label for="description" th:text="#{description}">Description</label>
                         <input id="description" class="form-control" placeholder="Description" th:placeholder="#{description}" th:field="*{description}">
+                        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
 
                     <!--Proof Documents Taken (Using Checkbox and Value Field)-->
 
@@ -192,8 +180,8 @@
                     <div class="form-group">
                         <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
                         <input id="reporting-location" class="form-control" placeholder="Reporting Location" th:placeholder="#{reporting.location}" th:field="*{reportingLocation}">
+                        <p th:if="${#fields.hasErrors('reportingLocation')}" th:errors="*{reportingLocation}">Reporting Location Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('reportingLocation')}" th:errors="*{reportingLocation}">Reporting Location Error</p>
                     <!--Action Taken by (Not included in domain)-->
 
                     <!--OffenceCodeModels-->
@@ -240,19 +228,18 @@
                     <div class="form-group">
                         <label for="supervisor-fn" th:text="#{first.name}">First Name</label>
                         <input id="supervisor-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{supervisor.firstName}">
+                        <p th:if="${#fields.hasErrors('supervisor.firstName')}" th:errors="*{supervisor.firstName}">Supervisor First Name Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('supervisor.firstName')}" th:errors="*{supervisor.firstName}">Supervisor First Name Error</p>
                     <div class="form-group">
                         <label for="supervisor-mn" th:text="#{middle.name}">Middle Name</label>
                         <input id="supervisor-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{supervisor.middleName}">
+                        <p th:if="${#fields.hasErrors('supervisor.middleName')}" th:errors="*{supervisor.middleName}">Supervisor Middle Name Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('supervisor.middleName')}" th:errors="*{supervisor.middleName}">Supervisor Middle Name Error</p>
                     <div class="form-group">
                         <label for="supervisor-ln" th:text="#{last.name}">Last Name</label>
                         <input id="supervisor-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{supervisor.lastName}">
+                        <p th:if="${#fields.hasErrors('supervisor.lastName')}" th:errors="*{supervisor.lastName}">Supervisor Last Name Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('supervisor.lastName')}" th:errors="*{supervisor.lastName}">Supervisor Last Name Error</p>
-
                 </div>
 
                 <div style="overflow:auto;">
@@ -273,265 +260,13 @@
         </div>
     </div>
 
-    <th:block th:fragment="footer_script">
+    <!--Script only used in prototype mode-->
+    <script src="../../static/vendor/jquery/jquery-3.3.1.min.js"></script>
+
+    <th:block th:fragment="footer_scripts">
         <!--Script Must be loaded at last-->
-        <script src="../../static/js/offence-form.js"
-                th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}"></script>
-
-        <script th:inline="javascript">
-            function getVehiclesByPlateNo(request, response) {
-                $.getJSON(
-                    "/oms/vehicle?plateNo=" + request.term,
-                    function (data) {
-                        response(data);
-                    });
-            }
-
-            function populateVehicleInput(vehicle){
-                if(vehicle !== null) {
-                    $("#vehicle-id").val(vehicle["id"]);
-                    $("#vehicle-type").val(vehicle["type"]).attr("readonly", "readonly");
-                    $("#vehicle-plate-no").val(vehicle["plateNo"]);
-                    $("#vo-libreNo").val(vehicle["vehicleOwnershipModels"][0]["libreNo"]).attr("readonly", "readonly");
-                    $("#vo-fName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["firstName"]).attr("readonly", "readonly");
-                    $("#vo-mName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["middleName"]).attr("readonly", "readonly");
-                    $("#vo-lName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["lastName"]).attr("readonly", "readonly");
-                    //$("#vehicle-association-id").val(vehicle["associationModel"]["id"]);
-                    $("#vehicle-association-name").val(vehicle["associationModel"]["name"]).attr("readonly", "readonly");
-                    $("#vehicle-side-no").val(vehicle["sideNo"]).attr("readonly", "readonly");
-                }
-                else{
-                    $("#vehicle-id").val("");
-                    $("#vehicle-type").val("").removeAttr("readonly");
-                    $("#vo-libreNo").val("").removeAttr("readonly");
-                    $("#vo-fName").val("").removeAttr("readonly");
-                    $("#vo-mName").val("").removeAttr("readonly");
-                    $("#vo-lName").val("").removeAttr("readonly");
-                    //$("#vehicle-association-id").val(");
-                    $("#vehicle-association-name").val("").removeAttr("readonly");
-                    $("#vehicle-side-no").val("").removeAttr("readonly");
-                }
-            }
-
-            function getVehicleByPlateNo(plateNo) {
-                $.getJSON(
-                    "/oms/vehicle/plate/" + plateNo,
-                    function (data) {
-                       populateVehicleInput(data);
-                    }
-                )
-            }
-
-            function vehiclePlateNoInputChanged(event, ui){
-                var plateNo = $("#vehicle-plate-no").val();
-                if(ui.item === null)
-                    getVehicleByPlateNo(plateNo);
-            }
-
-            $("#vehicle-plate-no").autocomplete({
-                source :  getVehiclesByPlateNo,
-                minLength :3,
-                select : function (event, ui) {
-                            getVehicleByPlateNo(ui.item.value);
-                         },
-                change : vehiclePlateNoInputChanged
-            });
-
-            function getDriversByLicenseNo(request, response) {
-                $.getJSON(
-                    "/oms/driver?licenseNo=" + request.term,
-                    function (data) {
-                        response(data);
-                    });
-            }
-
-            function populateDriverInput(driver){
-                console.log('driver in populateDriverInput ' + driver);
-                if(driver !== null) {
-                    $("#driver-id").val(driver["id"]);
-                    $("#driver-fn").val(driver["firstName"]).attr("readonly", "readonly");
-                    $("#driver-mn").val(driver["middleName"]).attr("readonly", "readonly");
-                    $("#driver-ln").val(driver["lastName"]).attr("readonly", "readonly");
-                    $("#driver-license-type").val(driver["licenseType"]).attr("readonly", "readonly");
-                }
-                else{
-                    $("#driver-id").val("");
-                    $("#driver-fn").val("").removeAttr("readonly");
-                    $("#driver-mn").val("").removeAttr("readonly");
-                    $("#driver-ln").val("").removeAttr("readonly");
-                    $("#driver-license-type").removeAttr("readonly");
-                }
-            }
-
-            function getDriverByLicenseNo(licenseNo){
-                console.log("getting driver with license no " + licenseNo );
-                $.getJSON(
-                    "/oms/driver/" + licenseNo,
-                    function (data) {
-                        populateDriverInput(data);
-                    }
-                )
-            }
-
-            function driverLicenseNoInputChanged(event, ui){
-                console.log('ui.item in driverLicenseNoInputChanged ' + ui.item);
-                var licenseNo = $("#driver-license-no").val();
-                if(ui.item === null)
-                    getDriverByLicenseNo(licenseNo);
-            }
-
-            $("#driver-license-no").autocomplete({
-                source : getDriversByLicenseNo,
-                minLength : 3,
-                select : function(event,ui){
-                            getDriverByLicenseNo(ui.item.value);
-                         },
-                change : driverLicenseNoInputChanged
-            });
-
-            function getOffenceCodesList(request,response){
-                var offenceCode = request.term;
-                var offenceCodeParts = offenceCode.split(' ', 4);
-                var sectionHeaderLabel = offenceCodeParts[0];
-                var level = offenceCodeParts[1];
-                var penaltyAmount = (offenceCodeParts[2] === undefined)? '' : offenceCodeParts[2];
-
-                var url = "/oms/offence-code?sectionHeaderLabel=" + sectionHeaderLabel +
-                    "&level=" + level + "&penaltyAmount=" + penaltyAmount;
-                //alert("getting data from url : " + url);
-                $.getJSON(
-                    url,
-                    function (data) {
-                        response(data);
-                    }
-                );
-            }
-
-            function populateOffenceCodeData(event,data){
-                var offenceCodeInputColumnTd = $(event.target).parent();
-
-                var offenceCodeHiddenColumnTd = offenceCodeInputColumnTd.prev();
-                offenceCodeHiddenColumnTd.children("input:nth-child(1)").val(data["id"]);
-                offenceCodeHiddenColumnTd.children("input:nth-child(2)").val(data["sectionHeaderLabel"]);
-                offenceCodeHiddenColumnTd.children("input:nth-child(3)").val(data["level"]);
-                offenceCodeHiddenColumnTd.children("input:nth-child(4)").val(data["penaltyAmount"]);
-                offenceCodeHiddenColumnTd.children("input:nth-child(5)").val(data["numberLabel"]);
-                offenceCodeHiddenColumnTd.children("input:nth-child(6)").val(data["offenderType"]);
-
-                offenceCodeInputColumnTd.next().children("input:nth-child(1)").val(data["description"]);
-            }
-
-            function getOffenceCode(event, ui) {
-                var fullyQualifiedOffenceCode = ui.item.value;
-                var offenceCodeParts =fullyQualifiedOffenceCode.split(' ', 4);
-                var sectionHeaderLabel = offenceCodeParts[0];
-                var level = offenceCodeParts[1];
-                var penaltyAmount = offenceCodeParts[2];
-                var numberLabel = offenceCodeParts[3];
-
-                var url = "/oms/offence-code/get?sectionHeaderLabel=" + sectionHeaderLabel +
-                          "&level=" + level + "&penaltyAmount=" + penaltyAmount +
-                          "&numberLabel=" + numberLabel;
-                //alert("getting data from url : " + url);
-                $.getJSON(
-                    url,
-                    function (data) {
-                        //set the id and also good for client side checks to see all offence codes
-                        //have same offenderType and sectionHeaderLabel
-                        populateOffenceCodeData(event, data);
-                    }
-                )
-            }
-
-            var offenceCodeInputs = $("#offence-codes-body").find("tr td:nth-child(2)").children("input");
-
-            var offenceCodeAutoComplete = {
-                source :  getOffenceCodesList,
-                minLength :6,
-                select : getOffenceCode
-            };
-
-            offenceCodeInputs.autocomplete(offenceCodeAutoComplete);
-
-            function loadQualifiedName() {
-                offenceCodeInputs.each(function () {
-                    var offenceCodeIdInput = $(this).parent().prev().children("input:nth-child(1)");
-                    if(offenceCodeIdInput.val() !== null && offenceCodeIdInput.val() !== undefined && offenceCodeIdInput.val() !== ''){
-                        var offenceCodeSectionHeaderLabelInput = offenceCodeIdInput.next();
-                        var offenceCodeLevelInput = offenceCodeSectionHeaderLabelInput.next();
-                        var offenceCodePenaltyAmount = offenceCodeLevelInput.next();
-                        var offenceCodeNumberLabel = offenceCodePenaltyAmount.next();
-
-                        var fullQualifiedOffenceCodeName =  offenceCodeSectionHeaderLabelInput.val() + ' ' +
-                            offenceCodeLevelInput.val() + ' ' +
-                            offenceCodePenaltyAmount.val() + ' ' +
-                            offenceCodeNumberLabel.val();
-                        $(this).val(fullQualifiedOffenceCodeName);
-                    }
-                });
-            }
-
-            var offenceCodes = 1;
-            function addOffenceCode(){
-                var fullCodePlaceHolder = /*[[#{full.code}]]*/ 'Full Code';
-                var descriptionPlaceHolder = /*[[#{description}]]*/ 'Description';
-
-                var newOffenceCode =
-                $("<tr>\n" +
-                    "\t<td>\n" +
-                    "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".id\" name=\"offenceCodeModels[" + offenceCodes + "].id\" value=\"\">\n" +
-                    "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".sectionHeaderLabel\" name=\"offenceCodeModels[" + offenceCodes + "].sectionHeaderLabel\" value=\"\">\n" +
-                    "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".level\" name=\"offenceCodeModels[" + offenceCodes + "].level\" value=\"\">\n" +
-                    "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".penaltyAmount\" name=\"offenceCodeModels[" + offenceCodes + "].penaltyAmount\" value=\"\">\n" +
-                    "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".numberLabel\" name=\"offenceCodeModels[" + offenceCodes + "].numberLabel\" value=\"\">\n" +
-                    "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".offenderType\" name=\"offenceCodeModels[" + offenceCodes + "].offenderType\" value=\"\">\n" +
-                    "\t</td>\n" +
-                    "\t<td>\n" +
-                    "\t\t<input class=\"form-control ui-autocomplete-input\" placeholder=\"" + fullCodePlaceHolder + "\">\n" +
-                    "\t</td>\n" +
-                    "\t<td>\n" +
-                    "\t\t<input class=\"form-control\" placeholder=\"" + descriptionPlaceHolder + "\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value=\"\">\n" +
-                    "\t</td>\n" +
-                    "\t<td>\n" +
-                    "\t\t<button class=\"btn btn-danger\" type=\"button\" onclick=\"removeOffenceCode(event)\" name=\"removeOffenceCodeModel\" value=\"" + offenceCodes + "\">Remove Offence Code</button>\n" +
-                    "\t</td>\n" +
-                    "</tr>");
-
-                var newOffenceCodeInput = newOffenceCode.children("td:nth-child(2)").children("input");
-                newOffenceCodeInput.autocomplete(offenceCodeAutoComplete);
-                newOffenceCode.appendTo("#offence-codes-body");
-
-                offenceCodes++;
-
-                if(offenceCodes === 2){
-                    //i.e td containing remove code button
-                    var firstRowButtonColumn = $("#offence-codes-body").children("tr:nth-child(1)").children("td:nth-child(4)");
-                    //if clause added just for when working offline so that the button is not duplicated
-                    if(!firstRowButtonColumn.children("button").is("button")) {
-                        $("<button class=\"btn btn-danger\" type=\"button\" onclick=\"removeOffenceCode(event)\" name=\"removeOffenceCodeModel\" value=\"0\">Remove Offence Code</button>")
-                            .appendTo(firstRowButtonColumn);
-                    }
-                }
-
-            }
-
-            function removeOffenceCode(event) {
-                $(event.target).parent().parent().remove();
-                offenceCodes--;
-                console.log("offence Codes = " + offenceCodes);
-                console.log(event.target);
-                if(offenceCodes === 1){
-                    var firstRowButtonColumn = $("#offence-codes-body").children("tr:nth-child(1)").children("td:nth-child(4)");
-                    firstRowButtonColumn.children().remove();
-                }
-            }
-
-            $(document).ready(function(){
-                loadQualifiedName();
-            });
-
-        </script>
+        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+        <script src="../../static/js/offence-form.js" th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}" th:data-full-code="#{full.code}" th:data-description="#{description}"></script>
     </th:block>
-
 </body>
 </html>

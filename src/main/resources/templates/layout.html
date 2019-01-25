@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title,links,header_scripts,footer_scripts,content)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title,links,header_scripts,content,footer_scripts)">
 
 <head>
     <!-- Required meta tags -->
@@ -8,7 +8,7 @@
     <title th:replace="${title}">Concept - Bootstrap 4 Admin Dashboard Template</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
-    <link href="../static/vendor/fonts/circular-std/style.css" th:href="@{/vendor/fonts/circular-std/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="../static/vendor/fonts/circular-std/style.css" th:href="@{/vendor/fonts/circular-std/style.css}">
     <link rel="stylesheet" href="../static/libs/css/style.css" th:href="@{/libs/css/style.css}">
     <link rel="stylesheet" href="../static/vendor/fonts/fontawesome/css/fontawesome-all.css" th:href="@{/vendor/fonts/fontawesome/css/fontawesome-all.css}">
 
@@ -56,7 +56,7 @@
                                         </a>
                                         <a href="#" class="list-group-item list-group-item-action">
                                             <div class="notification-info">
-                                                <div class="notification-list-user-img"><img src="../static/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                <div class="notification-list-user-img"><img src="#" alt="../static/images/avatar-3.jpg" class="user-avatar-md rounded-circle"></div>
                                                 <div class="notification-list-user-block">
                                                     <span class="notification-list-user-name">John Abraham</span>is now following you
                                                     <div class="notification-date">2 days ago</div>
@@ -65,7 +65,7 @@
                                         </a>
                                         <a href="#" class="list-group-item list-group-item-action">
                                             <div class="notification-info">
-                                                <div class="notification-list-user-img"><img src="../static/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                <div class="notification-list-user-img"><img src="#" alt="../static/images/avatar-4.jpg" class="user-avatar-md rounded-circle"></div>
                                                 <div class="notification-list-user-block"><span class="notification-list-user-name">Monaan Pechi</span> is watching your main repository
                                                     <div class="notification-date">2 min ago</div>
                                                 </div>
@@ -73,7 +73,7 @@
                                         </a>
                                         <a href="#" class="list-group-item list-group-item-action">
                                             <div class="notification-info">
-                                                <div class="notification-list-user-img"><img src="../static/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+                                                <div class="notification-list-user-img"><img src="#" alt="../static/images/avatar-5.jpg" class="user-avatar-md rounded-circle"></div>
                                                 <div class="notification-list-user-block"><span class="notification-list-user-name">Jessica Caruso</span>accepted your invitation to join the team.
                                                     <div class="notification-date">2 min ago</div>
                                                 </div>
@@ -93,24 +93,24 @@
                             <li class="connection-list">
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../static/images/github.png" alt="" > <span>Github</span></a>
+                                        <a href="#" class="connection-item"><img src="#" alt="../static/images/github.png" > <span>Github</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../static/images/dribbble.png" alt="" > <span>Dribbble</span></a>
+                                        <a href="#" class="connection-item"><img src="#" alt="../static/images/dribbble.png" > <span>Dribbble</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../static/images/dropbox.png" alt="" > <span>Dropbox</span></a>
+                                        <a href="#" class="connection-item"><img src="#" alt="../static/images/dropbox.png" > <span>Dropbox</span></a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../static/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
+                                        <a href="#" class="connection-item"><img src="#" alt="../static/images/bitbucket.png"> <span>Bitbucket</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../static/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
+                                        <a href="#" class="connection-item"><img src="#" alt="../static/images/mail_chimp.png" ><span>Mail chimp</span></a>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                        <a href="#" class="connection-item"><img src="../static/images/slack.png" alt="" > <span>Slack</span></a>
+                                        <a href="#" class="connection-item"><img src="#" alt="../static/images/slack.png" > <span>Slack</span></a>
                                     </div>
                                 </div>
                             </li>
@@ -120,7 +120,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown nav-user">
-                        <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../static/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                        <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="#" alt="../static/images/avatar-1.jpg" class="user-avatar-md rounded-circle"></a>
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                             <div class="nav-user-info">
                                 <h5 class="mb-0 text-white nav-user-name">
@@ -470,8 +470,9 @@
 <!-- end main wrapper -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
-<!--<script src="../static/vendor/jquery/jquery-3.3.1.min.js" th:src="@{/vendor/jquery/jquery-3.3.1.min.js}"></script>-->
-<!--<script src="../static/vendor/bootstrap/js/bootstrap.bundle.js" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.js}"></script>-->
+<script src="../static/vendor/jquery/jquery-3.3.1.min.js" th:src="@{/vendor/jquery/jquery-3.3.1.min.js}"></script>
+<!--<script src="../static/vendor/jquery/jquery-3.3.1.min.js" th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>-->
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.js" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
 <script src="../static/vendor/slimscroll/jquery.slimscroll.js" th:src="@{/vendor/slimscroll/jquery.slimscroll.js}"></script>
 <script src="../static/libs/js/main-js.js" th:src="@{/libs/js/main-js.js}"></script>
 <th:block th:insert="${footer_scripts}"></th:block>
