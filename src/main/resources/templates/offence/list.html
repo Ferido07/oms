@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, content=~{::content}, footer_scripts=~{})">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{offence.form}">Offence Form</title>
+    <title th:text="#{offence.list}">Offence List</title>
 
     <!--Link only used in prototype mode-->
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
@@ -36,7 +36,10 @@
                 </tr>
             </table>
         </div>
-        <p><a href="form.html" th:href="${'/oms/offence/create'}" th:text="#{new.offence}">New offence</a></p>
+        <div th:if="${ #lists.isEmpty(offenceModels)}">
+            <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
+            <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+        </div>
     </div>
 </body>
 </html>
