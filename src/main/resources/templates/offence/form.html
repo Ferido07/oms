@@ -33,7 +33,7 @@
                         <!--Plate No-->
                     <div class="form-group ui-widget">
                         <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
-                        <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}">
+                        <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}" onkeyup="vehiclePlateNoKeyUp()">
                         <p th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:text="#{error.vehicle.plateNo.regexp}">Plate No Error</p>
                     </div>
 

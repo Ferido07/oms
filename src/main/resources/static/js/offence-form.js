@@ -357,3 +357,6 @@ $(document).ready(function(){
     loadQualifiedName();
 });
 
+function vehiclePlateNoKeyUp(){
+    $("#vehicle-plate-no").val($("#vehicle-plate-no").val().toUpperCase());
+}

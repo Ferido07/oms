@@ -43,7 +43,7 @@ public class Vehicle extends AbstractEntity {
     }
 
     public void setPlateNo(String plateNo) {
-        this.plateNo = plateNo;
+        this.plateNo = plateNo.toUpperCase();
     }
 
     public String getType() {

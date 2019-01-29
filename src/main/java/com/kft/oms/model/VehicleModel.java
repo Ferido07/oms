@@ -12,7 +12,7 @@ public class VehicleModel {
 
     @NotBlank
     //@Size(min=9, max=11)
-    @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[A-Z]{2}")//matches codes like 1-A67876-ET
+    @Pattern(regexp = "[1-5]-[aA-zZ]?[0-9]{5}-[aA-zZ]{2}")//matches codes like 1-A67876-ET
     private String plateNo;
 
     @Size(max = 10)
@@ -59,7 +59,7 @@ public class VehicleModel {
     }
 
     public void setPlateNo(String plateNo) {
-        this.plateNo = plateNo;
+        this.plateNo = plateNo.toUpperCase();
     }
 
     public String getSideNo() {
