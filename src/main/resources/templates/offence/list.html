@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, content=~{::content}, footer_scripts=~{})">
 <head>
     <meta charset="UTF-8">
-    <title>Offence Form</title>
+    <title th:text="#{offence.form}">Offence Form</title>
 
     <!--Link only used in prototype mode-->
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
@@ -11,30 +11,32 @@
     <!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
     <div class="container" th:fragment="content">
         <div th:if="${not #lists.isEmpty(offenceModels)}">
-            <h2>List Offences</h2>
+            <h2 th:text="#{list.offences}">List Offences</h2>
             <table class="table table-striped">
                 <tr>
-                    <th>Id</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Description</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th th:text="#{driver.name}">Driver Name</th>
+                    <th th:text="#{date}">Date</th>
+                    <th th:text="#{time}">Time</th>
+                    <th th:text="#{description}">Description</th>
+                    <th th:text="#{penalty.amount}">Penalty Amount</th>
+                    <th></th>
                 </tr>
-                <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
+                <!--/*@thymesVar id="offenceModels" type="java.util.List<com.kft.oms.model.OffenceModel>"*/-->
                 <tr th:each="offenceModel : ${offenceModels}">
-                    <td th:text="${offenceModel.id}"></td>
+                    <td th:text="${offenceModel.driverModel.getFullName()}"></td>
                     <td th:text="${offenceModel.date}"></td>
                     <td th:text="${offenceModel.time}"></td>
                     <td th:text="${offenceModel.description}"></td>
-                    <td><a href="show.html" th:href="${'/oms/offence/' + offenceModel.id}">View</a></td>
-                    <td><a href="form.html" th:href="${'/oms/offence/edit/' + offenceModel.id}">Edit</a></td>
-                    <td><a href="#" th:href="${'/oms/offence/delete/' + offenceModel.id}">Delete</a></td>
+                    <td th:text="${offenceModel.penaltyAmount}"></td>
+                    <td>
+                        <a href="show.html" th:href="${'/oms/offence/' + offenceModel.id}" th:text="#{view}">View</a>
+                        <a href="form.html" th:href="${'/oms/offence/edit/' + offenceModel.id}" th:text="#{edit}">Edit</a>
+                        <a href="#" th:href="${'/oms/offence/delete/' + offenceModel.id}" th:text="#{delete}">Delete</a>
+                    </td>
                 </tr>
             </table>
         </div>
-        <p><a href="form.html" th:href="${'/oms/offence/create'}">New offence</a></p>
+        <p><a href="form.html" th:href="${'/oms/offence/create'}" th:text="#{new.offence}">New offence</a></p>
     </div>
 </body>
 </html>

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,25 +67,10 @@ public class OffenceController {
     public String createOrUpdate(@Valid @ModelAttribute OffenceModel offenceModel, BindingResult bindingResult){
         if (!bindingResult.hasErrors()) {
             OffenceModel savedOffence = offenceService.save(offenceModel);
-            return "redirect:/offence/" + savedOffence.getId();
+            return "redirect:/offence/" + savedOffence.getId() + "/status";
         } else {
             return "offence/form";
         }
-    }
-
-    @RequestMapping(value = "/create", params = {"addOffenceCodeModel"})
-    public String addOffenceCodeModel(OffenceModel offenceModel){
-        if(offenceModel.getOffenceCodeModels() == null)
-            offenceModel.setOffenceCodeModels(new ArrayList<>());
-        offenceModel.getOffenceCodeModels().add(new OffenceCodeModel());
-        return "offence/form";
-    }
-
-    @RequestMapping(value = "/create", params = {"removeOffenceCodeModel"})
-    public String removeOffenceCodeModel(OffenceModel offenceModel, HttpServletRequest request){
-        Integer id = Integer.valueOf(request.getParameter("removeOffenceCodeModel"));
-        offenceModel.getOffenceCodeModels().remove(id.intValue());
-        return "offence/form";
     }
 
     @GetMapping("/delete/{id}")

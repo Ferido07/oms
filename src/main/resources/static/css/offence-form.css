@@ -75,3 +75,8 @@ input.invalid {
 .step.finish {
     background-color: #4CAF50;
 }
+
+/* disallow pointer events like click on span elements inside a button*/
+button > span{
+    pointer-events: none;
+}

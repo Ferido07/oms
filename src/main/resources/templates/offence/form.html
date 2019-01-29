@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:replace="layout :: layout(title=~{::title}, links=~{::links}, header_scripts=~{}, content=~{::content}, footer_scripts=~{::footer_scripts})">
 <head>
     <meta charset="UTF-8">
-    <title>Offence Form</title>
+    <title th:text="#{offence.form}">Offence Form</title>
 
     <!--Link only used in prototype mode-->
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
@@ -191,7 +191,7 @@
                             <th></th>
                             <th th:text="#{offence.code}">Offence Code</th>
                             <th th:text="#{description}">Description</th>
-                            <th><button type="button" onclick="addOffenceCode()" class="btn btn-success" name="addOffenceCodeModel" th:text="|Add Offence Code|">Add Offence Code</button></th>
+                            <th><button type="button" onclick="addOffenceCode()" class="btn btn-outline-light"><span class='fas fa-plus text-success'></span></button></th>
                         </tr>
                         </thead>
                         <tbody id="offence-codes-body">
@@ -211,8 +211,7 @@
                                 <input class="form-control" placeholder="Description" th:placeholder="#{description}" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}">
                             </td>
                             <td>
-                                <button class="btn btn-danger" th:if="${OCMStat.size > 1}" type="button" onclick="removeOffenceCode(event)" name="removeOffenceCodeModel" th:value="${OCMStat.index}"
-                                        th:text="|Remove Offence Code|">Remove Offence Code</button>
+                                <button class="btn btn-outline-light" th:if="${OCMStat.size > 1}" type="button" onclick="removeOffenceCode(event)"><span class="fas fa-minus text-danger"></span></button>
                             </td>
                         </tr>
                         </tbody>

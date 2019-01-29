@@ -320,7 +320,7 @@ function addOffenceCode(){
             "\t\t<input class=\"form-control\" placeholder=\"" + descriptionPlaceHolder + "\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value=\"\">\n" +
             "\t</td>\n" +
             "\t<td>\n" +
-            "\t\t<button class=\"btn btn-danger\" type=\"button\" onclick=\"removeOffenceCode(event)\" name=\"removeOffenceCodeModel\" value=\"" + offenceCodes + "\">Remove Offence Code</button>\n" +
+            "\t\t<button class=\"btn btn-outline-light\" type=\"button\" onclick=\"removeOffenceCode(event)\"><span class=\"fas fa-minus text-danger\"></span></button>\n" +
             "\t</td>\n" +
             "</tr>");
 
@@ -335,7 +335,7 @@ function addOffenceCode(){
         var firstRowButtonColumn = $("#offence-codes-body").children("tr:nth-child(1)").children("td:nth-child(4)");
         //if clause added just for when working offline so that the button is not duplicated
         if(!firstRowButtonColumn.children("button").is("button")) {
-            $("<button class=\"btn btn-danger\" type=\"button\" onclick=\"removeOffenceCode(event)\" name=\"removeOffenceCodeModel\" value=\"0\">Remove Offence Code</button>")
+            $("<button class=\"btn btn-outline-light\" type=\"button\" onclick=\"removeOffenceCode(event)\"><span class=\"fas fa-minus text-danger\"></span></button>")
                 .appendTo(firstRowButtonColumn);
         }
     }

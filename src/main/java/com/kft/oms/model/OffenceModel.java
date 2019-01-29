@@ -49,6 +49,7 @@ public class OffenceModel {
     @Valid
     private PersonModel supervisor;
 
+    @Valid
     @NotEmpty
     private List<OffenceCodeModel> offenceCodeModels;
     private Map<ProofDocument,Boolean> proofDocumentTaken;
