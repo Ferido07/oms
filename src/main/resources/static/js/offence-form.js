@@ -298,7 +298,7 @@ function loadQualifiedName() {
 }
 
 //variable to hold number of offence codes currently on the page
-var offenceCodes = 1;
+var offenceCodes = $("#offence-codes-body").find("tr").length;
 function addOffenceCode(){
     var fullCodePlaceHolder = fullCode;
     var descriptionPlaceHolder = description;
