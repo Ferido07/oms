@@ -355,6 +355,24 @@ function removeOffenceCode(event) {
 
 $(document).ready(function(){
     loadQualifiedName();
+
+    $("#vehicle-plate-no").mask("1-A22222-BB", {
+        translation : {
+            1: {pattern: /[1-5]/},
+            A: {pattern: /[aA-zZ]/, optional: true},
+            2: {pattern: /[0-9]/},
+            B: {pattern: /[aA-zZ]/}
+        },
+        placeholder : "1-A12345-AA"
+    });
+
+    // $("#driver-license-no").mask("000000");
+    // offenceCodeInputs.mask("0.0.0 0 A");//, {
+    //     // translation: {
+    //     //     A: {pattern: /[0-9]/, recursive:true}
+    //     //   //  E: {pattern: /[0-9]?/, optional: true}
+    //     // }
+    // //})
 });
 
 function vehiclePlateNoKeyUp(){
