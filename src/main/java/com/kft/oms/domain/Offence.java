@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Offence extends AbstractEntity {
@@ -34,7 +34,7 @@ public class Offence extends AbstractEntity {
     private Integer penaltyAmount;
     @NotNull
     @ManyToMany
-    private List<OffenceCode> offenceCodes;
+    private Set<OffenceCode> offenceCodes;
     private Boolean driversLicenseTaken;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Vehicle vehicle;
@@ -132,11 +132,11 @@ public class Offence extends AbstractEntity {
         this.penaltyAmount = penaltyAmount;
     }
 
-    public List<OffenceCode> getOffenceCodes() {
+    public Set<OffenceCode> getOffenceCodes() {
         return offenceCodes;
     }
 
-    public void setOffenceCodes(List<OffenceCode> offenceCodes) {
+    public void setOffenceCodes(Set<OffenceCode> offenceCodes) {
         this.offenceCodes = offenceCodes;
     }
 

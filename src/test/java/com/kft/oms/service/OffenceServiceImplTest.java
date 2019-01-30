@@ -12,8 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
@@ -30,7 +30,7 @@ public class OffenceServiceImplTest {
     public void determineOffender() throws Exception {
         Offence offence = new Offence();
 
-        List<OffenceCode> offenceCodes = new ArrayList<>();
+        Set<OffenceCode> offenceCodes = new HashSet<>();
 
         OffenceCode offenceCode1 = new OffenceCode();
         offenceCode1.setOffenderType(OffenderType.DRIVER);
