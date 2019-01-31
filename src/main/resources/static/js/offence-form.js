@@ -366,7 +366,8 @@ $(document).ready(function(){
         placeholder : "1-A12345-AA"
     });
 
-    // $("#driver-license-no").mask("000000");
+    $("#driver-license-no").mask("000000");
+
     // offenceCodeInputs.mask("0.0.0 0 A");//, {
     //     // translation: {
     //     //     A: {pattern: /[0-9]/, recursive:true}

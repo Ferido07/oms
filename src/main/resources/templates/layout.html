@@ -1,155 +1,247 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title,links,header_scripts,content,footer_scripts)">
+<html class="no-js h-100" lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title,links,header_scripts,content,footer_scripts)">
 
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
+    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title th:replace="${title}">Concept - Bootstrap 4 Admin Dashboard Template</title>
-    <!-- Bootstrap CSS -->
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title th:replace="${title}">Shards Dashboard Lite - Free Bootstrap Admin Template – DesignRevision</title>
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="../static/vendor/fontawesome/css/fontawesome-all.min.css" th:href="@{/vendor/fontawesome/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" href="../static/vendor/material-icons/css/material-icons.css" th:href="@{/vendor/material-icons/css/material-icons.css}">
     <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="../static/vendor/fonts/circular-std/style.css" th:href="@{/vendor/fonts/circular-std/style.css}">
-    <link rel="stylesheet" href="../static/libs/css/style.css" th:href="@{/libs/css/style.css}">
-    <link rel="stylesheet" href="../static/vendor/fonts/fontawesome/css/fontawesome-all.css" th:href="@{/vendor/fonts/fontawesome/css/fontawesome-all.css}">
+    <link rel="stylesheet" href="../static/libs/css/shards-dashboards.1.1.0.min.css" th:href="@{/libs/css/shards-dashboards.1.1.0.min.css}" id="main-stylesheet" data-version="1.1.0">
+    <link rel="stylesheet" href="../static/libs/css/extras.1.1.0.min.css" th:href="@{/libs/css/extras.1.1.0.min.css}">
 
     <!--/* Per-page placeholder for additional links */-->
     <!--/*/ <th:block th:replace="${links}"></th:block> /*/-->
+
+    <!-- Common Scripts -->
+    <script async defer src="../static/vendor/github/buttons.js" th:src="@{/vendor/github/buttons.js}"></script>
+    
+    <!--/* Per-page placeholder for header scripts */-->
     <!--/*/ <th:block th:replace="${header_scripts}"></th:block> /*/-->
 </head>
 
-<body>
-<!-- ============================================================== -->
-<!-- main wrapper -->
-<!-- ============================================================== -->
-<div class="dashboard-main-wrapper">
-    <!-- ============================================================== -->
-    <!-- navbar -->
-    <!-- ============================================================== -->
-    <div class="dashboard-header">
-        <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="offence/list.html" th:href="@{offence}" th:text="#{offence.management.system}">Offence Management System</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto navbar-right-top">
-                    <li class="nav-item">
-                        <div id="custom-search" class="top-search-bar">
-                            <input class="form-control" type="text" placeholder="Search..">
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown nav-user">
-                        <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="#" alt="../static/images/avatar-1.jpg" class="user-avatar-md rounded-circle"></a>
-                        <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
-                            <div class="nav-user-info">
-                                <h5 class="mb-0 text-white nav-user-name">
-                                    John Abraham</h5>
-                                <span class="status"></span><span class="ml-2">Available</span>
-                            </div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
-                        </div>
-                    </li>
+<body class="h-100">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Main Sidebar -->
+            <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+            <div class="main-navbar">
+                <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+                <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+                    <div class="d-table m-auto">
+                    <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="#" alt="">
+                    <span class="d-none d-md-inline ml-1">Shards Dashboard</span>
+                    </div>
+                </a>
+                <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                    <i class="material-icons">&#xE5C4;</i>
+                </a>
+                </nav>
+            </div>
+            <form action="#" class="main-sidebar__search w-100 border-right d-sm-flex d-md-none d-lg-none">
+                <div class="input-group input-group-seamless ml-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                    <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search">
+                </div>
+            </form>
+            <div class="nav-wrapper">
+                <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link " href="#">
+                    <i class="material-icons">edit</i>
+                    <span>Blog Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">
+                    <i class="material-icons">vertical_split</i>
+                    <span>Blog Posts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">
+                    <i class="material-icons">note_add</i>
+                    <span>Add New Post</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                    <i class="material-icons">view_module</i>
+                    <span>Forms &amp; Components</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">
+                    <i class="material-icons">table_chart</i>
+                    <span>Tables</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">
+                    <i class="material-icons">person</i>
+                    <span>User Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">
+                    <i class="material-icons">error</i>
+                    <span>Errors</span>
+                    </a>
+                </li>
                 </ul>
             </div>
-        </nav>
-    </div>
-    <!-- ============================================================== -->
-    <!-- end navbar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- left sidebar -->
-    <!-- ============================================================== -->
-    <div class="nav-left-sidebar sidebar-dark">
-        <div class="menu-list">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav flex-column">
-                        <li class="nav-divider">
-                            Menu
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
-                            <div id="submenu-1" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="layout.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-2" aria-controls="submenu-1-2" th:text="#{offence}">Offence</a>
-                                        <div id="submenu-1-2" class="collapse submenu">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="offence/list.html" th:href="@{/offence}" th:text="#{offence.list}">Offence List</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="offence/form.html" th:href="@{/offence/create}" th:text="#{new.offence}">New Offence</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Finance</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Sales</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!-- ============================================================== -->
-    <!-- end left sidebar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- wrapper  -->
-    <!-- ============================================================== -->
-    <div class="dashboard-wrapper">
-        <div class="container-fluid dashboard-content">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" th:replace="${content}">
-                    <h3 class="text-center"> Content goes here!</h3>
-                </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <div class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <!-- NOTE: Copyright Notice -->
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <div class="text-md-right footer-links d-none d-sm-block">
-                            <a href="javascript: void(0);">About</a>
-                            <a href="javascript: void(0);">Support</a>
-                            <a href="javascript: void(0);">Contact Us</a>
+            </aside>
+            <!-- End Main Sidebar -->
+            <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+            <div class="main-navbar sticky-top bg-white">
+                <!-- Main Navbar -->
+                <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+                <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+                    <div class="input-group input-group-seamless ml-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                        <i class="fas fa-search"></i>
                         </div>
                     </div>
+                    <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search">
+                    </div>
+                </form>
+                <ul class="navbar-nav border-left flex-row ">
+                    <li class="nav-item border-right dropdown notifications">
+                    <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="nav-link-icon__wrapper">
+                        <i class="material-icons">&#xE7F4;</i>
+                        <span class="badge badge-pill badge-danger">2</span>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">
+                        <div class="notification__icon-wrapper">
+                            <div class="notification__icon">
+                            <i class="material-icons">&#xE6E1;</i>
+                            </div>
+                        </div>
+                        <div class="notification__content">
+                            <span class="notification__category">Analytics</span>
+                            <p>Your website’s active users count increased by <span class="text-success text-semibold">28%</span> in the last week. Great job!</p>
+                        </div>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                        <div class="notification__icon-wrapper">
+                            <div class="notification__icon">
+                            <i class="material-icons">&#xE8D1;</i>
+                            </div>
+                        </div>
+                        <div class="notification__content">
+                            <span class="notification__category">Sales</span>
+                            <p>Last week your store’s sales count decreased by <span class="text-danger text-semibold">5.52%</span>. It could have been worse!</p>
+                        </div>
+                        </a>
+                        <a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>
+                    </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="user-avatar rounded-circle mr-2" src="#" alt=""> <span class="d-none d-md-inline-block">Sierra Brooks</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-small">
+                        <a class="dropdown-item" href="#"><i class="material-icons">&#xE7FD;</i> Profile</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons">vertical_split</i> Blog Posts</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons">note_add</i> Add New Post</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">
+                        <i class="material-icons text-danger">&#xE879;</i> Logout </a>
+                    </div>
+                    </li>
+                </ul>
+                <nav class="nav">
+                    <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
+                    <i class="material-icons">&#xE5D2;</i>
+                    </a>
+                </nav>
+                </nav>
+            </div> <!-- / .main-navbar -->
+            <div class="main-content-container container-fluid px-4">
+                <!-- Page Header -->
+                <div class="page-header row no-gutters py-4 mb-3 border-bottom">
+                <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                    <span class="text-uppercase page-subtitle">Overview</span>
+                    <h3 class="page-title">Forms & Components</h3>
+                </div>
+                </div>
+                <!-- End Page Header -->
+                <div class="row mb-2">
+    
+                </div>
+                <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="card card-small mb-4">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">Form Inputs</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-0 px-3 pt-3">
+                        <div class="row">
+                            
+                                <div class="col-sm-12 col-md-4 mb-3" th:replace="${content}">
+                                    <!-- Content -->
+                                    <h6>Content goes here!</h6>
+                                    <!-- / End Content -->
+                                </div>
+    
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
                 </div>
             </div>
+            <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
+                <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog</a>
+                </li>
+                </ul>
+                <span class="copyright ml-auto my-auto mr-2">Copyright © 2018 <a href="https://designrevision.com" rel="nofollow">DesignRevision</a></span>
+            </footer>
+            </main>
         </div>
-        <!-- ============================================================== -->
-        <!-- end footer -->
-        <!-- ============================================================== -->
     </div>
-</div>
-<!-- ============================================================== -->
-<!-- end main wrapper -->
-<!-- ============================================================== -->
-<!-- Optional JavaScript -->
-<script src="../static/vendor/jquery/jquery-3.3.1.min.js" th:src="@{/vendor/jquery/jquery-3.3.1.min.js}"></script>
-<script src="../static/vendor/bootstrap/js/bootstrap.bundle.js" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
-<script src="../static/vendor/slimscroll/jquery.slimscroll.js" th:src="@{/vendor/slimscroll/jquery.slimscroll.js}"></script>
-<script src="../static/libs/js/main-js.js" th:src="@{/libs/js/main-js.js}"></script>
-<!--/*/ <th:block th:insert="${footer_scripts}"></th:block> /*/-->
+    
+    <!-- Common JavaScript -->
+    <script src="../static/vendor/jquery/jquery-3.3.1.min.js" th:src="@{/vendor/jquery/jquery-3.3.1.min.js}"></script>
+    <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../static/vendor/chart/Chart.min.js" th:src="@{/vendor/chart/Chart.min.js}"></script>
+    <script src="../static/libs/js/shards.min.js" th:src="@{/libs/js/shards.min.js}"></script>
+    <script src="../static/vendor/sharrre/jquery.sharrre.min.js" th:src="@{/vendor/sharrre/jquery.sharrre.min.js}"></script>
+    <script src="../static/libs/js/extras.1.1.0.min.js" th:src="@{/libs/js/extras.1.1.0.min.js}"></script>
+    <script src="../static/libs/js/shards-dashboards.1.1.0.min.js" th:src="@{/libs/js/shards-dashboards.1.1.0.min.js}"></script>
+    <script src="../static/libs/js/app/app-components-overview.1.1.0.min.js" th:src="@{/libs/js/app/app-components-overview.1.1.0.min.js}"></script>
+
+    <!-- Per page placeholder for footer scripts -->
+    <!--/*/ <th:block th:insert="${footer_scripts}"></th:block> /*/-->
 </body>
 </html>
