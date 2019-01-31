@@ -264,7 +264,7 @@
 
     <th:block th:fragment="footer_scripts">
         <!--Script Must be loaded at last-->
-        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
+        <script src="../../static/vendor/jquery-ui/jquery-ui.min.js" th:src="@{/vendor/jquery-ui/jquery-ui.min.js}"></script>
         <script src="../../static/vendor/mask/jquery.mask.js" th:src="@{/vendor/mask/jquery.mask.js}"></script>
         <script src="../../static/js/offence-form.js" th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}" th:data-full-code="#{full.code}" th:data-description="#{description}"></script>
     </th:block>
