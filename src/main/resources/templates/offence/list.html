@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, content=~{::content}, footer_scripts=~{})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{})">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{offence.list}">Offence List</title>
@@ -8,37 +8,39 @@
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-    <!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
-    <div class="container" th:fragment="content">
-        <div th:if="${not #lists.isEmpty(offenceModels)}">
-            <h2 th:text="#{list.offences}">List Offences</h2>
-            <table class="table table-striped">
-                <tr>
-                    <th th:text="#{driver.name}">Driver Name</th>
-                    <th th:text="#{date}">Date</th>
-                    <th th:text="#{time}">Time</th>
-                    <th th:text="#{description}">Description</th>
-                    <th th:text="#{penalty.amount}">Penalty Amount</th>
-                    <th></th>
-                </tr>
-                <!--/*@thymesVar id="offenceModels" type="java.util.List<com.kft.oms.model.OffenceModel>"*/-->
-                <tr th:each="offenceModel : ${offenceModels}">
-                    <td th:text="${offenceModel.driverModel.getFullName()}"></td>
-                    <td th:text="${offenceModel.date}"></td>
-                    <td th:text="${offenceModel.time}"></td>
-                    <td th:text="${offenceModel.description}"></td>
-                    <td th:text="${offenceModel.penaltyAmount}"></td>
-                    <td>
-                        <a href="show.html" th:href="${'/oms/offence/' + offenceModel.id}" th:text="#{view}">View</a>
-                        <a href="form.html" th:href="${'/oms/offence/edit/' + offenceModel.id}" th:text="#{edit}">Edit</a>
-                        <a href="#" th:href="${'/oms/offence/delete/' + offenceModel.id}" th:text="#{delete}">Delete</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div th:if="${ #lists.isEmpty(offenceModels)}">
-            <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
-            <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+    <div class="container">
+        <h3><span id="page-header" th:text="#{list.offences}">List Offences</span></h3>
+        <!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
+        <div class="container" th:fragment="content">
+            <div th:if="${not #lists.isEmpty(offenceModels)}">
+                <table class="table table-striped">
+                    <tr>
+                        <th th:text="#{driver.name}">Driver Name</th>
+                        <th th:text="#{date}">Date</th>
+                        <th th:text="#{time}">Time</th>
+                        <th th:text="#{description}">Description</th>
+                        <th th:text="#{penalty.amount}">Penalty Amount</th>
+                        <th></th>
+                    </tr>
+                    <!--/*@thymesVar id="offenceModels" type="java.util.List<com.kft.oms.model.OffenceModel>"*/-->
+                    <tr th:each="offenceModel : ${offenceModels}">
+                        <td th:text="${offenceModel.driverModel.getFullName()}"></td>
+                        <td th:text="${offenceModel.date}"></td>
+                        <td th:text="${offenceModel.time}"></td>
+                        <td th:text="${offenceModel.description}"></td>
+                        <td th:text="${offenceModel.penaltyAmount}"></td>
+                        <td>
+                            <a href="show.html" th:href="${'/oms/offence/' + offenceModel.id}" th:text="#{view}">View</a>
+                            <a href="form.html" th:href="${'/oms/offence/edit/' + offenceModel.id}" th:text="#{edit}">Edit</a>
+                            <a href="#" th:href="${'/oms/offence/delete/' + offenceModel.id}" th:text="#{delete}">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div th:if="${ #lists.isEmpty(offenceModels)}">
+                <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
+                <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+            </div>
         </div>
     </div>
 </body>

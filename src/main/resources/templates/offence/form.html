@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:replace="layout :: layout(title=~{::title}, links=~{::links}, header_scripts=~{}, content=~{::content}, footer_scripts=~{::footer_scripts})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:replace="layout :: layout(title=~{::title}, links=~{::links}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{::footer_scripts})">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{offence.form}">Offence Form</title>
@@ -14,9 +14,9 @@
 </head>
 <body>
     <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
-    <div class="container" th:fragment="content">
-        <h2 th:text="#{offence.details}">Offence Details</h2>
-        <div>
+    <div class="container">
+        <h3><span id="page-header" th:text="#{offence.details}">Offence Details</span></h3>
+        <div th:fragment="content">
             <form id="regForm" th:object="${offenceModel}" th:action="@{/offence/create}" method="post">
 
                 <input type="hidden" th:field="*{id}">
