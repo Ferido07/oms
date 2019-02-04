@@ -27,13 +27,9 @@
                     <input type="hidden" id="vehicle-id" th:field="*{vehicleModel.id}">
 
                     <!--Vehicle Plate-->
-                        <!--Country-->
-                        <!--Region-->
-                        <!--Code-->
-                        <!--Plate No-->
                     <div class="form-group ui-widget">
                         <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
-                        <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}" onkeyup="vehiclePlateNoKeyUp()">
+                        <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}" onkeyup="vehiclePlateNoKeyUp()" required>
                         <p th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:text="#{error.vehicle.plateNo.regexp}">Plate No Error</p>
                     </div>
 
@@ -53,21 +49,21 @@
                             <input type="hidden" th:field="*{vehicleModel.vehicleOwnershipModels[0].id}">
                             <div class="form-group">
                                 <label for="vo-libreNo" class="control-label" th:text="#{libre.No}">Libre No</label>
-                                <input id="vo-libreNo" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{vehicleModel.vehicleOwnershipModels[0].libreNo}">
+                                <input id="vo-libreNo" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{vehicleModel.vehicleOwnershipModels[0].libreNo}" required maxlength="20">
                             </div>
                             <div class="form-group">
                                 <label for="vo-fName" class="control-label" th:text="#{first.name}">First Name</label>
-                                <input id="vo-fName" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}">
+                                <input id="vo-fName" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}" required maxlength="30">
                                 <p th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}">Vehicle Owner First Name Error</p>
                             </div>
                             <div class="form-group">
                                 <label for="vo-mName" class="control-label" th:text="#{middle.name}">Middle Name</label>
-                                <input id="vo-mName" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}">
+                                <input id="vo-mName" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}" required maxlength="30">
                                 <p th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}">Vehicle Owner Middle Name Error</p>
                             </div>
                             <div class="form-group">
                                 <label for="vo-lName" class="control-label" th:text="#{last.name}">Last Name</label>
-                                <input id="vo-lName" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}">
+                                <input id="vo-lName" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}" required maxlength="30">
                                 <p th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}">Vehicle Owner Last Name Error</p>
                             </div>
                         <!--</div>-->
@@ -86,7 +82,7 @@
                     <!--Side No-->
                     <div class="form-group">
                         <label for="vehicle-side-no" class="control-label" th:text="#{side.no}">Side No</label>
-                        <input id="vehicle-side-no" class="form-control" type="number" placeholder="Side No" th:placeholder="#{side.no}" th:field="*{vehicleModel.sideNo}">
+                        <input id="vehicle-side-no" class="form-control" type="number" placeholder="Side No" th:placeholder="#{side.no}" th:field="*{vehicleModel.sideNo}" maxlength="5">
                     </div>
                 </div>
 
@@ -96,7 +92,7 @@
                     <!--Dispatch No-->
                     <div class="form-group">
                         <label for="dispatch-number" class="control-label" th:text="#{dispatch.no}">Dispatch Number</label>
-                        <input id="dispatch-number" class="form-control" placeholder="Dispatch Number" th:placeholder="#{dispatch.no}" th:field="*{dispatchNo}">
+                        <input id="dispatch-number" class="form-control" placeholder="Dispatch Number" th:placeholder="#{dispatch.no}" th:field="*{dispatchNo}" maxlength="12">
                     </div>
 
                     <!--Tariff which is no included in domain-->
@@ -113,7 +109,7 @@
                     <!--Driver's License No and Type-->
                     <div class="form-group">
                         <label for="driver-license-no" th:text="#{license.no}">License No</label>
-                        <input id="driver-license-no" class="form-control" th:type="number" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driverModel.licenseNo}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                        <input id="driver-license-no" class="form-control" th:type="number" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driverModel.licenseNo}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required>
                         <p th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</p>
                     </div>
                     <div class="form-group">
@@ -131,18 +127,18 @@
                     <!--Driver's Name-->
                     <div class="form-group">
                         <label for="driver-fn" th:text="#{first.name}">First Name</label>
-                        <input id="driver-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{driverModel.firstName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                        <input id="driver-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{driverModel.firstName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required maxlength="30">
                         <p th:if="${#fields.hasErrors('driverModel.firstName')}" th:errors="*{driverModel.firstName}">Driver First Name Error</p>
                     </div>
 
                     <div class="form-group">
                         <label for="driver-mn" th:text="#{middle.name}">Middle Name</label>
-                        <input id="driver-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{driverModel.middleName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                        <input id="driver-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{driverModel.middleName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required maxlength="30">
                         <p th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</p>
                     </div>
                     <div class="form-group">
                         <label for="driver-ln" th:text="#{last.name}">Last Name</label>
-                        <input id="driver-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{driverModel.lastName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                        <input id="driver-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{driverModel.lastName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required maxlength="30">
                         <p th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</p>
                     </div>
                 </div>
@@ -153,24 +149,24 @@
                     <!--OffenceModel Date and Time-->
                     <div class="form-group">
                         <label for="date"  th:text="#{date}">Date</label>
-                        <input type="date" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}">
+                        <input type="date" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}" required>
                         <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</p>
                     </div>
                     <div class="form-group">
                         <label for="time" th:text="#{time}">Time</label>
-                        <input type="time" id="time" class="form-control" placeholder="Time" th:placeholder="#{time}" th:field="*{time}">
+                        <input type="time" id="time" class="form-control" placeholder="Time" th:placeholder="#{time}" th:field="*{time}" required>
                         <p th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</p>
                     </div>
                     <!--OffenceModel Location-->
                     <div class="form-group">
                         <label for="location" th:text="#{location}">Location</label>
-                        <input id="location" class="form-control" placeholder="Location" th:placeholder="#{location}" th:field="*{location}">
+                        <input id="location" class="form-control" placeholder="Location" th:placeholder="#{location}" th:field="*{location}" required maxlength="200">
                         <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</p>
                     </div>
                     <!--OffenceModel Description-->
                     <div class="form-group">
                         <label for="description" th:text="#{description}">Description</label>
-                        <input id="description" class="form-control" placeholder="Description" th:placeholder="#{description}" th:field="*{description}">
+                        <input id="description" class="form-control" placeholder="Description" th:placeholder="#{description}" th:field="*{description}" maxlength="255">
                         <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
                     </div>
 
@@ -179,7 +175,7 @@
                     <!--Reporting Location-->
                     <div class="form-group">
                         <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
-                        <input id="reporting-location" class="form-control" placeholder="Reporting Location" th:placeholder="#{reporting.location}" th:field="*{reportingLocation}">
+                        <input id="reporting-location" class="form-control" placeholder="Reporting Location" th:placeholder="#{reporting.location}" th:field="*{reportingLocation}" maxlength="200">
                         <p th:if="${#fields.hasErrors('reportingLocation')}" th:errors="*{reportingLocation}">Reporting Location Error</p>
                     </div>
                     <!--Action Taken by (Not included in domain)-->
@@ -226,17 +222,17 @@
                     <!--Full Name-->
                     <div class="form-group">
                         <label for="supervisor-fn" th:text="#{first.name}">First Name</label>
-                        <input id="supervisor-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{supervisor.firstName}">
+                        <input id="supervisor-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{supervisor.firstName}" maxlength="30">
                         <p th:if="${#fields.hasErrors('supervisor.firstName')}" th:errors="*{supervisor.firstName}">Supervisor First Name Error</p>
                     </div>
                     <div class="form-group">
                         <label for="supervisor-mn" th:text="#{middle.name}">Middle Name</label>
-                        <input id="supervisor-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{supervisor.middleName}">
+                        <input id="supervisor-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{supervisor.middleName}" maxlength="30">
                         <p th:if="${#fields.hasErrors('supervisor.middleName')}" th:errors="*{supervisor.middleName}">Supervisor Middle Name Error</p>
                     </div>
                     <div class="form-group">
                         <label for="supervisor-ln" th:text="#{last.name}">Last Name</label>
-                        <input id="supervisor-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{supervisor.lastName}">
+                        <input id="supervisor-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{supervisor.lastName}" maxlength="30">
                         <p th:if="${#fields.hasErrors('supervisor.lastName')}" th:errors="*{supervisor.lastName}">Supervisor Last Name Error</p>
                     </div>
                 </div>
@@ -261,11 +257,13 @@
 
     <!--Script only used in prototype mode-->
     <script src="../../static/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../../static/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
     <th:block th:fragment="footer_scripts">
         <!--Script Must be loaded at last-->
         <script src="../../static/vendor/jquery-ui/jquery-ui.min.js" th:src="@{/vendor/jquery-ui/jquery-ui.min.js}"></script>
         <script src="../../static/vendor/mask/jquery.mask.js" th:src="@{/vendor/mask/jquery.mask.js}"></script>
+        <script src="../../static/vendor/jquery-validation-1.19.0/jquery.validate.min.js" th:src="@{/vendor/jquery-validation-1.19.0/jquery.validate.min.js}"></script>
         <script src="../../static/js/offence-form.js" th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}" th:data-full-code="#{full.code}" th:data-description="#{description}"></script>
     </th:block>
 </body>
