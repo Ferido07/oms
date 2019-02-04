@@ -73,7 +73,7 @@ input.invalid {
 
 /* Mark the steps that are finished and valid: */
 .step.finish {
-    background-color: #4CAF50;
+    background-color: #28a745;
 }
 
 /* disallow pointer events like click on span elements inside a button*/
