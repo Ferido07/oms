@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface DriverService extends CrudService<Driver,Integer,DriverRepository>{
     Optional<DriverModel> findByDriversLicenseNo(String licenseNo);
     List<DriverModel> findByDriversLicenseNoStartingWith(String licenseNo);
+    List<DriverModel> getAllAsDriverModel();
 }

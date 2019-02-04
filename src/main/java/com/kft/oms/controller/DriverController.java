@@ -3,6 +3,7 @@ package com.kft.oms.controller;
 import com.kft.oms.model.DriverModel;
 import com.kft.oms.service.DriverService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,5 +32,11 @@ public class DriverController {
                 .stream()
                 .map(DriverModel::getLicenseNo)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping({"/list"})
+    public String getAllDrivers(Model model){
+        model.addAttribute("driverModels", driverService.getAllAsDriverModel());
+        return "offender/driver/list";
     }
 }

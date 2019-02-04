@@ -68,6 +68,12 @@
                                 <span th:text="#{new.offence}">Add New Offence</span>
                             </a>
                         </li>
+                        <li class="nav-item" data-page="drivers-list">
+                            <a class="nav-link" href="offender/driver/list.html" th:href="@{/driver/list}">
+                                <i class="material-icons">person</i>
+                                <span th:text="#{drivers}">Drivers</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </aside>
@@ -189,7 +195,7 @@
                             <a class="nav-link" href="#">About</a>
                         </li>
                     </ul>
-                    <!-- TODO: Change ore remove Copyright -->
+                    <!-- TODO: Change or remove Copyright -->
                     <span class="copyright ml-auto my-auto mr-2">Copyright © 2018 <a href="https://designrevision.com" rel="nofollow">DesignRevision</a></span>
                 </footer>
             </main>
@@ -211,12 +217,13 @@
     <!--/*/ <th:block th:insert="${footer_scripts}"></th:block> /*/-->
 
     <script>
-        var templateToTabMap = {
+        var templateToPageMap = {
             "offence-list" : "list-offences",
-            "offence-form" : "add-offence"
+            "offence-form" : "add-offence",
+            "driver-list" : "drivers-list"
         };
         var template = $("#page-header").attr("data-template");
-        var page = templateToTabMap[template];
+        var page = templateToPageMap[template];
         var pageSelector = "li[data-page='" + page + "']";
         var pages = $("#pages");
         pages.find("a").removeClass("active");

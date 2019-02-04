@@ -31,4 +31,10 @@ public class DriverServiceImpl extends CrudServiceImpl<Driver,Integer,DriverRepo
         List<Driver> drivers = repository.findAllByDriversLicenseLicenseNoStartingWith(licenseNo);
         return mapper.mapAsList(drivers,DriverModel.class);
     }
+
+    @Override
+    public List<DriverModel> getAllAsDriverModel() {
+         List<Driver> drivers = repository.findAll();
+         return mapper.mapAsList(drivers, DriverModel.class);
+    }
 }

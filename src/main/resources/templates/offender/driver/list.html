@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{drivers.list}">Drivers List</title>
+
+    <!--Link only used in prototype mode-->
+    <link rel="stylesheet" href="../../../static/vendor/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h2><span id="page-header" data-template="driver-list" th:text="#{drivers}">Drivers</span></h2>
+        <!--/*@thymesVar id="driverModels" type="List<com.kft.oms.model.DriverModel>"*/-->
+        <div class="container" th:fragment="content">
+            <div th:if="${not #lists.isEmpty(driverModels)}">
+                <!--<h6>History of Offences for <span th:text="${offenceModels[0].driverModel.getFullName()}">Offender</span></h6>-->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th th:text="#{driver.name}">Name</th>
+                            <th th:text="#{license.no}">License No</th>
+                            <th th:text="#{history}">History</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="driverModel : ${driverModels}">
+                            <td th:text="${driverModel.getFullName()}">Full Name</td>
+                            <td th:text="${driverModel.licenseNo}">License No</td>
+                            <td>
+                                <a href="../../offender/offence-list.html" th:href="${'/oms/offender/' + driverModel.id}" th:text="#{view}">View</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${ #lists.isEmpty(driverModels)}">
+                <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
+                <p><span th:text="#{add.offence.message}">To add offences </span> <a href="../../offence/form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

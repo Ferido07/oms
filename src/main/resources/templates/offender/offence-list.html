@@ -20,6 +20,7 @@
                         <th th:text="#{time}">Time</th>
                         <th th:text="#{description}">Description</th>
                         <th th:text="#{penalty.amount}">Penalty Amount</th>
+                        <th th:text="#{status}">Status</th>
                         <th></th>
                     </tr>
                     <!--/*@thymesVar id="offenceModels" type="java.util.List<com.kft.oms.model.OffenceModel>"*/-->
@@ -29,7 +30,11 @@
                         <td th:text="${offenceModel.description}"></td>
                         <td th:text="${offenceModel.penaltyAmount}"></td>
                         <td>
-                            <a href="../offence/show.html" th:href="${'/oms/offence/' + offenceModel.id}" th:text="#{view}">View</a>
+                            <a th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></a>
+                        </td>
+                        <td>
+                            <a href="../offence/show.html" th:href="@{/offence/{id}(id=${offenceModel.id})}" th:text="#{view}">View</a>
+                            <a href="../offence/status.html" th:href="@{/offence/{id}/status(id=${offenceModel.id})}" th:text="#{status}"></a>
                         </td>
                     </tr>
                 </table>
