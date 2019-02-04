@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h3><span id="page-header" th:text="#{list.offences}">List Offences</span></h3>
+        <h3><span id="page-header" data-template="offence-list" th:text="#{list.offences}">List Offences</span></h3>
         <!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
         <div class="container" th:fragment="content">
             <div th:if="${not #lists.isEmpty(offenceModels)}">

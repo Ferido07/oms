@@ -15,7 +15,7 @@
 <body>
     <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
     <div class="container">
-        <h3><span id="page-header" th:text="#{offence.details}">Offence Details</span></h3>
+        <h3><span id="page-header" data-template="offence-form" th:text="#{offence.details}">Offence Details</span></h3>
         <div th:fragment="content">
             <form id="regForm" th:object="${offenceModel}" th:action="@{/offence/create}" method="post">
 
