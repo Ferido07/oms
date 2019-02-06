@@ -2,6 +2,7 @@ package com.kft.oms.controller;
 
 import com.kft.oms.model.DriverModel;
 import com.kft.oms.service.DriverService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,8 @@ public class DriverController {
     }
 
     @GetMapping({"/list"})
-    public String getAllDrivers(Model model){
-        model.addAttribute("driverModels", driverService.getAllAsDriverModel());
+    public String getAllDrivers(Model model, Pageable pageable){
+        model.addAttribute("driverModels", driverService.getAllAsDriverModel(pageable));
         return "offender/driver/list";
     }
 }

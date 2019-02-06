@@ -59,11 +59,11 @@
                     <div class="col-md-2"></div>
                 </div>
             </div>
-            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber == 1 }">
+            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber == 0 }">
                 <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
                 <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
             </div>
-            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber != 1}">
+            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber != 0}">
                 <h5>This Page Contains No Offences</h5>
                 <p>To view registered offences go to <a th:href="@{/offence}">first page</a>!</p>
             </div>

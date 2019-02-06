@@ -5,6 +5,8 @@ import com.kft.oms.config.Mapper;
 import com.kft.oms.domain.Driver;
 import com.kft.oms.model.DriverModel;
 import com.kft.oms.repository.DriverRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +35,8 @@ public class DriverServiceImpl extends CrudServiceImpl<Driver,Integer,DriverRepo
     }
 
     @Override
-    public List<DriverModel> getAllAsDriverModel() {
-         List<Driver> drivers = repository.findAll();
-         return mapper.mapAsList(drivers, DriverModel.class);
+    public Page<DriverModel> getAllAsDriverModel(Pageable pageable) {
+         Page<Driver> drivers = repository.findAll(pageable);
+         return drivers.map(driver -> mapper.map(driver, DriverModel.class));
     }
 }

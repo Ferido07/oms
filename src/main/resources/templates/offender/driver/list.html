@@ -10,9 +10,9 @@
 <body>
     <div class="container">
         <h2><span id="page-header" data-template="driver-list" th:text="#{drivers}">Drivers</span></h2>
-        <!--/*@thymesVar id="driverModels" type="List<com.kft.oms.model.DriverModel>"*/-->
+        <!--/*@thymesVar id="driverModels" type="org.springframework.data.domain.Page<com.kft.oms.model.DriverModel>"*/-->
         <div class="container" th:fragment="content">
-            <div th:if="${not #lists.isEmpty(driverModels)}">
+            <div th:if="${not driverModels.isEmpty()}">
                 <!--<h6>History of Offences for <span th:text="${offenceModels[0].driverModel.getFullName()}">Offender</span></h6>-->
                 <table class="table table-striped">
                     <thead>
@@ -32,10 +32,27 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <nav aria-label="Pagination">
+                            <ul class="pagination justify-content-center" th:if="${driverModels.getTotalPages()>1}">
+                                <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1,__${driverModels.getTotalPages()}__)}" >
+                                    <a class="page-link" th:href="@{/driver/list(page=${pageNumber - 1})}" th:text="${pageNumber}">1</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
             </div>
-            <div th:if="${ #lists.isEmpty(driverModels)}">
+            <div th:if="${driverModels.isEmpty() && driverModels.pageable.pageNumber == 0 }">
                 <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
                 <p><span th:text="#{add.offence.message}">To add offences </span> <a href="../../offence/form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+            </div>
+            <div th:if="${driverModels.isEmpty() && driverModels.pageable.pageNumber != 0 }">
+                <h5>This Page Contains No Drivers</h5>
+                <p>To view registered drivers go to <a th:href="@{/driver/list}">first page</a>!</p>
             </div>
         </div>
     </div>
