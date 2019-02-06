@@ -24,8 +24,8 @@ public interface OffenceService extends CrudService<Offence,Integer,OffenceRepos
     Optional<OffenceModel> findOffenceModelById(Integer id);
     OffenceModel save(OffenceModel offenceModel);
     List<OffenceModel> getAllOffencesByOffenderIdAndDateBetween(Integer id, LocalDate startDate, LocalDate endDate);
-    List<OffenceModel> getAllOffencesByOffenderId(Integer id);
-    List<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId);
+    Page<OffenceModel> getAllOffencesByOffenderId(Integer id, Pageable pageable);
+    Page<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId, Pageable pageable);
     List<OffenceModel> getRecordOffencesForOffenceAndOffenceCode(Integer offenceId, Integer offenceCodeId);
     OffenceModel clearStatus(Integer offenceId);
     Map<Integer,Integer> getOffenceCodeRepetitionForOffenceInRecordKeepingTimeSpan(Integer offenceId);

@@ -216,17 +216,17 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
     }
 
     @Override
-    public List<OffenceModel> getAllOffencesByOffenderId(Integer id) {
-        List<Offence> offences = repository.findAllByOffenderId(id);
-        return  mapper.mapAsList(offences, OffenceModel.class);
+    public Page<OffenceModel> getAllOffencesByOffenderId(Integer id, Pageable pageable) {
+        Page<Offence> offences = repository.findAllByOffenderId(id, pageable);
+        return offences.map(offence -> mapper.map(offence, OffenceModel.class));
     }
 
     @Override
-    public List<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId) {
+    public Page<OffenceModel> getAllOffencesByOffenderIdAndOffenceCodeId(Integer offenderId, Integer offenceCodeId, Pageable pageable) {
         OffenceCode code = new OffenceCode();
         code.setId(offenceCodeId);
-        List<Offence> offences = repository.findAllByOffenderIdAndOffenceCodesContains(offenderId, code);
-        return mapper.mapAsList(offences, OffenceModel.class);
+        Page<Offence> offences = repository.findAllByOffenderIdAndOffenceCodesContains(offenderId, code, pageable);
+        return offences.map(offence -> mapper.map(offence, OffenceModel.class));
     }
 
     @Override
