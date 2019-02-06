@@ -5,6 +5,7 @@ import com.kft.oms.model.OffenceCodeModel;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,8 +28,9 @@ public class OffenceController {
     }
 
     @GetMapping({"","/list"})
-    public String index(Model model){
-        model.addAttribute("offenceModels", offenceService.getAllAsOffenceModel());
+    public String index(Model model, Pageable pageable){
+        model.addAttribute("offenceModels", offenceService.getAllAsOffenceModel(pageable));
+        model.addAttribute("paginated", true);
         return "offence/list";
     }
 

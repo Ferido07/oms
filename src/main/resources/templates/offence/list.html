@@ -8,38 +8,64 @@
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
+    <!--Note: this template is used by two different controllers that return a Page<OffenceModel> and List<OffenceModel>
+              the index action returns Page type and getRecordOffencesForAnOffenceAndOffenceCode action returns List type
+              but both work fine with the same template. The only reason both do not return Page type is because that
+              type issues another query for the count which would be unnecessary for the List returning action since
+              it most probably almost 100% would not have a second page ans hence additional query could be avoided -->
     <div class="container">
         <h3><span id="page-header" data-template="offence-list" th:text="#{list.offences}">List Offences</span></h3>
-        <!--/*@thymesVar id="offenceModels" type="List<com.kft.oms.model.OffenceModel>"*/-->
+        <!--/*@thymesVar id="offenceModels" type="org.springframework.data.domain.Page<com.kft.oms.model.OffenceModel>"*/-->
         <div class="container" th:fragment="content">
-            <div th:if="${not #lists.isEmpty(offenceModels)}">
+            <div th:if="${not offenceModels.isEmpty()}">
                 <table class="table table-striped">
-                    <tr>
-                        <th th:text="#{driver.name}">Driver Name</th>
-                        <th th:text="#{date}">Date</th>
-                        <th th:text="#{time}">Time</th>
-                        <th th:text="#{description}">Description</th>
-                        <th th:text="#{penalty.amount}">Penalty Amount</th>
-                        <th></th>
-                    </tr>
-                    <!--/*@thymesVar id="offenceModels" type="java.util.List<com.kft.oms.model.OffenceModel>"*/-->
-                    <tr th:each="offenceModel : ${offenceModels}">
-                        <td th:text="${offenceModel.driverModel.getFullName()}"></td>
-                        <td th:text="${offenceModel.date}"></td>
-                        <td th:text="${offenceModel.time}"></td>
-                        <td th:text="${offenceModel.description}"></td>
-                        <td th:text="${offenceModel.penaltyAmount}"></td>
-                        <td>
-                            <a href="show.html" th:href="${'/oms/offence/' + offenceModel.id}" th:text="#{view}">View</a>
-                            <a href="form.html" th:href="${'/oms/offence/edit/' + offenceModel.id}" th:text="#{edit}">Edit</a>
-                            <a href="#" th:href="${'/oms/offence/delete/' + offenceModel.id}" th:text="#{delete}">Delete</a>
-                        </td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th th:text="#{driver.name}">Driver Name</th>
+                            <th th:text="#{date}">Date</th>
+                            <th th:text="#{time}">Time</th>
+                            <th th:text="#{description}">Description</th>
+                            <th th:text="#{penalty.amount}">Penalty Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="offenceModel : ${offenceModels}">
+                            <td th:text="${offenceModel.driverModel.getFullName()}"></td>
+                            <td th:text="${offenceModel.date}"></td>
+                            <td th:text="${offenceModel.time}"></td>
+                            <td th:text="${offenceModel.description}"></td>
+                            <td th:text="${offenceModel.penaltyAmount}"></td>
+                            <td>
+                                <a href="show.html" th:href="@{/offence/{id}(id=${offenceModel.id})}" th:text="#{view}">View</a>
+                                <a href="status.html" th:href="@{/offence/{id}/status(id=${offenceModel.id})}" th:text="#{status}">Status</a>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
+                <!--/*@thymesVar id="paginated" type="java.lang.Boolean"*/-->
+                <!--/*paginated only used for the action that returns a page*/-->
+                <div class="row" th:if="${paginated == true}">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <nav aria-label="Pagination">
+                            <ul class="pagination justify-content-center" th:if="${offenceModels.getTotalPages()>1}">
+                                <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1,__${offenceModels.getTotalPages()}__)}" >
+                                    <a class="page-link" th:href="@{/offence(page=${pageNumber - 1})}" th:text="${pageNumber}">1</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
             </div>
-            <div th:if="${ #lists.isEmpty(offenceModels)}">
+            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber == 1 }">
                 <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
                 <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+            </div>
+            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber != 1}">
+                <h5>This Page Contains No Offences</h5>
+                <p>To view registered offences go to <a th:href="@{/offence}">first page</a>!</p>
             </div>
         </div>
     </div>

@@ -14,6 +14,8 @@ import com.kft.oms.repository.DriverRepository;
 import com.kft.oms.repository.OffenceRepository;
 import com.kft.oms.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
@@ -77,9 +79,9 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         return offenceCodeToRepetitionMap;
     }
 
-    public List<OffenceModel> getAllAsOffenceModel(){
-        List<Offence> offenceList = repository.findAll();
-        return mapper.mapAsList(offenceList, OffenceModel.class);
+    public Page<OffenceModel> getAllAsOffenceModel(Pageable pageable){
+        Page<Offence> offenceList = repository.findAll(pageable);
+        return offenceList.map(offence -> mapper.map(offence, OffenceModel.class));
     }
 
     public Optional<OffenceModel> findOffenceModelById(Integer id){
