@@ -88,3 +88,7 @@ input.form-control.invalid-feedback {
     display: block;
     /*margin-bottom: 0.5rem;*/
 }
+/*styling for table headers used for offence-code same as other labels */
+th{
+    font-weight: 400;
+}
