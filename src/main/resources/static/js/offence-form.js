@@ -259,7 +259,8 @@ function getOffenceCode(event, ui) {
     )
 }
 
-var offenceCodeInputs = $("#offence-codes-body").find("tr td:nth-child(2)").children("input");
+var offenceCodesBody = $("#offence-codes-body");
+var offenceCodeInputs = offenceCodesBody.find("tr td:nth-child(2)").children("input");
 
 var offenceCodeAutoComplete = {
     source :  getOffenceCodesList,
@@ -294,11 +295,8 @@ function loadQualifiedName() {
 }
 
 //variable to hold number of offence codes currently on the page
-var offenceCodes = $("#offence-codes-body").find("tr").length;
+var offenceCodes = offenceCodesBody.find("tr").length;
 function addOffenceCode(){
-    var fullCodePlaceHolder = fullCode;
-    var descriptionPlaceHolder = description;
-
     var newOffenceCode =
         $("<tr>\n" +
             "\t<td>\n" +
@@ -310,10 +308,10 @@ function addOffenceCode(){
             "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".offenderType\" name=\"offenceCodeModels[" + offenceCodes + "].offenderType\" value=\"\">\n" +
             "\t</td>\n" +
             "\t<td>\n" +
-            "\t\t<input class=\"form-control ui-autocomplete-input\" placeholder=\"" + fullCodePlaceHolder + "\">\n" +
+            "\t\t<input class=\"form-control ui-autocomplete-input\" placeholder=\"" + fullCode + "\">\n" +
             "\t</td>\n" +
             "\t<td>\n" +
-            "\t\t<input class=\"form-control\" placeholder=\"" + descriptionPlaceHolder + "\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value=\"\">\n" +
+            "\t\t<input class=\"form-control\" placeholder=\"" + description + "\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value=\"\">\n" +
             "\t</td>\n" +
             "\t<td>\n" +
             "\t\t<button class=\"btn btn-outline-light\" type=\"button\" onclick=\"removeOffenceCode(event)\"><span class=\"fas fa-minus text-danger\"></span></button>\n" +
@@ -326,16 +324,10 @@ function addOffenceCode(){
 
     offenceCodes++;
 
-    if(offenceCodes === 2){
-        //i.e td containing remove code button
-        var firstRowButtonColumn = $("#offence-codes-body").children("tr:nth-child(1)").children("td:nth-child(4)");
-        //if clause added just for when working offline so that the button is not duplicated
-        if(!firstRowButtonColumn.children("button").is("button")) {
-            $("<button class=\"btn btn-outline-light\" type=\"button\" onclick=\"removeOffenceCode(event)\"><span class=\"fas fa-minus text-danger\"></span></button>")
-                .appendTo(firstRowButtonColumn);
-        }
-    }
-
+    //Remove button in previous to last row
+    var previousToLastRow = $("#offence-codes-body").children("tr:nth-child(" + (offenceCodes - 1) + ")");
+    var buttonInPreviousToLastRow = previousToLastRow.children("td:nth-child(4)").children();
+    buttonInPreviousToLastRow.remove();
 }
 
 function removeOffenceCode(event) {
@@ -343,9 +335,11 @@ function removeOffenceCode(event) {
     offenceCodes--;
     console.log("offence Codes = " + offenceCodes);
     console.log(event.target);
-    if(offenceCodes === 1){
-        var firstRowButtonColumn = $("#offence-codes-body").children("tr:nth-child(1)").children("td:nth-child(4)");
-        firstRowButtonColumn.children().remove();
+    if(offenceCodes > 1){
+        var lastRow = $("#offence-codes-body").children("tr:nth-child(" + offenceCodes + ")");
+        var lastRowButtonColumn = lastRow.children("td:nth-child(4)");
+        $("<button class=\"btn btn-outline-light\" type=\"button\" onclick=\"removeOffenceCode(event)\"><span class=\"fas fa-minus text-danger\"></span></button>")
+            .appendTo(lastRowButtonColumn);
     }
 }
 
@@ -373,5 +367,6 @@ $(document).ready(function(){
 });
 
 function vehiclePlateNoKeyUp(){
-    $("#vehicle-plate-no").val($("#vehicle-plate-no").val().toUpperCase());
+    var vehiclePlateNo = $("#vehicle-plate-no");
+    vehiclePlateNo.val(vehiclePlateNo.val().toUpperCase());
 }
