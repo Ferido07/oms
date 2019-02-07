@@ -80,3 +80,11 @@ input.invalid {
 button > span{
     pointer-events: none;
 }
+
+/*Note: jQuery validation applies the error class to both the input that is validated and the error message
+    so in-order to correct the effect of applying invalid-feedback(declared in bootstrap with display none) on input this class is needed */
+/*class to apply for input with invalid feedback class*/
+input.form-control.invalid-feedback {
+    display: block;
+    /*margin-bottom: 0.5rem;*/
+}

@@ -6,6 +6,7 @@
 
     <!--Link only used in prototype mode-->
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../static/libs/css/shards.css" />
 
     <th:block th:fragment="links">
         <link href="../../static/css/offence-form.css" th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
@@ -222,17 +223,17 @@
                     <!--Full Name-->
                     <div class="form-group">
                         <label for="supervisor-fn" th:text="#{first.name}">First Name</label>
-                        <input id="supervisor-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{supervisor.firstName}" maxlength="30">
+                        <input id="supervisor-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{supervisor.firstName}" required maxlength="30">
                         <p th:if="${#fields.hasErrors('supervisor.firstName')}" th:errors="*{supervisor.firstName}">Supervisor First Name Error</p>
                     </div>
                     <div class="form-group">
                         <label for="supervisor-mn" th:text="#{middle.name}">Middle Name</label>
-                        <input id="supervisor-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{supervisor.middleName}" maxlength="30">
+                        <input id="supervisor-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{supervisor.middleName}" required maxlength="30">
                         <p th:if="${#fields.hasErrors('supervisor.middleName')}" th:errors="*{supervisor.middleName}">Supervisor Middle Name Error</p>
                     </div>
                     <div class="form-group">
                         <label for="supervisor-ln" th:text="#{last.name}">Last Name</label>
-                        <input id="supervisor-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{supervisor.lastName}" maxlength="30">
+                        <input id="supervisor-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{supervisor.lastName}" required maxlength="30">
                         <p th:if="${#fields.hasErrors('supervisor.lastName')}" th:errors="*{supervisor.lastName}">Supervisor Last Name Error</p>
                     </div>
                 </div>
