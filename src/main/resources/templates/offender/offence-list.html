@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h2><span id="page-header" th:text="#{offence.history}">Offence History</span></h2>
+        <h2><span id="page-header" data-template="offender-offence-list" th:text="#{offence.history}">Offence History</span></h2>
         <!--/*@thymesVar id="offenceModels" type="org.springframework.data.domain.Page<com.kft.oms.model.OffenceModel>"*/-->
 
         <div class="container" th:fragment="content">

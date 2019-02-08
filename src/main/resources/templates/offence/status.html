@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h3><span id="page-header" th:text="#{offence.status}">Offence Status</span></h3>
+        <h3><span id="page-header" data-template="offence-status" th:text="#{offence.status}">Offence Status</span></h3>
         <div class="container" th:fragment="content">
             <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
             <form th:action="@{/offence/{id}/clear(id=${offenceModel.id})}" method="post">

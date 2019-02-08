@@ -56,19 +56,29 @@
             </form>
                 <div class="nav-wrapper">
                     <ul class="nav flex-column" id="pages">
-                        <li class="nav-item" data-page="list-offences">
-                            <a class="nav-link " href="offence/list.html" th:href="@{/offence}">
-                                <i class="material-icons">vertical_split</i>
-                                <span th:text="#{offence.list}">Offences</span>
+                        <li class="nav-item" data-page="offence">
+                            <a class="nav-link active" href="#offence-submenu" data-toggle="collapse">
+                                <i class="material-icons">view_module</i>
+                                <span th:text="#{offence}">Offence</span>
                             </a>
+                            <div id="offence-submenu" class="collapse show">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item" data-page="list-offences">
+                                        <a class="nav-link pl-5" href="offence/list.html" th:href="@{/offence}">
+                                            <i class="material-icons">vertical_split</i>
+                                            <span th:text="#{offence.list}">Offences</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-page="add-offence">
+                                        <a class="nav-link pl-5" href="offence/form.html" th:href="@{/offence/create}">
+                                            <i class="material-icons">note_add</i>
+                                            <span th:text="#{new.offence}">New Offence</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
-                        <li class="nav-item" data-page="add-offence">
-                            <a class="nav-link " href="offence/form.html" th:href="@{/offence/create}">
-                                <i class="material-icons">note_add</i>
-                                <span th:text="#{new.offence}">Add New Offence</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" data-page="drivers-list">
+                        <li class="nav-item" data-page="drivers">
                             <a class="nav-link" href="offender/driver/list.html" th:href="@{/driver/list}">
                                 <i class="material-icons">person</i>
                                 <span th:text="#{drivers}">Drivers</span>
@@ -220,7 +230,10 @@
         var templateToPageMap = {
             "offence-list" : "list-offences",
             "offence-form" : "add-offence",
-            "driver-list" : "drivers-list"
+            "offence-show" : "offence",
+            "offence-status" : "offence",
+            "driver-list" : "drivers",
+            "offender-offence-list" : "offence"
         };
         var template = $("#page-header").attr("data-template");
         var page = templateToPageMap[template];
@@ -228,7 +241,7 @@
         var pages = $("#pages");
         pages.find("a").removeClass("active");
         var currentPage = pages.find(pageSelector);
-        currentPage.find("a").addClass("active");
+        currentPage.children("a").addClass("active");
     </script>
 
 </body>
