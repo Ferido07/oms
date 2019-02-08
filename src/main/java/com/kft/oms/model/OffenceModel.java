@@ -19,6 +19,7 @@ public class OffenceModel {
     @Size(max = 12)
     private String dispatchNo;
 
+    @Min(0)
     private Integer tariff;
 
     @Size(max = 255)

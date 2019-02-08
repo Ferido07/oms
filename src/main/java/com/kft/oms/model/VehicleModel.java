@@ -8,6 +8,7 @@ public class VehicleModel {
 
     private Integer id;
 
+    @Size(max = 255)
     private String type;
 
     @NotBlank

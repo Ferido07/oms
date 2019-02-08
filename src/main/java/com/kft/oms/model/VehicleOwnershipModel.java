@@ -2,11 +2,13 @@ package com.kft.oms.model;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class VehicleOwnershipModel {
     private Integer id;
     @NotEmpty
+    @Size(max = 255)
     private String libreNo;
     private Integer vehicleModelId;
     @Valid

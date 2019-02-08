@@ -31,7 +31,7 @@ public class OffenceCode extends AbstractEntity{
     private Integer penaltyAmount;
 
     //Not an int or short because numberLabel can contain 1.1, 1.2.3
-    @Column(length = 5)
+    @Column(nullable = false, length = 5)
     private String numberLabel;
 
     @Column(nullable = false)

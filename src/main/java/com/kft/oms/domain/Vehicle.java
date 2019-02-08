@@ -59,7 +59,7 @@ public class Vehicle extends AbstractEntity {
     }
 
     public void setSideNo(String sideNo) {
-        this.sideNo = sideNo;
+        this.sideNo = sideNo == null ? null : sideNo.isEmpty() ? null : sideNo;
     }
 
     public Association getAssociation() {
@@ -83,7 +83,7 @@ public class Vehicle extends AbstractEntity {
     }
 
     public void setLibre(String libre) {
-        this.libre = libre;
+        this.libre = libre == null ? null : libre.isEmpty() ? null : libre;
     }
 
     public List<VehicleOwnership> getVehicleOwnerships() {

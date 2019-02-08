@@ -73,7 +73,7 @@ public class Offence extends AbstractEntity {
     }
 
     public void setTicketNo(String ticketNo) {
-        this.ticketNo = ticketNo;
+        this.ticketNo = ticketNo == null ? null : ticketNo.isEmpty() ? null : ticketNo;
     }
 
     public LocalDate getDate() {
