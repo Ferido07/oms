@@ -1,7 +1,6 @@
 package com.kft.oms.model;
 
 import com.kft.oms.constants.OffenceStatus;
-import com.kft.oms.constants.ProofDocument;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -9,13 +8,24 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 
 public class OffenceModel {
 
     private Integer id;
+
+    @Size(max = 12)
+    private String ticketNo;
+
     @Size(max = 12)
     private String dispatchNo;
+
+    private Integer tariff;
+
+    @Size(max = 255)
+    private String start;
+
+    @Size(max = 255)
+    private String destination;
 
     @NotNull
     @PastOrPresent
@@ -52,7 +62,11 @@ public class OffenceModel {
     @Valid
     @NotEmpty
     private List<OffenceCodeModel> offenceCodeModels;
-    private Map<ProofDocument,Boolean> proofDocumentTaken;
+
+    private Boolean driversLicenseTaken;
+    private Boolean vehiclePlateTaken;
+    private Boolean vehicleBoloTaken;
+    private Boolean libreTaken;
 
 
 
@@ -62,6 +76,14 @@ public class OffenceModel {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTicketNo() {
+        return ticketNo;
+    }
+
+    public void setTicketNo(String ticketNo) {
+        this.ticketNo = ticketNo;
     }
 
     public VehicleModel getVehicleModel() {
@@ -78,6 +100,30 @@ public class OffenceModel {
 
     public void setDispatchNo(String dispatchNo) {
         this.dispatchNo = dispatchNo;
+    }
+
+    public Integer getTariff() {
+        return tariff;
+    }
+
+    public void setTariff(Integer tariff) {
+        this.tariff = tariff;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public DriverModel getDriverModel() {
@@ -152,12 +198,36 @@ public class OffenceModel {
         this.offenceCodeModels = offenceCodeModels;
     }
 
-    public Map<ProofDocument, Boolean> getProofDocumentTaken() {
-        return proofDocumentTaken;
+    public Boolean getDriversLicenseTaken() {
+        return driversLicenseTaken;
     }
 
-    public void setProofDocumentTaken(Map<ProofDocument, Boolean> proofDocumentTaken) {
-        this.proofDocumentTaken = proofDocumentTaken;
+    public void setDriversLicenseTaken(Boolean driversLicenseTaken) {
+        this.driversLicenseTaken = driversLicenseTaken;
+    }
+
+    public Boolean getVehiclePlateTaken() {
+        return vehiclePlateTaken;
+    }
+
+    public void setVehiclePlateTaken(Boolean vehiclePlateTaken) {
+        this.vehiclePlateTaken = vehiclePlateTaken;
+    }
+
+    public Boolean getVehicleBoloTaken() {
+        return vehicleBoloTaken;
+    }
+
+    public void setVehicleBoloTaken(Boolean vehicleBoloTaken) {
+        this.vehicleBoloTaken = vehicleBoloTaken;
+    }
+
+    public Boolean getLibreTaken() {
+        return libreTaken;
+    }
+
+    public void setLibreTaken(Boolean libreTaken) {
+        this.libreTaken = libreTaken;
     }
 
     public Integer getPenaltyAmount() {

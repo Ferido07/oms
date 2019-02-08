@@ -14,6 +14,9 @@ import java.util.Set;
 @Entity
 public class Offence extends AbstractEntity {
 
+    @Column(unique = true, length = 12)
+    private String ticketNo;
+
     @NotNull
     private LocalDate date;
     @NotNull
@@ -26,6 +29,12 @@ public class Offence extends AbstractEntity {
     private OffenceStatus status = OffenceStatus.PENDING;
     @Size(max = 12)
     private String dispatchNo;
+
+    private Integer tariff;
+
+    private String start;
+
+    private String destination;
 
     //An offender can be Association or organization as noted in 9.3.6 and 9.3.8 of the rule book or a Person
     @NotNull
@@ -40,7 +49,7 @@ public class Offence extends AbstractEntity {
     private Vehicle vehicle;
     private Boolean vehiclePlateTaken;
     private Boolean vehicleBoloTaken;
-    private Boolean vehicleLibreTaken;
+    private Boolean libreTaken;
     /*Supervisor is the person who submits the charges according to the requirements it can be either the terminal
       supervisor or traffic police
      */
@@ -59,6 +68,13 @@ public class Offence extends AbstractEntity {
     private Driver driver;
 
 
+    public String getTicketNo() {
+        return ticketNo;
+    }
+
+    public void setTicketNo(String ticketNo) {
+        this.ticketNo = ticketNo;
+    }
 
     public LocalDate getDate() {
         return date;
@@ -124,6 +140,30 @@ public class Offence extends AbstractEntity {
         this.dispatchNo = dispatchNo;
     }
 
+    public Integer getTariff() {
+        return tariff;
+    }
+
+    public void setTariff(Integer tariff) {
+        this.tariff = tariff;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     public Integer getPenaltyAmount() {
         return penaltyAmount;
     }
@@ -172,12 +212,12 @@ public class Offence extends AbstractEntity {
         this.vehicleBoloTaken = vehicleBoloTaken;
     }
 
-    public Boolean getVehicleLibreTaken() {
-        return vehicleLibreTaken;
+    public Boolean getLibreTaken() {
+        return libreTaken;
     }
 
-    public void setVehicleLibreTaken(Boolean vehicleLibreTaken) {
-        this.vehicleLibreTaken = vehicleLibreTaken;
+    public void setLibreTaken(Boolean libreTaken) {
+        this.libreTaken = libreTaken;
     }
 
     public Person getSupervisor() {
