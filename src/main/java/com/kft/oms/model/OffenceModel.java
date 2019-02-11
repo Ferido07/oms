@@ -64,10 +64,10 @@ public class OffenceModel {
     @NotEmpty
     private List<OffenceCodeModel> offenceCodeModels;
 
-    private Boolean driversLicenseTaken;
-    private Boolean vehiclePlateTaken;
-    private Boolean vehicleBoloTaken;
-    private Boolean libreTaken;
+    private Boolean isDriversLicenseTaken;
+    private Boolean isVehiclePlateTaken;
+    private Boolean isVehicleBoloTaken;
+    private Boolean isLibreTaken;
 
 
 
@@ -199,36 +199,36 @@ public class OffenceModel {
         this.offenceCodeModels = offenceCodeModels;
     }
 
-    public Boolean getDriversLicenseTaken() {
-        return driversLicenseTaken;
+    public Boolean getIsDriversLicenseTaken() {
+        return isDriversLicenseTaken;
     }
 
-    public void setDriversLicenseTaken(Boolean driversLicenseTaken) {
-        this.driversLicenseTaken = driversLicenseTaken;
+    public void setIsDriversLicenseTaken(Boolean isDriversLicenseTaken) {
+        this.isDriversLicenseTaken = isDriversLicenseTaken;
     }
 
-    public Boolean getVehiclePlateTaken() {
-        return vehiclePlateTaken;
+    public Boolean getIsVehiclePlateTaken() {
+        return isVehiclePlateTaken;
     }
 
-    public void setVehiclePlateTaken(Boolean vehiclePlateTaken) {
-        this.vehiclePlateTaken = vehiclePlateTaken;
+    public void setIsVehiclePlateTaken(Boolean isVehiclePlateTaken) {
+        this.isVehiclePlateTaken = isVehiclePlateTaken;
     }
 
-    public Boolean getVehicleBoloTaken() {
-        return vehicleBoloTaken;
+    public Boolean getIsVehicleBoloTaken() {
+        return isVehicleBoloTaken;
     }
 
-    public void setVehicleBoloTaken(Boolean vehicleBoloTaken) {
-        this.vehicleBoloTaken = vehicleBoloTaken;
+    public void setIsVehicleBoloTaken(Boolean isVehicleBoloTaken) {
+        this.isVehicleBoloTaken = isVehicleBoloTaken;
     }
 
-    public Boolean getLibreTaken() {
-        return libreTaken;
+    public Boolean getIsLibreTaken() {
+        return isLibreTaken;
     }
 
-    public void setLibreTaken(Boolean libreTaken) {
-        this.libreTaken = libreTaken;
+    public void setIsLibreTaken(Boolean isLibreTaken) {
+        this.isLibreTaken = isLibreTaken;
     }
 
     public Integer getPenaltyAmount() {
