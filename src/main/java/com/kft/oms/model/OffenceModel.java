@@ -64,10 +64,10 @@ public class OffenceModel {
     @NotEmpty
     private List<OffenceCodeModel> offenceCodeModels;
 
-    private Boolean isDriversLicenseTaken;
-    private Boolean isVehiclePlateTaken;
-    private Boolean isVehicleBoloTaken;
-    private Boolean isLibreTaken;
+    private boolean isDriversLicenseTaken;
+    private boolean isVehiclePlateTaken;
+    private boolean isVehicleBoloTaken;
+    private boolean isLibreTaken;
 
 
 
@@ -199,36 +199,36 @@ public class OffenceModel {
         this.offenceCodeModels = offenceCodeModels;
     }
 
-    public Boolean getIsDriversLicenseTaken() {
+    public boolean isDriversLicenseTaken() {
         return isDriversLicenseTaken;
     }
 
-    public void setIsDriversLicenseTaken(Boolean isDriversLicenseTaken) {
-        this.isDriversLicenseTaken = isDriversLicenseTaken;
+    public void setDriversLicenseTaken(boolean driversLicenseTaken) {
+        isDriversLicenseTaken = driversLicenseTaken;
     }
 
-    public Boolean getIsVehiclePlateTaken() {
+    public boolean isVehiclePlateTaken() {
         return isVehiclePlateTaken;
     }
 
-    public void setIsVehiclePlateTaken(Boolean isVehiclePlateTaken) {
-        this.isVehiclePlateTaken = isVehiclePlateTaken;
+    public void setVehiclePlateTaken(boolean vehiclePlateTaken) {
+        isVehiclePlateTaken = vehiclePlateTaken;
     }
 
-    public Boolean getIsVehicleBoloTaken() {
+    public boolean isVehicleBoloTaken() {
         return isVehicleBoloTaken;
     }
 
-    public void setIsVehicleBoloTaken(Boolean isVehicleBoloTaken) {
-        this.isVehicleBoloTaken = isVehicleBoloTaken;
+    public void setVehicleBoloTaken(boolean vehicleBoloTaken) {
+        isVehicleBoloTaken = vehicleBoloTaken;
     }
 
-    public Boolean getIsLibreTaken() {
+    public boolean isLibreTaken() {
         return isLibreTaken;
     }
 
-    public void setIsLibreTaken(Boolean isLibreTaken) {
-        this.isLibreTaken = isLibreTaken;
+    public void setLibreTaken(boolean libreTaken) {
+        isLibreTaken = libreTaken;
     }
 
     public Integer getPenaltyAmount() {

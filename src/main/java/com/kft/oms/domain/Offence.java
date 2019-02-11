@@ -44,12 +44,12 @@ public class Offence extends AbstractEntity {
     @NotNull
     @ManyToMany
     private Set<OffenceCode> offenceCodes;
-    private Boolean isDriversLicenseTaken;
+    private boolean isDriversLicenseTaken;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Vehicle vehicle;
-    private Boolean isVehiclePlateTaken;
-    private Boolean isVehicleBoloTaken;
-    private Boolean isLibreTaken;
+    private boolean isVehiclePlateTaken;
+    private boolean isVehicleBoloTaken;
+    private boolean isLibreTaken;
     /*Supervisor is the person who submits the charges according to the requirements it can be either the terminal
       supervisor or traffic police
      */
@@ -180,12 +180,12 @@ public class Offence extends AbstractEntity {
         this.offenceCodes = offenceCodes;
     }
 
-    public Boolean getIsDriversLicenseTaken() {
+    public boolean isDriversLicenseTaken() {
         return isDriversLicenseTaken;
     }
 
-    public void setIsDriversLicenseTaken(Boolean isDriversLicenseTaken) {
-        this.isDriversLicenseTaken = isDriversLicenseTaken;
+    public void setDriversLicenseTaken(boolean driversLicenseTaken) {
+        isDriversLicenseTaken = driversLicenseTaken;
     }
 
     public Vehicle getVehicle() {
@@ -196,28 +196,28 @@ public class Offence extends AbstractEntity {
         this.vehicle = vehicle;
     }
 
-    public Boolean getIsVehiclePlateTaken() {
+    public boolean isVehiclePlateTaken() {
         return isVehiclePlateTaken;
     }
 
-    public void setIsVehiclePlateTaken(Boolean isVehiclePlateTaken) {
-        this.isVehiclePlateTaken = isVehiclePlateTaken;
+    public void setVehiclePlateTaken(boolean vehiclePlateTaken) {
+        isVehiclePlateTaken = vehiclePlateTaken;
     }
 
-    public Boolean getIsVehicleBoloTaken() {
+    public boolean isVehicleBoloTaken() {
         return isVehicleBoloTaken;
     }
 
-    public void setIsVehicleBoloTaken(Boolean isVehicleBoloTaken) {
-        this.isVehicleBoloTaken = isVehicleBoloTaken;
+    public void setVehicleBoloTaken(boolean vehicleBoloTaken) {
+        isVehicleBoloTaken = vehicleBoloTaken;
     }
 
-    public Boolean getIsLibreTaken() {
+    public boolean isLibreTaken() {
         return isLibreTaken;
     }
 
-    public void setIsLibreTaken(Boolean isLibreTaken) {
-        this.isLibreTaken = isLibreTaken;
+    public void setLibreTaken(boolean libreTaken) {
+        isLibreTaken = libreTaken;
     }
 
     public Person getSupervisor() {
