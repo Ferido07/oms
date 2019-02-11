@@ -65,9 +65,19 @@ public class OffenceModel {
     private List<OffenceCodeModel> offenceCodeModels;
 
     private boolean isDriversLicenseTaken;
+    @Size(max = 10)
+    private String driversLicenseTakenNo;
+
     private boolean isVehiclePlateTaken;
+    @Size(max = 14)
+    private String vehiclePlateTakenNo;
+
     private boolean isVehicleBoloTaken;
+    private String vehicleBoloTakenNo;
+
     private boolean isLibreTaken;
+    @Size(max = 20)
+    private String libreTakenNo;
 
 
 
@@ -237,5 +247,37 @@ public class OffenceModel {
 
     public void setPenaltyAmount(Integer penaltyAmount) {
         this.penaltyAmount = penaltyAmount;
+    }
+
+    public String getDriversLicenseTakenNo() {
+        return driversLicenseTakenNo;
+    }
+
+    public void setDriversLicenseTakenNo(String driversLicenseTakenNo) {
+        this.driversLicenseTakenNo = driversLicenseTakenNo;
+    }
+
+    public String getVehiclePlateTakenNo() {
+        return vehiclePlateTakenNo;
+    }
+
+    public void setVehiclePlateTakenNo(String vehiclePlateTakenNo) {
+        this.vehiclePlateTakenNo = vehiclePlateTakenNo;
+    }
+
+    public String getVehicleBoloTakenNo() {
+        return vehicleBoloTakenNo;
+    }
+
+    public void setVehicleBoloTakenNo(String vehicleBoloTakenNo) {
+        this.vehicleBoloTakenNo = vehicleBoloTakenNo;
+    }
+
+    public String getLibreTakenNo() {
+        return libreTakenNo;
+    }
+
+    public void setLibreTakenNo(String libreTakenNo) {
+        this.libreTakenNo = libreTakenNo;
     }
 }

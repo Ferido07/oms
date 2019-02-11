@@ -247,28 +247,49 @@
 
                     <!--Proof Documents Taken (Using Checkbox and Value Field)-->
                     <div class="form-group">
-                        <strong class="text-muted d-block mb-2 py-2 border-bottom" th:text="#{proof.documents.taken}">Proof Documents Taken</strong>
+                        <strong class="text-muted d-block mb-3 py-2 border-bottom" th:text="#{proof.documents.taken}">Proof Documents Taken</strong>
+
                         <div class="form-row">
-                            <fieldset class="col-sm-4 col-md-3">
+                            <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
                                     <input type="checkbox" class="custom-control-input" id="isDriversLicenseTaken" th:field="*{driversLicenseTaken}">
                                     <label class="custom-control-label" for="isDriversLicenseTaken" th:text="#{drivers.license}">Driver's License</label>
                                 </div>
+                            </div>
+                            <div class="col-sm-8 col-md-4 mb-sm-3">
+                                <input type="text" class="form-control" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driversLicenseTakenNo}" disabled="disabled">
+                            </div>
+
+                            <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
                                     <input type="checkbox" class="custom-control-input" id="isVehiclePlateTaken" th:field="*{vehiclePlateTaken}">
                                     <label class="custom-control-label" for="isVehiclePlateTaken" th:text="#{plate.no}">Plate No</label>
                                 </div>
+                            </div>
+                            <div class="col-sm-8 col-md-4 mb-sm-3">
+                                <input type="text" class="form-control" placeholder="Plate No" th:placeholder="#{plate.no}" th:field="*{vehiclePlateTakenNo}" disabled="disabled">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
                                     <input type="checkbox" class="custom-control-input" id="isLibreTaken" th:field="*{libreTaken}">
                                     <label class="custom-control-label" for="isLibreTaken" th:text="#{libre}">Libre</label>
                                 </div>
+                            </div>
+                            <div class="col-sm-8 col-md-4 mb-sm-3">
+                                <input type="text" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{libreTakenNo}" disabled="disabled">
+                            </div>
+
+                            <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
                                     <input type="checkbox" class="custom-control-input" id="isVehicleBoloTaken" th:field="*{vehicleBoloTaken}">
                                     <label class="custom-control-label" for="isVehicleBoloTaken" th:text="#{bolo}">Bolo</label>
                                 </div>
-                            </fieldset>
-                            <div class="col-sm-8 col-md-9">
-
+                            </div>
+                            <div class="col-sm-8 col-md-4">
+                                <input type="text" class="form-control" placeholder="Bolo" th:placeholder="#{bolo}" th:field="*{vehicleBoloTakenNo}" disabled="disabled">
                             </div>
                         </div>
                     </div>

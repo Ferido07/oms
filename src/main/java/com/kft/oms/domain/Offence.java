@@ -6,6 +6,7 @@ import com.kft.crud.domain.Person;
 import com.kft.oms.constants.OffenceStatus;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -44,12 +45,25 @@ public class Offence extends AbstractEntity {
     @NotNull
     @ManyToMany
     private Set<OffenceCode> offenceCodes;
-    private boolean isDriversLicenseTaken;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Vehicle vehicle;
+
+    private boolean isDriversLicenseTaken;
+    @Size(max = 10)
+    private String driversLicenseTakenNo;
+
     private boolean isVehiclePlateTaken;
+    @Size(max = 14)
+    @Pattern(regexp = "[1-5]-[A-Z]?[0-9]{5}-[A-Z]{2}")
+    private String vehiclePlateTakenNo;
+
     private boolean isVehicleBoloTaken;
+    private String vehicleBoloTakenNo;
+
     private boolean isLibreTaken;
+    @Size(max = 30)
+    private String libreTakenNo;
     /*Supervisor is the person who submits the charges according to the requirements it can be either the terminal
       supervisor or traffic police
      */
@@ -218,6 +232,42 @@ public class Offence extends AbstractEntity {
 
     public void setLibreTaken(boolean libreTaken) {
         isLibreTaken = libreTaken;
+    }
+
+    public String getDriversLicenseTakenNo() {
+        return driversLicenseTakenNo;
+    }
+
+    public void setDriversLicenseTakenNo(String driversLicenseTakenNo) {
+        this.driversLicenseTakenNo = driversLicenseTakenNo == null ? null : driversLicenseTakenNo.isEmpty() ? null : driversLicenseTakenNo;
+        isDriversLicenseTaken = this.driversLicenseTakenNo != null;
+    }
+
+    public String getVehiclePlateTakenNo() {
+        return vehiclePlateTakenNo;
+    }
+
+    public void setVehiclePlateTakenNo(String vehiclePlateTakenNo) {
+        this.vehiclePlateTakenNo = vehiclePlateTakenNo == null ? null : vehiclePlateTakenNo.isEmpty() ? null : vehiclePlateTakenNo;
+        isVehiclePlateTaken = this.vehiclePlateTakenNo != null;
+    }
+
+    public String getVehicleBoloTakenNo() {
+        return vehicleBoloTakenNo;
+    }
+
+    public void setVehicleBoloTakenNo(String vehicleBoloTakenNo) {
+        this.vehicleBoloTakenNo = vehicleBoloTakenNo == null ? null : vehicleBoloTakenNo.isEmpty()? null : vehicleBoloTakenNo;
+        isVehicleBoloTaken = this.vehicleBoloTakenNo != null;
+    }
+
+    public String getLibreTakenNo() {
+        return libreTakenNo;
+    }
+
+    public void setLibreTakenNo(String libreTakenNo) {
+        this.libreTakenNo = libreTakenNo == null ? null : libreTakenNo.isEmpty() ? null : libreTakenNo;
+        isLibreTaken = this.libreTakenNo != null;
     }
 
     public Person getSupervisor() {
