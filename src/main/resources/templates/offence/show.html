@@ -31,7 +31,7 @@
                         <!--Vehicle Type-->
                         <div class="form-group">
                             <label for="vehicle-type" class="control-label" th:text="#{vehicle.type}">Vehicle Type</label>
-                            <p id="vehicle-type" class="form-control" th:text="*{vehicleModel.type}"></p>
+                            <p id="vehicle-type" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.type, #messages.msg('field.not.set'))}"></p>
                         </div>
 
                         <!--Vehicle Instance Type-->
@@ -43,19 +43,19 @@
                             <!--<div th:if="${#lists.size([__*{vehicleModel.vehicleOwnershipModels}__]) == 0 }">-->
                             <div class="form-group">
                                 <label for="vo-libreNo" class="control-label" th:text="#{libre.No}">Libre No</label>
-                                <p id="vo-libreNo" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].libreNo}"></p>
+                                <p id="vo-libreNo" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].libreNo, #messages.msg('field.not.set'))}"></p>
                             </div>
                             <div class="form-group">
                                 <label for="vo-fName" class="control-label" th:text="#{first.name}">First Name</label>
-                                <p id="vo-fName" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}"></p>
+                                <p id="vo-fName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName, #messages.msg('field.not.set'))}"></p>
                             </div>
                             <div class="form-group">
                                 <label for="vo-mName" class="control-label" th:text="#{middle.name}">Middle Name</label>
-                                <p id="vo-mName" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}"></p>
+                                <p id="vo-mName" class="form-control" th:text="*${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName, #messages.msg('field.not.set'))}"></p>
                             </div>
                             <div class="form-group">
                                 <label for="vo-lName" class="control-label" th:text="#{last.name}">Last Name</label>
-                                <p id="vo-lName" class="form-control" th:text="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}"></p>
+                                <p id="vo-lName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName, #messages.msg('field.not.set'))}"></p>
                             </div>
                             <!--</div>-->
                         </div>
@@ -64,14 +64,14 @@
                         <div>
                             <div class="form-group">
                                 <label for="vehicle-association-name" class="control-label" th:text="#{association.name}">Association Name</label>
-                                <p id="vehicle-association-name" class="form-control" th:text="*{vehicleModel.associationModel.name}"></p>
+                                <p id="vehicle-association-name" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.associationModel.name, #messages.msg('field.not.set'))}"></p>
                             </div>
                         </div>
 
                         <!--Side No-->
                         <div class="form-group">
                             <label for="vehicle-side-no" class="control-label" th:text="#{side.no}">Side No</label>
-                            <p id="vehicle-side-no" class="form-control" th:text="*{vehicleModel.sideNo}"></p>
+                            <p id="vehicle-side-no" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.sideNo, #messages.msg('field.not.set'))}"></p>
                         </div>
                     </div>
 
@@ -81,7 +81,7 @@
                         <!--Dispatch No-->
                         <div class="form-group">
                             <label for="dispatch-number" class="control-label" th:text="#{dispatch.no}">Dispatch Number</label>
-                            <p id="dispatch-number" class="form-control" th:text="*{dispatchNo}"></p>
+                            <p id="dispatch-number" class="form-control" th:text="${#strings.defaultString(offenceModel.dispatchNo, #messages.msg('field.not.set'))}"></p>
                         </div>
 
                         <!--Tariff which is no included in domain-->
@@ -140,7 +140,7 @@
                         <!--OffenceModel Description-->
                         <div class="form-group">
                             <label for="description" th:text="#{description}">Description</label>
-                            <p id="description" class="form-control" th:text="*{description}"></p>
+                            <p id="description" class="form-control" th:text="${#strings.defaultString(offenceModel.description, #messages.msg('field.not.set'))}"></p>
                         </div>
 
                         <!--Proof Documents Taken (Using Checkbox and Value Field)-->
@@ -148,7 +148,7 @@
                         <!--Reporting Location-->
                         <div class="form-group">
                             <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
-                            <p id="reporting-location" class="form-control" th:text="*{reportingLocation}"></p>
+                            <p id="reporting-location" class="form-control" th:text="${#strings.defaultString(offenceModel.reportingLocation, #messages.msg('field.not.set'))}"></p>
                         </div>
                         <!--Action Taken by (Not included in domain)-->
 
