@@ -298,8 +298,8 @@ function loadQualifiedName() {
 var offenceCodes = offenceCodesBody.find("tr").length;
 function addOffenceCode(){
     var newOffenceCode =
-        $("<tr>\n" +
-            "\t<td>\n" +
+        $("<tr class='d-flex'>\n" +
+            "\t<td class='d-none'>\n" +
             "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".id\" name=\"offenceCodeModels[" + offenceCodes + "].id\" value=\"\">\n" +
             "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".sectionHeaderLabel\" name=\"offenceCodeModels[" + offenceCodes + "].sectionHeaderLabel\" value=\"\">\n" +
             "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".level\" name=\"offenceCodeModels[" + offenceCodes + "].level\" value=\"\">\n" +
@@ -307,13 +307,13 @@ function addOffenceCode(){
             "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".numberLabel\" name=\"offenceCodeModels[" + offenceCodes + "].numberLabel\" value=\"\">\n" +
             "\t\t<input type=\"hidden\" id=\"offenceCodeModels" + offenceCodes + ".offenderType\" name=\"offenceCodeModels[" + offenceCodes + "].offenderType\" value=\"\">\n" +
             "\t</td>\n" +
-            "\t<td>\n" +
+            "\t<td class='col-sm-4 col-md-3'>\n" +
             "\t\t<input class=\"form-control ui-autocomplete-input\" placeholder=\"" + fullCode + "\">\n" +
             "\t</td>\n" +
-            "\t<td>\n" +
+            "\t<td class='col-sm-7 col-md-8'>\n" +
             "\t\t<input class=\"form-control\" placeholder=\"" + description + "\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value=\"\">\n" +
             "\t</td>\n" +
-            "\t<td>\n" +
+            "\t<td class='col-sm-1 col-md-1'>\n" +
             "\t\t<button class=\"btn btn-outline-light\" type=\"button\" onclick=\"removeOffenceCode(event)\"><span class=\"fas fa-minus text-danger\"></span></button>\n" +
             "\t</td>\n" +
             "</tr>");

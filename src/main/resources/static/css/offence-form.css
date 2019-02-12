@@ -88,7 +88,18 @@ input.form-control.invalid-feedback {
     display: block;
     /*margin-bottom: 0.5rem;*/
 }
-/*styling for table headers used for offence-code same as other labels */
-th{
+/*styling for table of offence-codes */
+#offenceCodes th{
     font-weight: 400;
+}
+
+#offenceCodes.table thead th{
+    border-bottom: none;
+    padding: 0;
+}
+
+#offenceCodes.table td, #offenceCodes.table th{
+    border-top: none;
+    padding-left: 0;
+    padding-top: 0;
 }

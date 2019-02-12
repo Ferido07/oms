@@ -212,35 +212,35 @@
 
                     <!--OffenceCodeModels-->
                     <div class="form-group">
-                        <table>
+                        <table id="offenceCodes" class="table">
                             <thead>
-                            <tr>
-                                <th></th>
-                                <th th:text="#{offence.code}">Offence Code</th>
-                                <th th:text="#{description}">Description</th>
-                                <th><button type="button" onclick="addOffenceCode()" class="btn btn-outline-light"><span class='fas fa-plus text-success'></span></button></th>
-                            </tr>
+                                <tr class="d-flex">
+                                    <th class="d-none"></th>
+                                    <th class="col-sm-4 col-md-3" th:text="#{offence.code}">Offence Code</th>
+                                    <th class="col-sm-7 col-md-8" th:text="#{description}">Description</th>
+                                    <th class="col-sm-1 col-md-1"><button type="button" onclick="addOffenceCode()" class="btn btn-outline-light"><span class='fas fa-plus text-success'></span></button></th>
+                                </tr>
                             </thead>
                             <tbody id="offence-codes-body">
-                            <tr th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
-                                <td>
-                                    <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
-                                    <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].sectionHeaderLabel}">
-                                    <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].level}">
-                                    <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].penaltyAmount}">
-                                    <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].numberLabel}">
-                                    <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].offenderType}">
-                                </td>
-                                <td>
-                                    <input class="form-control" placeholder="Full Code" th:placeholder="#{full.code}">
-                                </td>
-                                <td>
-                                    <input class="form-control" placeholder="Description" th:placeholder="#{description}" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}">
-                                </td>
-                                <td>
-                                    <button class="btn btn-outline-light" th:if="${OCMStat.size > 1}" type="button" onclick="removeOffenceCode(event)"><span class="fas fa-minus text-danger"></span></button>
-                                </td>
-                            </tr>
+                                <tr class="d-flex" th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
+                                    <td class="d-none">
+                                        <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].id}">
+                                        <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].sectionHeaderLabel}">
+                                        <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].level}">
+                                        <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].penaltyAmount}">
+                                        <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].numberLabel}">
+                                        <input type="hidden" th:field="*{offenceCodeModels[__${OCMStat.index}__].offenderType}">
+                                    </td>
+                                    <td class="col-sm-4 col-md-3">
+                                        <input class="form-control" placeholder="Full Code" th:placeholder="#{full.code}">
+                                    </td>
+                                    <td class="col-sm-7 col-md-8">
+                                        <input class="form-control" placeholder="Description" th:placeholder="#{description}" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}">
+                                    </td>
+                                    <td class="col-sm-1 col-md-1">
+                                        <button class="btn btn-outline-light" th:if="${OCMStat.size > 1}" type="button" onclick="removeOffenceCode(event)"><span class="fas fa-minus text-danger"></span></button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
