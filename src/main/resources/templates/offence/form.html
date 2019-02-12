@@ -252,44 +252,44 @@
                         <div class="form-row">
                             <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
-                                    <input type="checkbox" class="custom-control-input" id="isDriversLicenseTaken" th:field="*{driversLicenseTaken}">
+                                    <input type="checkbox" class="custom-control-input" id="isDriversLicenseTaken" th:field="*{driversLicenseTaken}" onchange="proofDocumentOnChange(event)">
                                     <label class="custom-control-label" for="isDriversLicenseTaken" th:text="#{drivers.license}">Driver's License</label>
                                 </div>
                             </div>
                             <div class="col-sm-8 col-md-4 mb-sm-3">
-                                <input type="text" class="form-control" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driversLicenseTakenNo}" disabled="disabled">
+                                <input type="text" class="form-control" id="driversLicenseTaken" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driversLicenseTakenNo}" disabled="disabled">
                             </div>
 
                             <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
-                                    <input type="checkbox" class="custom-control-input" id="isVehiclePlateTaken" th:field="*{vehiclePlateTaken}">
+                                    <input type="checkbox" class="custom-control-input" id="isVehiclePlateTaken" th:field="*{vehiclePlateTaken}" onchange="proofDocumentOnChange(event)">
                                     <label class="custom-control-label" for="isVehiclePlateTaken" th:text="#{plate.no}">Plate No</label>
                                 </div>
                             </div>
                             <div class="col-sm-8 col-md-4 mb-sm-3">
-                                <input type="text" class="form-control" placeholder="Plate No" th:placeholder="#{plate.no}" th:field="*{vehiclePlateTakenNo}" disabled="disabled">
+                                <input type="text" class="form-control" id="vehiclePlateTaken" placeholder="Plate No" th:placeholder="#{plate.no}" th:field="*{vehiclePlateTakenNo}" disabled="disabled">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
-                                    <input type="checkbox" class="custom-control-input" id="isLibreTaken" th:field="*{libreTaken}">
+                                    <input type="checkbox" class="custom-control-input" id="isLibreTaken" th:field="*{libreTaken}" onchange="proofDocumentOnChange(event)">
                                     <label class="custom-control-label" for="isLibreTaken" th:text="#{libre}">Libre</label>
                                 </div>
                             </div>
                             <div class="col-sm-8 col-md-4 mb-sm-3">
-                                <input type="text" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{libreTakenNo}" disabled="disabled">
+                                <input type="text" class="form-control" id="libreTaken" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{libreTakenNo}" disabled="disabled">
                             </div>
 
                             <div class="col-sm-4 col-md-2">
                                 <div class="custom-control custom-checkbox mb-1">
-                                    <input type="checkbox" class="custom-control-input" id="isVehicleBoloTaken" th:field="*{vehicleBoloTaken}">
+                                    <input type="checkbox" class="custom-control-input" id="isVehicleBoloTaken" th:field="*{vehicleBoloTaken}" onchange="proofDocumentOnChange(event)">
                                     <label class="custom-control-label" for="isVehicleBoloTaken" th:text="#{bolo}">Bolo</label>
                                 </div>
                             </div>
                             <div class="col-sm-8 col-md-4">
-                                <input type="text" class="form-control" placeholder="Bolo" th:placeholder="#{bolo}" th:field="*{vehicleBoloTakenNo}" disabled="disabled">
+                                <input type="text" class="form-control" id="vehicleBoloTaken" placeholder="Bolo" th:placeholder="#{bolo}" th:field="*{vehicleBoloTakenNo}" disabled="disabled">
                             </div>
                         </div>
                     </div>

@@ -370,3 +370,24 @@ function vehiclePlateNoKeyUp(){
     var vehiclePlateNo = $("#vehicle-plate-no");
     vehiclePlateNo.val(vehiclePlateNo.val().toUpperCase());
 }
+
+function proofDocumentOnChange(event){
+    switch(event.target.id){
+        case "isDriversLicenseTaken" :
+            var driversLicenseTaken = $("#driversLicenseTaken");
+            $('#isDriversLicenseTaken').is(':checked')? driversLicenseTaken.removeAttr("disabled") : driversLicenseTaken.attr("disabled", "disabled");;
+            break;
+        case "isVehiclePlateTaken" :
+            var vehiclePlateTaken = $("#vehiclePlateTaken");
+            $('#isVehiclePlateTaken').is(':checked')? vehiclePlateTaken.removeAttr("disabled") : vehiclePlateTaken.attr("disabled", "disabled");;
+            break;
+        case "isLibreTaken" :
+            var libreTaken = $("#libreTaken");
+            $('#isLibreTaken').is(':checked')? libreTaken.removeAttr("disabled") : libreTaken.attr("disabled", "disabled");;
+            break;
+        case "isVehicleBoloTaken" :
+            var vehicleBoloTaken = $("#vehicleBoloTaken");
+            $('#isVehicleBoloTaken').is(':checked')? vehicleBoloTaken.removeAttr("disabled") : vehicleBoloTaken.attr("disabled", "disabled");;
+            break;
+    }
+}
