@@ -6,163 +6,195 @@
 
     <!--Link only used in prototype mode-->
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../static/libs/css/shards.css" />
+    <!--Prototype style-->
+    <style>
+        <!-- /* height of auto is used in shards.css and that collapses(height of 0) the elements with form-control class
+                in thymeleaf mode elements with form-control are set to default text*/ -->
+        .form-control{
+            height: calc(2.25rem + 2px);
+        }
+    </style>
 
     <th:block th:fragment="links">
         <link href="../../static/css/offence-form.css" th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
+        <style>
+            p{
+                margin: 0;
+            }
+        </style>
     </th:block>
 </head>
 <body>
     <div class="container">
         <h3><span id="page-header" data-template="offence-show" th:text="#{offence.details}">Offence Details</span></h3>
         <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
-        <div class="container" th:fragment="content">
+        <div th:fragment="content">
             <div th:object="${offenceModel}">
 
-                    <!--Vehicle Detail-->
-                    <div class="tab">
-                        <span th:text="#{vehicle.detail}">Vehicle Detail</span>
+                <!--Vehicle Detail-->
+                <div class="tab">
+                    <!--Ticket No-->
+                    <div class="form-group">
+                        <label for="ticket-no" class="" th:text="#{ticket.no}">Ticket No</label>
+                        <p id="ticket-no" class="form-control" th:text="${#strings.defaultString(offenceModel.ticketNo, #messages.msg('field.not.set'))}"></p>
+                    </div>
 
+                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{vehicle.detail}">Vehicle Detail</strong>
+
+                    <div class="form-row">
                         <!--Vehicle Plate-->
-                        <div class="form-group ui-widget">
+                        <div class="form-group col-md-4">
                             <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
                             <p id="vehicle-plate-no" class="form-control" th:text="*{vehicleModel.plateNo}"></p>
                         </div>
-
                         <!--Vehicle Type-->
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="vehicle-type" class="control-label" th:text="#{vehicle.type}">Vehicle Type</label>
                             <p id="vehicle-type" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.type, #messages.msg('field.not.set'))}"></p>
                         </div>
-
-                        <!--Vehicle Instance Type-->
-                        <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
-
-                        <!--Vehicle Owner Detail-->
-                        <div>
-                            <span th:text="#{vehicle.owner}">Vehicle Owner</span>
-                            <!--<div th:if="${#lists.size([__*{vehicleModel.vehicleOwnershipModels}__]) == 0 }">-->
-                            <div class="form-group">
-                                <label for="vo-libreNo" class="control-label" th:text="#{libre.No}">Libre No</label>
-                                <p id="vo-libreNo" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].libreNo, #messages.msg('field.not.set'))}"></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="vo-fName" class="control-label" th:text="#{first.name}">First Name</label>
-                                <p id="vo-fName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName, #messages.msg('field.not.set'))}"></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="vo-mName" class="control-label" th:text="#{middle.name}">Middle Name</label>
-                                <p id="vo-mName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName, #messages.msg('field.not.set'))}"></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="vo-lName" class="control-label" th:text="#{last.name}">Last Name</label>
-                                <p id="vo-lName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName, #messages.msg('field.not.set'))}"></p>
-                            </div>
-                            <!--</div>-->
-                        </div>
-
-                        <!--Association Detail-->
-                        <div>
-                            <div class="form-group">
-                                <label for="vehicle-association-name" class="control-label" th:text="#{association.name}">Association Name</label>
-                                <p id="vehicle-association-name" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.associationModel.name, #messages.msg('field.not.set'))}"></p>
-                            </div>
-                        </div>
-
                         <!--Side No-->
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="vehicle-side-no" class="control-label" th:text="#{side.no}">Side No</label>
                             <p id="vehicle-side-no" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.sideNo, #messages.msg('field.not.set'))}"></p>
                         </div>
                     </div>
 
-                    <!--Dispatch Detail-->
-                    <div class="tab">
-                        <span th:text="#{dispatch.detail}">Dispatch Detail</span>
-                        <!--Dispatch No-->
+                    <!--Association Detail-->
+                    <div class="form-group">
+                        <label for="vehicle-association-name" class="control-label" th:text="#{association.name}">Association Name</label>
+                        <p id="vehicle-association-name" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.associationModel.name, #messages.msg('field.not.set'))}"></p>
+                    </div>
+
+
+                    <!--Vehicle Instance Type-->
+                    <!--If Cargo Vehicle then the load else if PublicTransport then seat number or None-->
+
+                    <!--Vehicle Owner Detail-->
+                    <div>
+                        <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{vehicle.owner}">Vehicle Owner</strong>
+                        <!--<div th:if="${#lists.size([__*{vehicleModel.vehicleOwnershipModels}__]) == 0 }">-->
                         <div class="form-group">
+                            <label for="vo-libreNo" class="control-label" th:text="#{libre.No}">Libre No</label>
+                            <p id="vo-libreNo" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].libreNo, #messages.msg('field.not.set'))}"></p>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="vo-fName" class="control-label" th:text="#{first.name}">First Name</label>
+                                <p id="vo-fName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName, #messages.msg('field.not.set'))}"></p>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="vo-mName" class="control-label" th:text="#{middle.name}">Middle Name</label>
+                                <p id="vo-mName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName, #messages.msg('field.not.set'))}"></p>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="vo-lName" class="control-label" th:text="#{last.name}">Last Name</label>
+                                <p id="vo-lName" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName, #messages.msg('field.not.set'))}"></p>
+                            </div>
+                        </div>
+                        <!--</div>-->
+                    </div>
+
+                </div>
+
+                <!--Dispatch Detail-->
+                <div class="tab">
+                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{dispatch.detail}">Dispatch Detail</strong>
+                    <div class="form-row">
+                        <!--Dispatch No-->
+                        <div class="form-group col-md-6">
                             <label for="dispatch-number" class="control-label" th:text="#{dispatch.no}">Dispatch Number</label>
                             <p id="dispatch-number" class="form-control" th:text="${#strings.defaultString(offenceModel.dispatchNo, #messages.msg('field.not.set'))}"></p>
                         </div>
 
-                        <!--Tariff which is no included in domain-->
-
-                        <!--Route Start and End-->
-
+                        <!-- Tariff -->
+                        <div class="form-group col-md-6">
+                            <label for="tariff" class="" th:text="#{tariff}">Tariff</label>
+                            <p id="tariff" class="form-control" th:text="${#strings.defaultString(offenceModel.tariff, #messages.msg('field.not.set'))}"></p>
+                            <label for="tariff" class="invalid-feedback" th:if="${#fields.hasErrors('tariff')}" th:errors="*{tariff}">Tariff Error</label>
+                        </div>
                     </div>
 
-                    <!--Driver's Detail-->
-                    <div class="tab">
-                        <span th:text="#{driver.detail}">Driver Detail</span>
+                    <!--Route Start and End-->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="from" th:text="#{from}">From</label>
+                            <p id="from" class="form-control" th:text="${#strings.defaultString(offenceModel.start, #messages.msg('field.not.set'))}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="to" th:text="#{to}">To</label>
+                            <p id="to" class="form-control" th:text="${#strings.defaultString(offenceModel.destination, #messages.msg('field.not.set'))}"></p>
+                        </div>
+                    </div>
 
-                        <!--Driver's License No and Type-->
-                        <div class="form-group">
+                    <!-- Driver Detail -->
+                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{driver.detail}">Driver Detail</strong>
+                    <!--Driver's License No and Type-->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
                             <label for="driver-license-no" th:text="#{license.no}">License No</label>
                             <p id="driver-license-no" class="form-control" th:text="*{driverModel.licenseNo}"></p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label for="driver-license-type" th:text="#{license.type}">License Type</label>
                             <p id="driver-license-type" class="form-control" th:text="*{driverModel.licenseType}"></p>
                         </div>
+                    </div>
 
-                        <!--Driver's Name-->
-                        <div class="form-group">
+                    <!--Driver's Name-->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
                             <label for="driver-fn" th:text="#{first.name}">First Name</label>
                             <p id="driver-fn" class="form-control" th:text="*{driverModel.firstName}"></p>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="driver-mn" th:text="#{middle.name}">Middle Name</label>
                             <p id="driver-mn" class="form-control" th:text="*{driverModel.middleName}"></p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="driver-ln" th:text="#{last.name}">Last Name</label>
                             <p id="driver-ln" class="form-control" th:text="*{driverModel.lastName}"></p>
                         </div>
                     </div>
+                </div>
 
-                    <!--OffenceModel Detail-->
-                    <div class="tab">
-                        <span th:text="#{offence.detail}">Offence Detail</span>
+                <!--OffenceModel Detail-->
+                <div class="tab">
+                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{offence.detail}">Offence Detail</strong>
+                    <div class="form-row">
                         <!--OffenceModel Date and Time-->
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="date"  th:text="#{date}">Date</label>
                             <p id="date" class="form-control" th:text="*{date}"></p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="time" th:text="#{time}">Time</label>
                             <p id="time" class="form-control" th:text="*{time}"></p>
                         </div>
                         <!--OffenceModel Location-->
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="location" th:text="#{location}">Location</label>
                             <p id="location" class="form-control" th:text="*{location}"></p>
                         </div>
-                        <!--OffenceModel Description-->
-                        <div class="form-group">
-                            <label for="description" th:text="#{description}">Description</label>
-                            <p id="description" class="form-control" th:text="${#strings.defaultString(offenceModel.description, #messages.msg('field.not.set'))}"></p>
-                        </div>
+                    </div>
+                    <!--OffenceModel Description-->
+                    <div class="form-group">
+                        <label for="description" th:text="#{description}">Description</label>
+                        <p id="description" class="form-control" th:text="${#strings.defaultString(offenceModel.description, #messages.msg('field.not.set'))}"></p>
+                    </div>
 
-                        <!--Proof Documents Taken (Using Checkbox and Value Field)-->
-
-                        <!--Reporting Location-->
-                        <div class="form-group">
-                            <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
-                            <p id="reporting-location" class="form-control" th:text="${#strings.defaultString(offenceModel.reportingLocation, #messages.msg('field.not.set'))}"></p>
-                        </div>
-                        <!--Action Taken by (Not included in domain)-->
-
-                        <!--OffenceCodeModels-->
-                        <table class="table">
-                            <thead>
+                    <!--OffenceCodeModels-->
+                    <table class="table">
+                        <thead class="bg-light">
                             <tr>
-                                <th></th>
-                                <th th:text="#{offence.code}">Offence Code</th>
-                                <th th:text="#{description}">Description</th>
-                                <th th:text="#{records}">Records</th>
+                                <th class="border-0">#</th>
+                                <th class="border-0" th:text="#{offence.code}">Offence Code</th>
+                                <th class="border-0" th:text="#{description}">Description</th>
+                                <th class="border-0" th:text="#{records}">Records</th>
                             </tr>
-                            </thead>
-                            <tbody id="offence-codes-body">
+                        </thead>
+                        <tbody id="offence-codes-body">
                             <tr th:each="offenceCodeModel,OCMStat : *{offenceCodeModels}">
                                 <td>
                                     <p th:text="${OCMStat.count}"></p>
@@ -174,59 +206,119 @@
                                     <p th:text="${offenceCodeModel.description}">
                                 </td>
                                 <td>
-                                    <a th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=*{id},offenceCodeId=${offenceCodeModel.id})}" th:text="#{records}">View Records</a>
+                                    <a href="list.html" th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=*{id},offenceCodeId=${offenceCodeModel.id})}" th:text="#{records}">View Records</a>
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
 
-                    <!--Supervisor Detail-->
-                    <div class="tab">
-                        <span th:text="#{supervisor.detail}">Supervisor Detail</span>
-                        <!--Full Name-->
-                        <div class="form-group">
+                    <!--Proof Documents Taken (Using Checkbox and Value Field)-->
+                    <div class="form-group">
+                        <strong class="text-muted d-block mb-3 py-2 border-bottom" th:text="#{proof.documents.taken}">Proof Documents Taken</strong>
+
+                        <div class="form-row">
+                            <div class="col-sm-4 col-md-2">
+                                <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="isDriversLicenseTaken" th:field="*{driversLicenseTaken}" disabled="disabled">
+                                    <label class="custom-control-label" for="isDriversLicenseTaken" th:text="#{drivers.license}">Driver's License</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-md-4 mb-sm-3">
+                                <input type="text" class="form-control" id="driversLicenseTaken" placeholder="License No" th:placeholder="#{proof.document.not.taken}" th:field="*{driversLicenseTakenNo}" th:style="${#strings.isEmpty(offenceModel.driversLicenseTakenNo)} ? '' : 'background-color: #fff'" disabled="disabled">
+                            </div>
+
+                            <div class="col-sm-4 col-md-2">
+                                <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="isVehiclePlateTaken" th:field="*{vehiclePlateTaken}" disabled="disabled">
+                                    <label class="custom-control-label" for="isVehiclePlateTaken" th:text="#{plate.no}">Plate No</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-md-4 mb-sm-3">
+                                <input type="text" class="form-control" id="vehiclePlateTaken" placeholder="Plate No" th:placeholder="#{proof.document.not.taken}" th:field="*{vehiclePlateTakenNo}" th:style="${#strings.isEmpty(offenceModel.vehiclePlateTakenNo)} ? '' : 'background-color: #fff'" disabled="disabled">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4 col-md-2">
+                                <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="isLibreTaken" th:field="*{libreTaken}" disabled="disabled">
+                                    <label class="custom-control-label" for="isLibreTaken" th:text="#{libre}">Libre</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-md-4 mb-sm-3">
+                                <input type="text" class="form-control" id="libreTaken" placeholder="Libre No" th:placeholder="#{proof.document.not.taken}" th:field="*{libreTakenNo}" th:style="${#strings.isEmpty(offenceModel.libreTakenNo)} ? '' : 'background-color: #fff'" disabled="disabled">
+                            </div>
+
+                            <div class="col-sm-4 col-md-2">
+                                <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="isVehicleBoloTaken" th:field="*{vehicleBoloTaken}" disabled="disabled">
+                                    <label class="custom-control-label" for="isVehicleBoloTaken" th:text="#{bolo}">Bolo</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-md-4">
+                                <input type="text" class="form-control" id="vehicleBoloTaken" placeholder="Bolo" th:placeholder="#{proof.document.not.taken}" th:field="*{vehicleBoloTakenNo}" th:style="${#strings.isEmpty(offenceModel.vehicleBoloTakenNo)} ? '' : 'background-color: #fff'" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Supervisor Detail-->
+                <div class="tab">
+                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{supervisor.detail}">Supervisor Detail</strong>
+                    <!--Full Name-->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
                             <label for="supervisor-fn" th:text="#{first.name}">First Name</label>
                             <p id="supervisor-fn" class="form-control" th:text="*{supervisor.firstName}"></p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="supervisor-mn" th:text="#{middle.name}">Middle Name</label>
                             <p id="supervisor-mn" class="form-control" th:text="*{supervisor.middleName}"></p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="supervisor-ln" th:text="#{last.name}">Last Name</label>
                             <p id="supervisor-ln" class="form-control" th:text="*{supervisor.lastName}"></p>
                         </div>
                     </div>
 
+                    <!--Other Details-->
+                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{other.details}">Other Details</strong>
+                    <!--Reporting Location-->
+                    <div class="form-group">
+                        <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
+                        <p id="reporting-location" class="form-control" th:text="${#strings.defaultString(offenceModel.reportingLocation, #messages.msg('field.not.set'))}"></p>
+                    </div>
+                    <!--Action Taken by (Not included in domain)-->
+
                     <!--Status and penalty-->
-                    <div class="tab">
-                        <div class="form-group">
-                            <label for="offence-status" th:text="#{status}">Status</label>
-                            <p id="offence-status" class="form-control" th:text="*{status}"></p>
-                        </div>
-                        <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
                             <label for="penalty-amount" th:text="#{penalty.amount}">Penalty Amount</label>
                             <p id="penalty-amount" class="form-control" th:text="*{penaltyAmount}"></p>
                         </div>
-                    </div>
-
-                    <div style="overflow:auto;">
-                        <div style="float:right;">
-                            <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1)" th:text="#{previous}">Previous</button>
-                            <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)" th:text="#{next}">Next</button>
+                        <div class="form-group col-md-6">
+                            <label for="offence-status" th:text="#{status}">Status</label>
+                            <p id="offence-status" class="form-control" th:text="*{status}" th:classappend="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></p>
                         </div>
                     </div>
-                    <!-- Circles which indicates the steps of the form: -->
-                    <div style="text-align:center;margin-top:40px;">
-                        <span class="step" data-step="0"></span>
-                        <span class="step" data-step="1"></span>
-                        <span class="step" data-step="2"></span>
-                        <span class="step" data-step="3"></span>
-                        <span class="step" data-step="4"></span>
-                        <span class="step" data-step="5"></span>
+
+                </div>
+
+
+                <div style="overflow:auto;">
+                    <div style="float:right;">
+                        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1)" th:text="#{previous}">Previous</button>
+                        <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)" th:text="#{next}">Next</button>
                     </div>
                 </div>
+                <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step" data-step="0"></span>
+                    <span class="step" data-step="1"></span>
+                    <span class="step" data-step="2"></span>
+                    <span class="step" data-step="3"></span>
+                </div>
+            </div>
         </div>
     </div>
 
