@@ -16,7 +16,7 @@
     <div class="container">
         <h3><span id="page-header" data-template="offence-list" th:text="#{list.offences}">List Offences</span></h3>
         <!--/*@thymesVar id="offenceModels" type="org.springframework.data.domain.Page<com.kft.oms.model.OffenceModel>"*/-->
-        <div class="container" th:fragment="content">
+        <div th:fragment="content">
             <div th:if="${not offenceModels.isEmpty()}">
                 <table class="table table-striped">
                     <thead>
@@ -24,8 +24,9 @@
                             <th th:text="#{driver.name}">Driver Name</th>
                             <th th:text="#{date}">Date</th>
                             <th th:text="#{time}">Time</th>
-                            <th th:text="#{description}">Description</th>
+                            <th th:text="#{location}">Location</th>
                             <th th:text="#{penalty.amount}">Penalty Amount</th>
+                            <th th:text="#{status}">Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -34,8 +35,11 @@
                             <td th:text="${offenceModel.driverModel.getFullName()}"></td>
                             <td th:text="${offenceModel.date}"></td>
                             <td th:text="${offenceModel.time}"></td>
-                            <td th:text="${offenceModel.description}"></td>
+                            <td th:text="${offenceModel.location}"></td>
                             <td th:text="${offenceModel.penaltyAmount}"></td>
+                            <td>
+                                <a th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></a>
+                            </td>
                             <td>
                                 <a href="show.html" th:href="@{/offence/{id}(id=${offenceModel.id})}" th:text="#{view}">View</a>
                                 <a href="status.html" th:href="@{/offence/{id}/status(id=${offenceModel.id})}" th:text="#{status}">Status</a>
@@ -64,8 +68,8 @@
                 <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
             </div>
             <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber != 0}">
-                <h5>This Page Contains No Offences</h5>
-                <p>To view registered offences go to <a th:href="@{/offence}">first page</a>!</p>
+                <h5 th:text="#{no.offence.in.current.page.message}">This Page Contains No Offences</h5>
+                <p th:text="#{view.registered.offence.message}">To view registered offences go to <a href="list.html?page=0" th:href="@{/offence}" th:text="#{first.page}">first page</a>!</p>
             </div>
         </div>
     </div>

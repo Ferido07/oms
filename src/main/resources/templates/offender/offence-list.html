@@ -12,15 +12,15 @@
         <h2><span id="page-header" data-template="offender-offence-list" th:text="#{offence.history}">Offence History</span></h2>
         <!--/*@thymesVar id="offenceModels" type="org.springframework.data.domain.Page<com.kft.oms.model.OffenceModel>"*/-->
 
-        <div class="container" th:fragment="content">
+        <div th:fragment="content">
             <div th:if="${not offenceModels.isEmpty()}">
-                <h6>History of Offences for <span th:text="${offenceModels.content[0].driverModel.getFullName()}">Offender</span></h6>
+                <h6>History of Offences for <span th:text="${offenceModels.content[0].driverModel.getFullName()}">Driver</span></h6>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th th:text="#{date}">Date</th>
                             <th th:text="#{time}">Time</th>
-                            <th th:text="#{description}">Description</th>
+                            <th th:text="#{location}">Location</th>
                             <th th:text="#{penalty.amount}">Penalty Amount</th>
                             <th th:text="#{status}">Status</th>
                             <th></th>
@@ -31,14 +31,14 @@
                         <tr th:each="offenceModel : ${offenceModels}">
                             <td th:text="${offenceModel.date}"></td>
                             <td th:text="${offenceModel.time}"></td>
-                            <td th:text="${offenceModel.description}"></td>
+                            <td th:text="${offenceModel.location}"></td>
                             <td th:text="${offenceModel.penaltyAmount}"></td>
                             <td>
                                 <a th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></a>
                             </td>
                             <td>
                                 <a href="../offence/show.html" th:href="@{/offence/{id}(id=${offenceModel.id})}" th:text="#{view}">View</a>
-                                <a href="../offence/status.html" th:href="@{/offence/{id}/status(id=${offenceModel.id})}" th:text="#{status}"></a>
+                                <a href="../offence/status.html" th:href="@{/offence/{id}/status(id=${offenceModel.id})}" th:text="#{status}">Status</a>
                             </td>
                         </tr>
                     </tbody>
@@ -63,9 +63,9 @@
                 <p><span th:text="#{add.offence.message}">To add offences </span> <a href="../offence/form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
             </div>
             <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber != 0}">
-                <h5>This Page Contains No Offences</h5>
-                <p th:if="${not #strings.contains(#request.requestURI,'/code/')}">To view registered offence history go to <a th:href="@{/offender/{id}(id=${#request.requestURI.split('/')[__${#request.requestURI.split('/').length - 1}__]})}">first page</a>!</p>
-                <p th:if="${#strings.contains(#request.requestURI,'/code/')}">To view registered offence history go to <a th:href="@{/offender/{id}/code/{code}(id=${#request.requestURI.split('/')[__${#request.requestURI.split('/').length - 3}__]},code=${#request.requestURI.split('/')[__${#request.requestURI.split('/').length - 1}__]})}">first page</a>!</p>
+                <h5 th:text="#{no.offence.in.current.page.message}">This Page Contains No Offences</h5>
+                <p th:if="${not #strings.contains(#request.requestURI,'/code/')}" th:text="#{view.registered.offence.history.message}">To view registered offence history go to <a href="offence-list.html?page=0" th:href="@{/offender/{id}(id=${#request.requestURI.split('/')[__${#request.requestURI.split('/').length - 1}__]})}" th:text="#{first.page}">first page</a>!</p>
+                <p th:if="${#strings.contains(#request.requestURI,'/code/')}" th:text="#{view.registered.offence.history.message}">To view registered offence history go to <a href="offence-list.html?page=0" th:href="@{/offender/{id}/code/{code}(id=${#request.requestURI.split('/')[__${#request.requestURI.split('/').length - 3}__]},code=${#request.requestURI.split('/')[__${#request.requestURI.split('/').length - 1}__]})}" th:text="#{first.page}">first page</a>!</p>
             </div>
         </div>
     </div>
