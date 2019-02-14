@@ -63,7 +63,7 @@
                     <!--Association Detail-->
                     <div class="form-group">
                         <label for="vehicle-association-name" class="control-label" th:text="#{association.name}">Association Name</label>
-                        <p id="vehicle-association-name" class="form-control" th:text="${#strings.defaultString(offenceModel.vehicleModel.associationModel.name, #messages.msg('field.not.set'))}"></p>
+                        <p id="vehicle-association-name" class="form-control" th:text="${offenceModel.vehicleModel.associationModel == null ? #messages.msg('field.not.set') : offenceModel.vehicleModel.associationModel.name}"></p>
                     </div>
 
 

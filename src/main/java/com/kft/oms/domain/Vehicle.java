@@ -67,7 +67,12 @@ public class Vehicle extends AbstractEntity {
     }
 
     public void setAssociation(Association association) {
-        this.association = association;
+        if(association == null)
+            this.association = null;
+        else if (association.getName() == null)
+            this.association = null;
+        else
+            this.association = association.getName().trim().isEmpty() ? null : association;
     }
 
     public String getBolo() {

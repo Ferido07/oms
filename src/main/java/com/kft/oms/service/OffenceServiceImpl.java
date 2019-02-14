@@ -5,10 +5,7 @@ import com.kft.crud.service.CrudServiceImpl;
 import com.kft.oms.config.Mapper;
 import com.kft.oms.constants.OffenceStatus;
 import com.kft.oms.constants.OffenderType;
-import com.kft.oms.domain.Driver;
-import com.kft.oms.domain.Offence;
-import com.kft.oms.domain.OffenceCode;
-import com.kft.oms.domain.Vehicle;
+import com.kft.oms.domain.*;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.repository.DriverRepository;
 import com.kft.oms.repository.OffenceRepository;
@@ -27,13 +24,15 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
     private final Mapper mapper;
     private final DriverRepository driverRepository;
     private final VehicleRepository vehicleRepository;
+    private final AssociationService associationService;
 
     @Autowired
-    public OffenceServiceImpl(OffenceRepository repository, Mapper mapper, DriverRepository driverRepository, VehicleRepository vehicleRepository) {
+    public OffenceServiceImpl(OffenceRepository repository, Mapper mapper, DriverRepository driverRepository, VehicleRepository vehicleRepository, AssociationService associationService) {
         super(repository);
         this.mapper = mapper;
         this.driverRepository = driverRepository;
         this.vehicleRepository = vehicleRepository;
+        this.associationService = associationService;
     }
 
     /**
@@ -94,7 +93,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
 
         Offence offence;
 
-        //check if item exists
+        //check if item exists used when editing an existing offence
         if(offenceModel.getId() != null){
             //check if the item exists
             Optional<Offence> offenceOptional = repository.findById(offenceModel.getId());
@@ -106,7 +105,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
                 //copy everything from Model to domain but the whole system of persisting offence
                 //counts on the mapper not mapping the driverModel to driver so that this part doesn't
                 //overwrite data retrieved from database
-                //even though driver and vehicle are retrieved separately before retrieving offence
+                //even if driver and vehicle are retrieved separately before retrieving offence
                 //when the offence is retrieved hibernate knows that it has the driver and vehicle so it
                 //doesn't issue another select and just returns the pointer of the previous values and
                 //hence mapping driverModel and vehicleModel in OffenceModel to driver and vehicle in
@@ -150,7 +149,8 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
     }
 
     private Vehicle getVehicle(OffenceModel offenceModel) {
-        Vehicle vehicle;//check if Vehicle exists
+        Vehicle vehicle;
+        //check if Vehicle exists using id
         if(offenceModel.getVehicleModel().getId() != null){
             Integer vehicleId = offenceModel.getVehicleModel().getId();
             Optional<Vehicle> vehicleOptional = vehicleRepository.findById(vehicleId);
@@ -161,11 +161,41 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
                 throw new RuntimeException("Vehicle with Id of " + vehicleId + "does not exist");
             }
         }
+        //check if vehicle exists using plate no
         else{
             Optional<Vehicle> vehicleOptional = vehicleRepository.findByPlateNo(offenceModel.getVehicleModel().getPlateNo());
-            vehicle = vehicleOptional.orElseGet(() -> mapper.map(offenceModel.getVehicleModel(), Vehicle.class));
+            //if vehicle is present then return that to vehicle else assign vehicle the result of the map from vehicleModel
+            vehicle = vehicleOptional.orElseGet(() -> {
+                Vehicle vehicle1 = mapper.map(offenceModel.getVehicleModel(), Vehicle.class);
+                vehicle1.setAssociation(getVehicleAssociation(vehicle1));
+                return vehicle1;
+            });
         }
         return vehicle;
+    }
+    private Association getVehicleAssociation(Vehicle vehicle){
+        if(vehicle.getAssociation() != null) {
+            Integer associationId = vehicle.getAssociation().getId();
+            Optional<Association> associationOptional;
+            if (associationId != null) {
+                associationOptional = associationService.findById(associationId);
+                if (associationOptional.isPresent()) {
+                    return associationOptional.get();
+                } else {
+                    throw new RuntimeException("Association with Id of " + associationId + "does not exist");
+                }
+            } else {
+                String associationName = vehicle.getAssociation().getName();
+                if(associationName.trim().isEmpty()){
+                    return null;
+                }
+                associationOptional = associationService.findByName(associationName);
+                //if association is found then return that else return the new one that vehicle already contains
+                return associationOptional.orElseGet(vehicle::getAssociation);
+            }
+        }
+        else
+            return null;
     }
 
     private Driver getDriver(OffenceModel offenceModel) {
