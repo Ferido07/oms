@@ -55,14 +55,14 @@
                     <ul class="nav flex-column" id="pages">
                         <li class="nav-item" data-page="offence">
                             <a class="nav-link active" href="#offence-submenu" data-toggle="collapse">
-                                <i class="material-icons">view_module</i>
+                                <i class="material-icons">description</i>
                                 <span th:text="#{offence}">Offence</span>
                             </a>
                             <div id="offence-submenu" class="collapse show">
                                 <ul class="nav flex-column">
                                     <li class="nav-item" data-page="list-offences">
                                         <a class="nav-link pl-5" href="offence/list.html" th:href="@{/offence}">
-                                            <i class="material-icons">vertical_split</i>
+                                            <i class="material-icons">list</i>
                                             <span th:text="#{offence.list}">Offences</span>
                                         </a>
                                     </li>
@@ -135,7 +135,7 @@
                             <!--</li>-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <!--<img class="user-avatar rounded-circle mr-2" src="#" alt=""> -->
+                                    <img class="user-avatar rounded-circle mr-2" src="../static/images/avatar.png" th:src="@{/images/avatar.png}" alt="User Avatar">
                                     <span class="d-none d-md-inline-block">Sierra Brooks</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-small">

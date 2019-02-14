@@ -27,7 +27,7 @@
                             <td th:text="${driverModel.getFullName()}">Full Name</td>
                             <td th:text="${driverModel.licenseNo}">License No</td>
                             <td>
-                                <a href="../../offender/offence-list.html" th:href="${'/oms/offender/' + driverModel.id}" th:text="#{view}">View</a>
+                                <a href="../../offender/offence-list.html" th:href="${'/oms/offender/' + driverModel.id}"><i class="material-icons">history</i></a>
                             </td>
                         </tr>
                     </tbody>

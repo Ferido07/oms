@@ -37,8 +37,8 @@
                                 <a th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></a>
                             </td>
                             <td>
-                                <a href="../offence/show.html" th:href="@{/offence/{id}(id=${offenceModel.id})}" th:text="#{view}">View</a>
-                                <a href="../offence/status.html" th:href="@{/offence/{id}/status(id=${offenceModel.id})}" th:text="#{status}">Status</a>
+                                <a href="../offence/show.html" th:href="@{/offence/{id}(id=${offenceModel.id})}"><i class="material-icons">visibility</i></a>
+                                <a href="../offence/status.html" th:href="@{/offence/{id}/status(id=${offenceModel.id})}"><i class="material-icons">info</i></a>
                             </td>
                         </tr>
                     </tbody>

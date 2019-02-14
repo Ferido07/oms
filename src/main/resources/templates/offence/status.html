@@ -51,7 +51,7 @@
                             <p th:text="${offenceCodeModel.penaltyAmount + ' x ' + repetitionMap.get(offenceCodeModel.id) +  ' = '} + ${repetitionMap.get(offenceCodeModel.id) * offenceCodeModel.penaltyAmount}"></p>
                         </td>
                         <td>
-                            <a href="#" th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=${offenceModel.id},offenceCodeId=${offenceCodeModel.id})}" th:text="#{records}">View Records</a>
+                            <a href="#" th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=${offenceModel.id},offenceCodeId=${offenceCodeModel.id})}"><i class="material-icons">history</i></a>
                         </td>
                     </tr>
                     </tbody>
