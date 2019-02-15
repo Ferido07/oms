@@ -155,7 +155,7 @@ $("#vehicle-plate-no").autocomplete({
 
 function getDriversByLicenseNo(request, response) {
     $.getJSON(
-        "/oms/driver?licenseNo=" + request.term,
+        "/oms/api/drivers?licenseNo=" + request.term,
         function (data) {
             response(data);
         });
@@ -182,7 +182,7 @@ function populateDriverInput(driver){
 function getDriverByLicenseNo(licenseNo){
     console.log("getting driver with license no " + licenseNo );
     $.getJSON(
-        "/oms/driver/" + licenseNo,
+        "/oms/api/drivers/" + licenseNo,
         function (data) {
             populateDriverInput(data);
         }
