@@ -29,8 +29,8 @@
                     <!--Ticket No-->
                     <div class="form-group">
                         <label for="ticket-no" class="" th:text="#{ticket.no}">Ticket No</label>
-                        <input id="ticket-no" class="form-control" placeholder="Ticket No" th:placeholder="#{ticket.no}" th:field="*{ticketNo}">
-                        <label for="ticket-no" class="invalid-feedback d-block" th:if="${#fields.hasErrors('ticketNo')}" th:errors="*{ticketNo}">Ticket No Error</label>
+                        <input id="ticket-no" class="form-control" placeholder="Ticket No" th:placeholder="#{ticket.no}" th:field="*{ticketNo}" th:errorclass="is-invalid">
+                        <label for="ticket-no" class="invalid-feedback " th:if="${#fields.hasErrors('ticketNo')}" th:errors="*{ticketNo}">Ticket No Error</label>
                     </div>
 
                     <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{vehicle.detail}">Vehicle Detail</strong>
@@ -40,20 +40,20 @@
                         <!--Vehicle Plate-->
                         <div class="form-group col-md-4 ui-widget">
                             <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
-                            <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}" onkeyup="vehiclePlateNoKeyUp()" required>
-                            <label  for="vehicle-plate-no" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:text="#{error.vehicle.plateNo.regexp}">Plate No Error</label>
+                            <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}" th:errorclass="is-invalid" onkeyup="vehiclePlateNoKeyUp()" required>
+                            <label  for="vehicle-plate-no" class="invalid-feedback" th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:text="#{error.vehicle.plateNo.regexp}">Plate No Error</label>
                         </div>
                         <!--Vehicle Type-->
                         <div class="form-group col-md-4">
                             <label for="vehicle-type" class="" th:text="#{vehicle.type}">Vehicle Type</label>
-                            <input id="vehicle-type" class="form-control" placeholder="Vehicle Type" th:field="*{vehicleModel.type}" th:placeholder="#{vehicle.type}">
-                            <label for="vehicle-type" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.type')}" th:errors="*{vehicleModel.type}">Vehicle Type Error</label>
+                            <input id="vehicle-type" class="form-control" placeholder="Vehicle Type" th:field="*{vehicleModel.type}" th:placeholder="#{vehicle.type}" th:errorclass="is-invalid">
+                            <label for="vehicle-type" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.type')}" th:errors="*{vehicleModel.type}">Vehicle Type Error</label>
                         </div>
                         <!--Side No-->
                         <div class="form-group col-md-4">
                             <label for="vehicle-side-no" class="" th:text="#{side.no}">Side No</label>
-                            <input id="vehicle-side-no" class="form-control" type="number" placeholder="Side No" th:placeholder="#{side.no}" th:field="*{vehicleModel.sideNo}" maxlength="5">
-                            <label for="vehicle-side-no" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.sideNo')}" th:errors="*{vehicleModel.sideNo}">Side No Error</label>
+                            <input id="vehicle-side-no" class="form-control" type="number" placeholder="Side No" th:placeholder="#{side.no}" th:field="*{vehicleModel.sideNo}" th:errorclass="is-invalid" maxlength="5">
+                            <label for="vehicle-side-no" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.sideNo')}" th:errors="*{vehicleModel.sideNo}">Side No Error</label>
                         </div>
                     </div>
 
@@ -62,8 +62,8 @@
                         <input type="hidden" id="vehicle-association-id" th:field="*{vehicleModel.associationModel.id}">
                         <div class="form-group">
                             <label for="vehicle-association-name" class="" th:text="#{association.name}">Association Name</label>
-                            <input id="vehicle-association-name" class="form-control" placeholder="Association" th:placeholder="#{association.name}" th:field="*{vehicleModel.associationModel.name}">
-                            <label for="vehicle-association-name" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.associationModel.name')}" th:errors="*{vehicleModel.associationModel.name}">Association Name Error</label>
+                            <input id="vehicle-association-name" class="form-control" placeholder="Association" th:placeholder="#{association.name}" th:field="*{vehicleModel.associationModel.name}" th:errorclass="is-invalid">
+                            <label for="vehicle-association-name" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.associationModel.name')}" th:errors="*{vehicleModel.associationModel.name}">Association Name Error</label>
                         </div>
                     </div>
 
@@ -77,25 +77,25 @@
                             <input type="hidden" th:field="*{vehicleModel.vehicleOwnershipModels[0].id}">
                             <div class="form-group">
                                 <label for="vo-libreNo" class="" th:text="#{libre.No}">Libre No</label>
-                                <input id="vo-libreNo" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{vehicleModel.vehicleOwnershipModels[0].libreNo}" required maxlength="20">
-                                <label for="vo-libreNo" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].libreNo')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].libreNo}">Libre No Error</label>
+                                <input id="vo-libreNo" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{vehicleModel.vehicleOwnershipModels[0].libreNo}" th:errorclass="is-invalid" required maxlength="20">
+                                <label for="vo-libreNo" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].libreNo')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].libreNo}">Libre No Error</label>
                             </div>
                             <!-- Vehicle Owner Name-->
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="vo-fName" class="" th:text="#{first.name}">First Name</label>
-                                    <input id="vo-fName" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}" required maxlength="30">
-                                    <label for="vo-fName" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}">Vehicle Owner First Name Error</label>
+                                    <input id="vo-fName" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}" th:errorclass="is-invalid" required maxlength="30">
+                                    <label for="vo-fName" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].firstName}">Vehicle Owner First Name Error</label>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="vo-mName" class="" th:text="#{middle.name}">Middle Name</label>
-                                    <input id="vo-mName" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}" required maxlength="30">
-                                    <label for="vo-mName" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}">Vehicle Owner Middle Name Error</label>
+                                    <input id="vo-mName" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}" th:errorclass="is-invalid" required maxlength="30">
+                                    <label for="vo-mName" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].middleName}">Vehicle Owner Middle Name Error</label>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="vo-lName" class="" th:text="#{last.name}">Last Name</label>
-                                    <input id="vo-lName" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}" required maxlength="30">
-                                    <label for="vo-lName" class="invalid-feedback d-block" th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}">Vehicle Owner Last Name Error</label>
+                                    <input id="vo-lName" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}" th:errorclass="is-invalid" required maxlength="30">
+                                    <label for="vo-lName" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].lastName}">Vehicle Owner Last Name Error</label>
                                 </div>
                             </div>
                         <!--</div>-->
@@ -110,13 +110,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="dispatch-number" class="" th:text="#{dispatch.no}">Dispatch Number</label>
-                            <input id="dispatch-number" class="form-control" placeholder="Dispatch Number" th:placeholder="#{dispatch.no}" th:field="*{dispatchNo}" maxlength="12">
-                            <label for="dispatch-number" class="invalid-feedback d-block" th:if="${#fields.hasErrors('dispatchNo')}" th:errors="*{dispatchNo}">Dispatch No Error</label>
+                            <input id="dispatch-number" class="form-control" placeholder="Dispatch Number" th:placeholder="#{dispatch.no}" th:field="*{dispatchNo}" th:errorclass="is-invalid" maxlength="12">
+                            <label for="dispatch-number" class="invalid-feedback " th:if="${#fields.hasErrors('dispatchNo')}" th:errors="*{dispatchNo}">Dispatch No Error</label>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="tariff" class="" th:text="#{tariff}">Tariff</label>
-                            <input id="tariff" class="form-control" placeholder="Tariff" th:placeholder="#{tariff}" th:field="*{tariff}">
-                            <label for="tariff" class="invalid-feedback d-block" th:if="${#fields.hasErrors('tariff')}" th:errors="*{tariff}">Tariff Error</label>
+                            <input id="tariff" class="form-control" placeholder="Tariff" th:placeholder="#{tariff}" th:field="*{tariff}" th:errorclass="is-invalid">
+                            <label for="tariff" class="invalid-feedback " th:if="${#fields.hasErrors('tariff')}" th:errors="*{tariff}">Tariff Error</label>
                         </div>
                     </div>
 
@@ -124,13 +124,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="from" th:text="#{from}">From</label>
-                            <input id="from" class="form-control" placeholder="From" th:placeholder="#{from}" th:field="*{start}" maxlength="100">
-                            <label for="from" class="invalid-feedback d-block" th:if="${#fields.hasErrors('start')}" th:errors="*{start}">Route Start Error</label>
+                            <input id="from" class="form-control" placeholder="From" th:placeholder="#{from}" th:field="*{start}" th:errorclass="is-invalid" maxlength="100">
+                            <label for="from" class="invalid-feedback " th:if="${#fields.hasErrors('start')}" th:errors="*{start}">Route Start Error</label>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="to" th:text="#{to}">To</label>
-                            <input id="to" class="form-control" placeholder="To" th:placeholder="#{to}" th:field="*{destination}" maxlength="100">
-                            <label for="to" class="invalid-feedback d-block" th:if="${#fields.hasErrors('destination')}" th:errors="*{destination}">Route Destination Error</label>
+                            <input id="to" class="form-control" placeholder="To" th:placeholder="#{to}" th:field="*{destination}" th:errorclass="is-invalid" maxlength="100">
+                            <label for="to" class="invalid-feedback " th:if="${#fields.hasErrors('destination')}" th:errors="*{destination}">Route Destination Error</label>
                         </div>
                     </div>
 
@@ -142,12 +142,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="driver-license-no" th:text="#{license.no}">License No</label>
-                            <input id="driver-license-no" class="form-control" th:type="number" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driverModel.licenseNo}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required>
-                            <label for="driver-license-no" class="invalid-feedback d-block" th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</label>
+                            <input id="driver-license-no" class="form-control" th:type="number" placeholder="License No" th:placeholder="#{license.no}" th:field="*{driverModel.licenseNo}" th:errorclass="is-invalid" required>
+                            <label for="driver-license-no" class="invalid-feedback " th:if="${#fields.hasErrors('driverModel.licenseNo')}" th:errors="*{driverModel.licenseNo}">Driver License No Error</label>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="driver-license-type" th:text="#{license.type}">License Type</label>
-                            <select id="driver-license-type" class="form-control" th:field="*{driverModel.licenseType}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}">
+                            <select id="driver-license-type" class="form-control" th:field="*{driverModel.licenseType}">
                                 <!--/*@thymesVar id="licenseType" type="com.kft.oms.constants.LicenseType"*/-->
                                 <option th:each="licenseType : ${T(com.kft.oms.constants.LicenseType).values()}"
                                         th:value="${licenseType.name()}"
@@ -162,19 +162,19 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="driver-fn" th:text="#{first.name}">First Name</label>
-                            <input id="driver-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{driverModel.firstName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required maxlength="30">
-                            <label for="driver-fn" class="invalid-feedback d-block" th:if="${#fields.hasErrors('driverModel.firstName')}" th:errors="*{driverModel.firstName}">Driver First Name Error</label>
+                            <input id="driver-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{driverModel.firstName}" th:errorclass="is-invalid" required maxlength="30">
+                            <label for="driver-fn" class="invalid-feedback " th:if="${#fields.hasErrors('driverModel.firstName')}" th:errors="*{driverModel.firstName}">Driver First Name Error</label>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="driver-mn" th:text="#{middle.name}">Middle Name</label>
-                            <input id="driver-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{driverModel.middleName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required maxlength="30">
-                            <label for="driver-mn" class="invalid-feedback d-block" th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</label>
+                            <input id="driver-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{driverModel.middleName}" th:errorclass="is-invalid" required maxlength="30">
+                            <label for="driver-mn" class="invalid-feedback " th:if="${#fields.hasErrors('driverModel.middleName')}" th:errors="*{driverModel.middleName}">Driver Middle Name Error</label>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="driver-ln" th:text="#{last.name}">Last Name</label>
-                            <input id="driver-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{driverModel.lastName}" th:readonly="${#strings.startsWith(#request.requestURI,'/oms/offence/edit/')}" required maxlength="30">
-                            <label for="driver-ln" class="invalid-feedback d-block" th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</label>
+                            <input id="driver-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{driverModel.lastName}" th:errorclass="is-invalid" required maxlength="30">
+                            <label for="driver-ln" class="invalid-feedback " th:if="${#fields.hasErrors('driverModel.lastName')}" th:errors="*{driverModel.lastName}">Driver Last Name Error</label>
                         </div>
                     </div>
 
@@ -187,25 +187,25 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="date"  th:text="#{date}">Date</label>
-                            <input type="date" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}" required>
-                            <label for="date" class="invalid-feedback d-block" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</label>
+                            <input type="date" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}" th:errorclass="is-invalid" required>
+                            <label for="date" class="invalid-feedback " th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</label>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="time" th:text="#{time}">Time</label>
-                            <input type="time" id="time" class="form-control" placeholder="Time" th:placeholder="#{time}" th:field="*{time}" required>
-                            <label for="time" class="invalid-feedback d-block" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</label>
+                            <input type="time" id="time" class="form-control" placeholder="Time" th:placeholder="#{time}" th:field="*{time}" th:errorclass="is-invalid" required>
+                            <label for="time" class="invalid-feedback " th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</label>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="location" th:text="#{location}">Location</label>
-                            <input id="location" class="form-control" placeholder="Location" th:placeholder="#{location}" th:field="*{location}" required maxlength="100">
-                            <label for="location" class="invalid-feedback d-block" th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</label>
+                            <input id="location" class="form-control" placeholder="Location" th:placeholder="#{location}" th:field="*{location}" th:errorclass="is-invalid" required maxlength="100">
+                            <label for="location" class="invalid-feedback " th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</label>
                         </div>
                     </div>
                     <!--OffenceModel Description-->
                     <div class="form-group">
                         <label for="description" th:text="#{description}">Description</label>
-                        <input id="description" class="form-control" placeholder="Description" th:placeholder="#{description}" th:field="*{description}" maxlength="255">
-                        <label for="description" class="invalid-feedback d-block" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</label>
+                        <input id="description" class="form-control" placeholder="Description" th:placeholder="#{description}" th:field="*{description}" th:errorclass="is-invalid" maxlength="255">
+                        <label for="description" class="invalid-feedback " th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</label>
                     </div>
 
                     <!--Action Taken by (Not included in domain)-->
@@ -233,6 +233,7 @@
                                     </td>
                                     <td class="col-sm-4 col-md-3">
                                         <input class="form-control" placeholder="Full Code" th:placeholder="#{full.code}">
+                                        <label class="invalid-feedback d-block" th:if="${#fields.hasErrors('offenceCodeModels[' + OCMStat.index + '].*')}" th:text="'1 or more errors please re-enter values'">Offence Codes Error</label>
                                     </td>
                                     <td class="col-sm-7 col-md-8">
                                         <input class="form-control" placeholder="Description" th:placeholder="#{description}" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}">
@@ -304,18 +305,18 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="supervisor-fn" th:text="#{first.name}">First Name</label>
-                            <input id="supervisor-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{supervisor.firstName}" required maxlength="30">
-                            <label for="supervisor-fn" class="invalid-feedback d-block" th:if="${#fields.hasErrors('supervisor.firstName')}" th:errors="*{supervisor.firstName}">Supervisor First Name Error</label>
+                            <input id="supervisor-fn" class="form-control" placeholder="First Name" th:placeholder="#{first.name}" th:field="*{supervisor.firstName}" th:errorclass="is-invalid" required maxlength="30">
+                            <label for="supervisor-fn" class="invalid-feedback " th:if="${#fields.hasErrors('supervisor.firstName')}" th:errors="*{supervisor.firstName}">Supervisor First Name Error</label>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="supervisor-mn" th:text="#{middle.name}">Middle Name</label>
-                            <input id="supervisor-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{supervisor.middleName}" required maxlength="30">
-                            <label for="supervisor-mn" class="invalid-feedback d-block" th:if="${#fields.hasErrors('supervisor.middleName')}" th:errors="*{supervisor.middleName}">Supervisor Middle Name Error</label>
+                            <input id="supervisor-mn" class="form-control" placeholder="Middle Name" th:placeholder="#{middle.name}" th:field="*{supervisor.middleName}" th:errorclass="is-invalid" required maxlength="30">
+                            <label for="supervisor-mn" class="invalid-feedback " th:if="${#fields.hasErrors('supervisor.middleName')}" th:errors="*{supervisor.middleName}">Supervisor Middle Name Error</label>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="supervisor-ln" th:text="#{last.name}">Last Name</label>
-                            <input id="supervisor-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{supervisor.lastName}" required maxlength="30">
-                            <label for="supervisor-ln" class="invalid-feedback d-block" th:if="${#fields.hasErrors('supervisor.lastName')}" th:errors="*{supervisor.lastName}">Supervisor Last Name Error</label>
+                            <input id="supervisor-ln" class="form-control" placeholder="Last Name" th:placeholder="#{last.name}" th:field="*{supervisor.lastName}" th:errorclass="is-invalid" required maxlength="30">
+                            <label for="supervisor-ln" class="invalid-feedback " th:if="${#fields.hasErrors('supervisor.lastName')}" th:errors="*{supervisor.lastName}">Supervisor Last Name Error</label>
                         </div>
                     </div>
 
@@ -323,8 +324,8 @@
                     <!--Reporting Location-->
                     <div class="form-group">
                         <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
-                        <input id="reporting-location" class="form-control" placeholder="Reporting Location" th:placeholder="#{reporting.location}" th:field="*{reportingLocation}" maxlength="200">
-                        <label for="reporting-location" class="invalid-feedback d-block" th:if="${#fields.hasErrors('reportingLocation')}" th:errors="*{reportingLocation}">Reporting Location Error</label>
+                        <input id="reporting-location" class="form-control" placeholder="Reporting Location" th:placeholder="#{reporting.location}" th:field="*{reportingLocation}" th:errorclass="is-invalid" maxlength="200">
+                        <label for="reporting-location" class="invalid-feedback " th:if="${#fields.hasErrors('reportingLocation')}" th:errors="*{reportingLocation}">Reporting Location Error</label>
                     </div>
                 </div>
 
