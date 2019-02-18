@@ -1,6 +1,5 @@
 package com.kft.oms.model;
 
-import com.kft.oms.constants.OffenceRepetitionTracker;
 import com.kft.oms.constants.OffenderType;
 
 import javax.validation.constraints.NotBlank;
@@ -41,7 +40,6 @@ public class OffenceCodeModel {
     @NotNull
     private boolean offenceRepetitionConsidered = true;
 
-    private OffenceRepetitionTracker offenceRepetitionTrackedBy = OffenceRepetitionTracker.DRIVER;
 
 
 
@@ -117,14 +115,4 @@ public class OffenceCodeModel {
     public void setOffenceRepetitionConsidered(boolean offenceRepetitionConsidered) {
         this.offenceRepetitionConsidered = offenceRepetitionConsidered;
     }
-
-    public OffenceRepetitionTracker getOffenceRepetitionTrackedBy() {
-        return offenceRepetitionTrackedBy;
-    }
-
-    public void setOffenceRepetitionTrackedBy(OffenceRepetitionTracker offenceRepetitionTrackedBy) {
-        this.offenceRepetitionTrackedBy = offenceRepetitionTrackedBy;
-    }
-
-
 }

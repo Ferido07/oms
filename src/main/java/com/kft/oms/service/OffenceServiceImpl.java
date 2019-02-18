@@ -228,7 +228,7 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
     public OffenderType determineOffender(Offence offence) {
         List<String> stringList = offence.getOffenceCodes()
                 .stream()
-                .map(offenceCode -> offenceCode.getSectionHeaderLabel().trim() + " " + offenceCode.getOffenderType())
+                .map(offenceCode -> offenceCode.getSection().getHeaderLabel().trim() + " " + offenceCode.getSection().getOffenderType())
                 .distinct()
                 .collect(Collectors.toList());
         if(stringList.size() == 1){

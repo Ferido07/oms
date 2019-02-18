@@ -4,6 +4,7 @@ import com.kft.oms.config.Mapper;
 import com.kft.oms.constants.OffenderType;
 import com.kft.oms.domain.Offence;
 import com.kft.oms.domain.OffenceCode;
+import com.kft.oms.domain.OffenceCodeSection;
 import com.kft.oms.repository.DriverRepository;
 import com.kft.oms.repository.OffenceRepository;
 import org.junit.Test;
@@ -32,36 +33,45 @@ public class OffenceServiceImplTest {
 
         Set<OffenceCode> offenceCodes = new HashSet<>();
 
+        OffenceCodeSection section1 = new OffenceCodeSection();
+        section1.setOffenderType(OffenderType.DRIVER);
+        section1.setHeaderLabel("9.3.1");
+
+        OffenceCodeSection section2 = new OffenceCodeSection();
+        section2.setOffenderType(OffenderType.DRIVER);
+        section2.setHeaderLabel("9.3.1");
+
+        OffenceCodeSection section3 = new OffenceCodeSection();
+        section3.setOffenderType(OffenderType.DRIVER);
+        section3.setHeaderLabel("9.3.1");
+
         OffenceCode offenceCode1 = new OffenceCode();
-        offenceCode1.setOffenderType(OffenderType.DRIVER);
-        offenceCode1.setSectionHeaderLabel("9.3.1");
+        offenceCode1.setSection(section1);
         offenceCodes.add(offenceCode1);
 
         OffenceCode offenceCode2 = new OffenceCode();
-        offenceCode2.setOffenderType(OffenderType.DRIVER);
-        offenceCode2.setSectionHeaderLabel("9.3.1");
+        offenceCode2.setSection(section2);
         offenceCodes.add(offenceCode2);
 
         OffenceCode offenceCode3 = new OffenceCode();
-        offenceCode3.setOffenderType(OffenderType.DRIVER);
-        offenceCode3.setSectionHeaderLabel("9.3.1");
+        offenceCode3.setSection(section3);
         offenceCodes.add(offenceCode3);
 
         offence.setOffenceCodes(offenceCodes);
 
         assertEquals(OffenderType.DRIVER, offenceService.determineOffender(offence));
 
-        offenceCode3.setOffenderType(OffenderType.VEHICLE_OWNER);
+        offenceCode3.getSection().setOffenderType(OffenderType.VEHICLE_OWNER);
 
         assertEquals(null, offenceService.determineOffender(offence));
 
-        offenceCode2.setSectionHeaderLabel("9 ");
+        offenceCode2.getSection().setHeaderLabel("9 ");
 
         assertEquals(null, offenceService.determineOffender(offence));
 
-        offenceCode1.setSectionHeaderLabel("9 ");
-        offenceCode3.setSectionHeaderLabel("9 ");
-        offenceCode3.setOffenderType(OffenderType.DRIVER);
+        offenceCode1.getSection().setHeaderLabel("9 ");
+        offenceCode3.getSection().setHeaderLabel("9 ");
+        offenceCode3.getSection().setOffenderType(OffenderType.DRIVER);
 
         assertEquals(OffenderType.DRIVER, offenceService.determineOffender(offence));
     }
