@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div th:if="${searchResult == true and driverModels.isEmpty()}">
-                <h5> No Driver not found! </h5>
+                <h5> Driver not found! </h5>
             </div>
             <div th:if="${searchResult != true}">
                 <div th:if="${driverModels.isEmpty() && driverModels.pageable.pageNumber == 0 }">

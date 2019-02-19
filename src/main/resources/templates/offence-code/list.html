@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#messages.msg('offence.code') + ' ' + #messages.msg('list')}">Offence Codes List</title>
+
+    <!--Link only used in prototype mode-->
+    <link rel="stylesheet" href="../../static/vendor/material-icons/css/material-icons.css">
+    <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h2><span id="page-header" data-template="offence-code-list" th:text="#{offence.codes}">Offence Codes</span></h2>
+        <!--/*@thymesVar id="offenceCodeModels" type="org.springframework.data.domain.Page<com.kft.oms.model.OffenceCodeModel>"*/-->
+        <!--/*@thymesVar id="searchResult" type="java.lang.Boolean"*/-->
+        <div th:fragment="content">
+
+
+            <div th:if="${not offenceCodeModels.isEmpty()}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{level}">Level</th>
+                        <th th:text="#{penalty.amount}">Penalty Amount</th>
+                        <th th:text="#{number}">Number</th>
+                        <th th:text="#{description}">Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="offenceModel : ${offenceCodeModels}">
+                        <td th:text="${offenceModel.level}">Level</td>
+                        <td th:text="${offenceModel.penaltyAmount}">Penalty Amount</td>
+                        <td th:text="${offenceModel.numberLabel}">Number Label</td>
+                        <td th:text="${offenceModel.description}">Description</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <nav aria-label="Pagination">
+                            <ul class="pagination justify-content-center" th:if="${offenceCodeModels.getTotalPages()>1}">
+                                <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1,__${offenceCodeModels.getTotalPages()}__)}" >
+                                    <a class="page-link" th:href="@{/driver/list(page=${pageNumber - 1})}" th:text="${pageNumber}">1</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+
+
+            <div th:if="${searchResult == true and offenceCodeModels.isEmpty()}">
+                <h5> Offence Code not found! </h5>
+            </div>
+            <div th:if="${searchResult != true}">
+                <div th:if="${offenceCodeModels.isEmpty() && offenceCodeModels.pageable.pageNumber == 0 }">
+                    <h4 th:text="#{no.registered.offence.message}">No Offences Codes Registered</h4>
+                </div>
+                <div th:if="${offenceCodeModels.isEmpty() && offenceCodeModels.pageable.pageNumber != 0 }">
+                    <h5>This Page Contains No Offence Codes</h5>
+                    <p>To view registered offence codes go to <a th:href="@{/offence-code/list}">first page</a>!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

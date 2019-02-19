@@ -5,6 +5,8 @@ import com.kft.oms.config.Mapper;
 import com.kft.oms.domain.OffenceCode;
 import com.kft.oms.model.OffenceCodeModel;
 import com.kft.oms.repository.OffenceCodeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +32,10 @@ public class OffenceCodeServiceImpl extends CrudServiceImpl<OffenceCode,Integer,
     public List<OffenceCodeModel> findAllBySectionHeaderLabelAndLevelAndPenaltyAmount(String sectionHeaderLabel, Short level, Integer penaltyAmount) {
         List<OffenceCode> offenceCodes = repository.findAllBySectionHeaderLabelAndLevelAndPenaltyAmount(sectionHeaderLabel, level, penaltyAmount);
         return mapper.mapAsList(offenceCodes, OffenceCodeModel.class);
+    }
+
+    @Override
+    public Page<OffenceCodeModel> findAllOffenceCodeModels(Pageable pageable) {
+        return repository.findAll(pageable).map(offenceCode -> mapper.map(offenceCode, OffenceCodeModel.class));
     }
 }
