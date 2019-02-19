@@ -212,7 +212,7 @@ function getOffenceCodesList(request,response){
     var level = offenceCodeParts[1];
     var penaltyAmount = (offenceCodeParts[2] === undefined)? '' : offenceCodeParts[2];
 
-    var url = "/oms/offence-code?sectionHeaderLabel=" + sectionHeaderLabel +
+    var url = "/oms/api/offence-code?sectionHeaderLabel=" + sectionHeaderLabel +
         "&level=" + level + "&penaltyAmount=" + penaltyAmount;
     //alert("getting data from url : " + url);
     $.getJSON(
@@ -245,7 +245,7 @@ function getOffenceCode(event, ui) {
     var penaltyAmount = offenceCodeParts[2];
     var numberLabel = offenceCodeParts[3];
 
-    var url = "/oms/offence-code/get?sectionHeaderLabel=" + sectionHeaderLabel +
+    var url = "/oms/api/offence-code/get?sectionHeaderLabel=" + sectionHeaderLabel +
         "&level=" + level + "&penaltyAmount=" + penaltyAmount +
         "&numberLabel=" + numberLabel;
     //alert("getting data from url : " + url);
