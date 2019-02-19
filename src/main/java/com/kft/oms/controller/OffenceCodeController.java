@@ -58,7 +58,6 @@ public class OffenceCodeController {
     @GetMapping({"/list"})
     public String getAll(Model model, Pageable pageable){
         Page<OffenceCodeModel> offenceCodeModels = offenceCodeService.findAllOffenceCodeModels(pageable);
-        model.addAttribute("offenceCodeModels", offenceCodeModels);
 
         List<OffenceCodeModel> offenceCodeModelsList = offenceCodeModels.getContent();
 
@@ -69,6 +68,7 @@ public class OffenceCodeController {
                 offenceCodeModelsList.stream().collect(groupingBy(OffenceCodeModel::getSectionHeaderLabel,
                     groupingBy(OffenceCodeModel::getLevel,
                         groupingBy(OffenceCodeModel::getPenaltyAmount))));
+
         model.addAttribute("mappedOffenceCodeModels", offenceCodeModelsBySectionHeaderLabelByLevelByPenaltyAmount);
 
         return "offence-code/list";
