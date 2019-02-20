@@ -206,7 +206,7 @@
                                     <p th:text="${offenceCodeModel.description}">
                                 </td>
                                 <td>
-                                    <a href="list.html" th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=*{id},offenceCodeId=${offenceCodeModel.id})}" th:text="#{records}">View Records</a>
+                                    <a href="list.html" th:href="@{/offence/{offenceId}/code/{offenceCodeId}(offenceId=*{id},offenceCodeId=${offenceCodeModel.id})}"><i class="material-icons">history</i></a>
                                 </td>
                             </tr>
                         </tbody>
