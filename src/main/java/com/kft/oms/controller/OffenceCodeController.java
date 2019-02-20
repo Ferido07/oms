@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,10 @@ public class OffenceCodeController {
                     groupingBy(OffenceCodeModel::getLevel,
                         groupingBy(OffenceCodeModel::getPenaltyAmount))));
 
+        Map<String,String> sectionMap = new HashMap<>();
+        offenceCodeModelsList.forEach(offenceCodeModel -> sectionMap.put(offenceCodeModel.getSectionHeaderLabel(), offenceCodeModel.getSectionHeader()));
+
+        model.addAttribute("sectionMap", sectionMap);
         model.addAttribute("mappedOffenceCodeModels", offenceCodeModelsBySectionHeaderLabelByLevelByPenaltyAmount);
 
         return "offence-code/list";

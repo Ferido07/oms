@@ -1,45 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{::links}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{})">
 <head>
     <meta charset="UTF-8">
     <title th:text="${#messages.msg('offence.code') + ' ' + #messages.msg('list')}">Offence Codes List</title>
 
     <!--Link only used in prototype mode-->
-    <link rel="stylesheet" href="../../static/vendor/material-icons/css/material-icons.css">
     <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../static/libs/css/shards.css" />
+
+    <th:block th:fragment="links">
+        <link href="../../static/css/offence-code-list.css" th:href="@{/css/offence-code-list.css}" rel="stylesheet" media="screen">
+    </th:block>
 </head>
 <body>
     <div class="container">
         <h2><span id="page-header" data-template="offence-code-list" th:text="#{offence.codes}">Offence Codes</span></h2>
+        <!--/*@thymesVar id="sectionMap" type="java.util.Map<String, String>"*/-->
         <div th:fragment="content">
+
 
             <!--/*@thymesVar id="mappedOffenceCodeModels" type="java.util.Map<String, Map<Short, Map<Integer, List<com.kft.oms.model.OffenceCodeModel>>>>"*/-->
             <div th:each="mappedOffenceCodeModel : ${mappedOffenceCodeModels}">
 
-                <h4 th:text="${mappedOffenceCodeModel.key}">9.3.1<span style="padding-left: 20px;">አሽከርካሪዎችን የሚያስቀጣ</span></h4>
+                <h4><span th:text="${mappedOffenceCodeModel.key}">9.3.1</span><span style="padding-left: 1rem;" th:text="${sectionMap.get(mappedOffenceCodeModel.key)}">አሽከርካሪዎችን የሚያስቀጣ</span></h4>
 
-                <!--/*@thymesVar id="offenceCodeModelByLevel" type="java.util.Map.Entry<java.lang.Short, java.util.Map<java.lang.Integer, java.util.List<com.kft.oms.model.OffenceCodeModel>>>"*/-->
-                <table th:each="offenceCodeModelByLevel : ${mappedOffenceCodeModel.value}" class="table">
+                <div class="px-3">
+                    <!--/*@thymesVar id="offenceCodeModelByLevel" type="java.util.Map.Entry<java.lang.Short, java.util.Map<java.lang.Integer, java.util.List<com.kft.oms.model.OffenceCodeModel>>>"*/-->
+                    <table th:each="offenceCodeModelByLevel : ${mappedOffenceCodeModel.value}" class="table">
 
-                    <colgroup span="3"></colgroup>
-                    <thead>
-                        <tr>
-                            <th colspan="3" scope="col"><span th:text="#{level}">Level</span><span style="padding-left: 20px;" th:text="${offenceCodeModelByLevel.key}">1</span></th>
-                        </tr>
-                        <tr>
-                            <th scope="col" th:text="#{penalty.amount}">Penalty Amount</th>
-                            <th scope="col" th:text="#{number}">No.</th>
-                            <th scope="col" th:text="#{description}">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody th:each="offenceCodeModelByPenaltyAmount : ${offenceCodeModelByLevel.value}">
-                        <tr th:each="offenceCodeModelByNo,stat : ${offenceCodeModelByPenaltyAmount.value}">
-                            <th th:if="${stat.index == 0}" rowspan="2" th:rowspan="${offenceCodeModelByPenaltyAmount.value.size()}" th:text="${offenceCodeModelByPenaltyAmount.key}">100</th>
-                            <th scope="row" th:text="${offenceCodeModelByNo.numberLabel}">1</th>
-                            <td th:text="${offenceCodeModelByNo.description}">የሹፌሩን እይታ የሚከላክሉ መጋረጃዎች፣ ተለጣፊ ላስቲኮች የለጠፈ</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <colgroup span="3"></colgroup>
+                        <thead>
+                            <tr>
+                                <th colspan="3" scope="col" class="level"><span th:text="#{level}">Level</span><span style="padding-left: 1rem;" th:text="${offenceCodeModelByLevel.key}">1</span></th>
+                            </tr>
+                            <tr>
+                                <th scope="col" th:text="#{penalty.amount}">Penalty Amount</th>
+                                <th scope="col" th:text="#{number}" style="text-align:center;">No.</th>
+                                <th scope="col" th:text="#{description}">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="offenceCodeModelByPenaltyAmount : ${offenceCodeModelByLevel.value}">
+                            <tr th:each="offenceCodeModelByNo,stat : ${offenceCodeModelByPenaltyAmount.value}">
+                                <th class="penalty-amount" th:if="${stat.index == 0}" rowspan="2" th:rowspan="${offenceCodeModelByPenaltyAmount.value.size()}" th:text="${offenceCodeModelByPenaltyAmount.key}">100</th>
+                                <th scope="row" class="no" th:text="${offenceCodeModelByNo.numberLabel}">1</th>
+                                <td th:text="${offenceCodeModelByNo.description}">የሹፌሩን እይታ የሚከላክሉ መጋረጃዎች፣ ተለጣፊ ላስቲኮች የለጠፈ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
