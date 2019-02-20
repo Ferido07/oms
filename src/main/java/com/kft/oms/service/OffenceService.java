@@ -29,4 +29,5 @@ public interface OffenceService extends CrudService<Offence,Integer,OffenceRepos
     List<OffenceModel> getRecordOffencesForOffenceAndOffenceCode(Integer offenceId, Integer offenceCodeId);
     OffenceModel clearStatus(Integer offenceId);
     Map<Integer,Integer> getOffenceCodeRepetitionForOffenceInRecordKeepingTimeSpan(Integer offenceId);
+    Page<OffenceModel> findOffenceByTicketNo(String ticketNo, Pageable pageable);
 }

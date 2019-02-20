@@ -5,6 +5,7 @@ import com.kft.oms.model.OffenceCodeModel;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +29,25 @@ public class OffenceController {
     }
 
     @GetMapping({"","/list"})
-    public String index(Model model, Pageable pageable){
+    public String getAll(Model model, Pageable pageable){
         model.addAttribute("offenceModels", offenceService.getAllAsOffenceModel(pageable));
         model.addAttribute("paginated", true);
+        return "offence/list";
+    }
+
+    @GetMapping(params = "ticketNo")
+    public String findOffenceByTicketNo(@RequestParam String ticketNo, Model model, Pageable pageable){
+        model.addAttribute("searchResult",true);
+        Page<OffenceModel> offenceByTicketNo = offenceService.findOffenceByTicketNo(ticketNo, pageable);
+        model.addAttribute("offenceModels", offenceByTicketNo);
+        model.addAttribute("paginated", true);
+        return "offence/list";
+    }
+
+    @GetMapping("/{offenceId}/code/{offenceCodeId}")
+    public String getRecordOffencesForAnOffenceAndOffenceCode(@PathVariable Integer offenceId,@PathVariable Integer offenceCodeId, Model model){
+        List<OffenceModel> offenceModels = offenceService.getRecordOffencesForOffenceAndOffenceCode(offenceId, offenceCodeId);
+        model.addAttribute("offenceModels",offenceModels);
         return "offence/list";
     }
 
@@ -79,13 +96,6 @@ public class OffenceController {
     public String delete(@PathVariable Integer id){
         offenceService.deleteById(id);
         return "redirect:/offence";
-    }
-
-    @GetMapping("/{offenceId}/code/{offenceCodeId}")
-    public String getRecordOffencesForAnOffenceAndOffenceCode(@PathVariable Integer offenceId,@PathVariable Integer offenceCodeId, Model model){
-        List<OffenceModel> offenceModels = offenceService.getRecordOffencesForOffenceAndOffenceCode(offenceId, offenceCodeId);
-        model.addAttribute("offenceModels",offenceModels);
-        return "offence/list";
     }
 
     @GetMapping("/{id}/status")

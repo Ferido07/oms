@@ -9,7 +9,7 @@
 </head>
 <body>
     <!--Note: this template is used by two different controllers that return a Page<OffenceModel> and List<OffenceModel>
-              the index action returns Page type and getRecordOffencesForAnOffenceAndOffenceCode action returns List type
+              the getAll action returns Page type and getRecordOffencesForAnOffenceAndOffenceCode action returns List type
               but both work fine with the same template. The only reason both do not return Page type is because that
               type issues another query for the count which would be unnecessary for the List returning action since
               it most probably almost 100% would not have a second page ans hence additional query could be avoided -->
@@ -17,8 +17,21 @@
         <h3><span id="page-header" data-template="offence-list" th:text="#{list.offences}">List Offences</span></h3>
         <!--/*@thymesVar id="offenceModels" type="org.springframework.data.domain.Page<com.kft.oms.model.OffenceModel>"*/-->
         <div th:fragment="content">
+
+            <form action="#" th:action="@{/offence}" method="get" th:if="${!#request.requestURI.contains('/code/')}">
+                <div class="form-group row">
+                    <label for="ticketNumber" class="col-sm-2 col-form-label text-right" th:text="#{ticket.no}">Ticket No</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" id="ticketNumber" name="ticketNo" th:name="ticketNo" placeholder="Ticket Number" th:placeholder="#{ticket.no}" th:value="${#request.getParameter('ticketNo')}">
+                    </div>
+                    <div class="col-sm-2 ">
+                        <button type="submit" class="btn btn-outline-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+
             <div th:if="${not offenceModels.isEmpty()}">
-                <table class="table table-striped">
+                <table class="table ">
                     <thead>
                         <tr>
                             <th th:text="#{driver.name}">Driver Name</th>
@@ -63,13 +76,19 @@
                     <div class="col-md-2"></div>
                 </div>
             </div>
-            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber == 0 }">
-                <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
-                <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+            <!--/*@thymesVar id="searchResult" type="java.lang.Boolean"*/-->
+            <div th:if="${searchResult == true and offenceModels.isEmpty()}">
+                <h5> Offence not found! </h5>
             </div>
-            <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber != 0}">
-                <h5 th:text="#{no.offence.in.current.page.message}">This Page Contains No Offences</h5>
-                <p th:text="#{view.registered.offence.message}">To view registered offences go to <a href="list.html?page=0" th:href="@{/offence}" th:text="#{first.page}">first page</a>!</p>
+            <div th:if="${searchResult != true}">
+                <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber == 0 }">
+                    <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
+                    <p><span th:text="#{add.offence.message}">To add offences </span> <a href="form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+                </div>
+                <div th:if="${offenceModels.isEmpty() && offenceModels.pageable.pageNumber != 0}">
+                    <h5 th:text="#{no.offence.in.current.page.message}">This Page Contains No Offences</h5>
+                    <p th:text="#{view.registered.offence.message}">To view registered offences go to <a href="list.html?page=0" th:href="@{/offence}" th:text="#{first.page}">first page</a>!</p>
+                </div>
             </div>
         </div>
     </div>

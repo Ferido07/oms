@@ -301,4 +301,9 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         }
         return  offenceCodeIdToRepetitionMap;
     }
+
+    @Override
+    public Page<OffenceModel> findOffenceByTicketNo(String ticketNo, Pageable pageable) {
+        return repository.findOffenceByTicketNoStartingWith(ticketNo,pageable).map(offence -> mapper.map(offence, OffenceModel.class));
+    }
 }
