@@ -5,6 +5,8 @@ import com.kft.oms.config.Mapper;
 import com.kft.oms.domain.Vehicle;
 import com.kft.oms.model.VehicleModel;
 import com.kft.oms.repository.VehicleRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +38,11 @@ public class VehicleServiceImpl extends CrudServiceImpl<Vehicle,Integer,VehicleR
     public Optional<VehicleModel> findBySideNo(String sideNo) {
         Optional<Vehicle> vehicleBySideNo = repository.findVehicleBySideNo(sideNo);
         return vehicleBySideNo.map(vehicle -> mapper.map(vehicle, VehicleModel.class));
+    }
+
+    @Override
+    public Page<VehicleModel> getAllAsVehicleModel(Pageable pageable) {
+        Page<Vehicle> vehicles = repository.findAll(pageable);
+        return vehicles.map(vehicle -> mapper.map(vehicle, VehicleModel.class));
     }
 }

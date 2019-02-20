@@ -97,7 +97,7 @@ function fixStepIndicator(n) {
 
 function getVehiclesByPlateNo(request, response) {
     $.getJSON(
-        "/oms/vehicle?plateNo=" + request.term,
+        "/oms/api/vehicles?plateNo=" + request.term,
         function (data) {
             response(data);
         });
@@ -131,7 +131,7 @@ function populateVehicleInput(vehicle){
 
 function getVehicleByPlateNo(plateNo) {
     $.getJSON(
-        "/oms/vehicle/plate/" + plateNo,
+        "/oms/api/vehicles/plate/" + plateNo,
         function (data) {
             populateVehicleInput(data);
         }

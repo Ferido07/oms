@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#messages.msg('vehicle') + ' ' + #messages.msg('list')}">Vehicles List</title>
+
+    <!--Link only used in prototype mode-->
+    <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+    <h2><span id="page-header" data-template="vehicle-list" th:text="#{vehicles}">Vehicles</span></h2>
+    <!--/*@thymesVar id="vehicleModels" type="org.springframework.data.domain.Page<com.kft.oms.model.VehicleModel>"*/-->
+    <!--/*@thymesVar id="searchResult" type="java.lang.Boolean"*/-->
+    <div th:fragment="content">
+
+        <form action="#" th:action="@{/vehicles}" method="get">
+            <div class="form-group row">
+                <label for="plateNo" class="col-sm-2 col-form-label text-right" th:text="#{plate.no}">Plate No</label>
+                <div class="col-sm-8">
+                    <input class="form-control" id="plateNo" name="plateNo" th:name="plateNo" placeholder="Plate No" th:placeholder="#{plate.no}" th:value="${#request.getParameter('plateNo')}">
+                </div>
+                <div class="col-sm-2 ">
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div th:if="${not vehicleModels.isEmpty()}">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th th:text="#{plate.no}">Plate No</th>
+                        <th th:text="#{vehicle.owner}">Vehicle Owner</th>
+                        <th th:text="#{history}">History</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="vehicleModel : ${vehicleModels}">
+                        <td th:text="${vehicleModel.plateNo}">Plate No</td>
+                        <td th:text="${vehicleModel.vehicleOwnershipModels[0].personModelOwners[0].getFullName()}">Owner Full Name</td>
+                        <td>
+                            <a href="../offender/offence-list.html" th:href="${'#'}"><i class="material-icons">history</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <nav aria-label="Pagination">
+                        <ul class="pagination justify-content-center" th:if="${vehicleModels.getTotalPages()>1}">
+                            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1,__${vehicleModels.getTotalPages()}__)}" >
+                                <a class="page-link" th:href="@{/drivers(page=${pageNumber - 1})}" th:text="${pageNumber}">1</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+        <div th:if="${searchResult == true and vehicleModels.isEmpty()}">
+            <h5> Vehicle not found! </h5>
+        </div>
+        <div th:if="${searchResult != true}">
+            <div th:if="${vehicleModels.isEmpty() && vehicleModels.pageable.pageNumber == 0 }">
+                <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
+                <p><span th:text="#{add.offence.message}">To add offences </span> <a href="../offence/form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+            </div>
+            <div th:if="${vehicleModels.isEmpty() && vehicleModels.pageable.pageNumber != 0 }">
+                <h5>This Page Contains No Vehicles</h5>
+                <p>To view registered vehicles go to <a th:href="@{/vehicles}">first page</a>!</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
