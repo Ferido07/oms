@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class OffenceCode extends AbstractEntity{
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "section_id", referencedColumnName = "id")
     private OffenceCodeSection section;
 
     @Column(nullable = false)
