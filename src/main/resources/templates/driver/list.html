@@ -5,8 +5,8 @@
     <title th:text="#{drivers.list}">Drivers List</title>
 
     <!--Link only used in prototype mode-->
-    <link rel="stylesheet" href="../../../static/vendor/material-icons/css/material-icons.css">
-    <link rel="stylesheet" href="../../../static/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../static/vendor/material-icons/css/material-icons.css">
+    <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
     <div class="container">
@@ -42,7 +42,7 @@
                             <td th:text="${driverModel.getFullName()}">Full Name</td>
                             <td th:text="${driverModel.licenseNo}">License No</td>
                             <td>
-                                <a href="../../offender/offence-list.html" th:href="${'/oms/offender/' + driverModel.id}"><i class="material-icons">history</i></a>
+                                <a href="../offender/offence-list.html" th:href="${'/oms/offender/' + driverModel.id}"><i class="material-icons">history</i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -69,11 +69,11 @@
             <div th:if="${searchResult != true}">
                 <div th:if="${driverModels.isEmpty() && driverModels.pageable.pageNumber == 0 }">
                     <h4 th:text="#{no.registered.offence.message}">No Offences Registered</h4>
-                    <p><span th:text="#{add.offence.message}">To add offences </span> <a href="../../offence/form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
+                    <p><span th:text="#{add.offence.message}">To add offences </span> <a href="../offence/form.html" th:href="@{/offence/create}" th:text="#{click.here}">click here</a>.</p>
                 </div>
                 <div th:if="${driverModels.isEmpty() && driverModels.pageable.pageNumber != 0 }">
                     <h5>This Page Contains No Drivers</h5>
-                    <p>To view registered drivers go to <a th:href="@{/driver/list}">first page</a>!</p>
+                    <p>To view registered drivers go to <a th:href="@{/drivers}">first page</a>!</p>
                 </div>
             </div>
         </div>

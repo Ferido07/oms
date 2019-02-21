@@ -19,13 +19,13 @@ public class DriverController {
     @GetMapping({"", "/list"})
     public String getAllDrivers(Model model, Pageable pageable){
         model.addAttribute("driverModels", driverService.getAllAsDriverModel(pageable));
-        return "offender/driver/list";
+        return "driver/list";
     }
 
     @GetMapping(params = "licenseNo")
     public String getDriverByLicenseNo(@RequestParam String licenseNo, Model model, Pageable pageable){
         model.addAttribute("searchResult",true);
         model.addAttribute("driverModels", driverService.findByDriversLicenseNoStartingWith(licenseNo, pageable));
-        return "offender/driver/list";
+        return "driver/list";
     }
 }
