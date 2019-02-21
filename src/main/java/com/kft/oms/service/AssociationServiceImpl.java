@@ -6,6 +6,8 @@ import com.kft.oms.domain.Association;
 import com.kft.oms.model.AssociationModel;
 import com.kft.oms.repository.AssociationRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -33,5 +35,15 @@ import java.util.Optional;
     @Override
     public Optional<AssociationModel> findByNameAsAssociationModel(String name) {
         return repository.findByName(name).map(association -> mapper.map(association, AssociationModel.class));
+    }
+
+    @Override
+    public Page<AssociationModel> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(association -> mapper.map(association,AssociationModel.class));
+    }
+
+    @Override
+    public Page<AssociationModel> findByNameStartingWith(String name, Pageable pageable) {
+        return repository.findByNameStartingWith(name, pageable).map(association -> mapper.map(association,AssociationModel.class));
     }
 }

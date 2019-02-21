@@ -87,6 +87,12 @@
                                 <span th:text="#{vehicles}">Vehicles</span>
                             </a>
                         </li>
+                        <li class="nav-item" data-page="associations">
+                            <a class="nav-link" href="association/list.html" th:href="@{/associations}">
+                                <i class="material-icons">group</i>
+                                <span th:text="#{associations}">Associations</span>
+                            </a>
+                        </li>
                         <li class="nav-item" data-page="offence-codes">
                             <a class="nav-link" href="offence-code/list.html" th:href="@{/offence-codes}">
                                 <i class="material-icons">book</i>
@@ -243,6 +249,7 @@
             "offence-status" : "offence",
             "driver-list" : "drivers",
             "vehicle-list" : "vehicles",
+            "association-list" : "associations",
             "offender-offence-list" : "offence",
             "offence-code-list" : "offence-codes"
         };
