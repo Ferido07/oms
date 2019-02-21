@@ -13,5 +13,6 @@ import java.util.Optional;
 public interface DriverService extends CrudService<Driver,Integer,DriverRepository>{
     Optional<DriverModel> findByDriversLicenseNo(String licenseNo);
     List<DriverModel> findByDriversLicenseNoStartingWith(String licenseNo);
+    Page<DriverModel> findByDriversLicenseNoStartingWith(String licenseNo, Pageable pageable);
     Page<DriverModel> getAllAsDriverModel(Pageable pageable);
 }

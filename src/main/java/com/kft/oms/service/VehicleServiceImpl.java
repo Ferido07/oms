@@ -35,6 +35,12 @@ public class VehicleServiceImpl extends CrudServiceImpl<Vehicle,Integer,VehicleR
     }
 
     @Override
+    public Page<VehicleModel> findByPlateNoStartingWith(String plateNo, Pageable pageable) {
+        Page<Vehicle> vehicles = repository.findAllByPlateNoStartingWith(plateNo, pageable);
+        return vehicles.map(vehicle -> mapper.map(vehicle, VehicleModel.class));
+    }
+
+    @Override
     public Optional<VehicleModel> findBySideNo(String sideNo) {
         Optional<Vehicle> vehicleBySideNo = repository.findVehicleBySideNo(sideNo);
         return vehicleBySideNo.map(vehicle -> mapper.map(vehicle, VehicleModel.class));

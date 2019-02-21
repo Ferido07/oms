@@ -5,7 +5,6 @@ import com.kft.oms.model.OffenceCodeModel;
 import com.kft.oms.model.OffenceModel;
 import com.kft.oms.service.OffenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +37,7 @@ public class OffenceController {
     @GetMapping(params = "ticketNo")
     public String findOffenceByTicketNo(@RequestParam String ticketNo, Model model, Pageable pageable){
         model.addAttribute("searchResult",true);
-        Page<OffenceModel> offenceByTicketNo = offenceService.findOffenceByTicketNo(ticketNo, pageable);
-        model.addAttribute("offenceModels", offenceByTicketNo);
+        model.addAttribute("offenceModels", offenceService.findOffenceByTicketNo(ticketNo, pageable));
         model.addAttribute("paginated", true);
         return "offence/list";
     }

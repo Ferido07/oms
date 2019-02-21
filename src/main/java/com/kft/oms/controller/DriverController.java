@@ -1,13 +1,10 @@
 package com.kft.oms.controller;
 
-import com.kft.oms.model.DriverModel;
 import com.kft.oms.service.DriverService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/drivers")
@@ -26,10 +23,9 @@ public class DriverController {
     }
 
     @GetMapping(params = "licenseNo")
-    public String getDriverByLicenseNo(@RequestParam String licenseNo, Model model){
+    public String getDriverByLicenseNo(@RequestParam String licenseNo, Model model, Pageable pageable){
         model.addAttribute("searchResult",true);
-        List<DriverModel> driverModels = driverService.findByDriversLicenseNoStartingWith(licenseNo);
-        model.addAttribute("driverModels", driverModels);
+        model.addAttribute("driverModels", driverService.findByDriversLicenseNoStartingWith(licenseNo, pageable));
         return "offender/driver/list";
     }
 }

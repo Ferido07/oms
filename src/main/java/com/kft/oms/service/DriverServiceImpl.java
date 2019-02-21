@@ -35,6 +35,12 @@ public class DriverServiceImpl extends CrudServiceImpl<Driver,Integer,DriverRepo
     }
 
     @Override
+    public Page<DriverModel> findByDriversLicenseNoStartingWith(String licenseNo, Pageable pageable) {
+        Page<Driver> drivers = repository.findAllByDriversLicenseLicenseNoStartingWith(licenseNo, pageable);
+        return drivers.map(driver -> mapper.map(driver, DriverModel.class));
+    }
+
+    @Override
     public Page<DriverModel> getAllAsDriverModel(Pageable pageable) {
          Page<Driver> drivers = repository.findAll(pageable);
          return drivers.map(driver -> mapper.map(driver, DriverModel.class));

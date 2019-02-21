@@ -14,6 +14,7 @@ public interface VehicleService extends CrudService<Vehicle,Integer,VehicleRepos
 
     Optional<VehicleModel> findByPlateNo(String plateNo);
     List<VehicleModel> findByPlateNoStartingWith(String plateNo);
+    Page<VehicleModel> findByPlateNoStartingWith(String plateNo, Pageable pageable);
     Optional<VehicleModel> findBySideNo(String sideNo);
     Page<VehicleModel> getAllAsVehicleModel(Pageable pageable);
 }
