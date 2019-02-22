@@ -24,6 +24,32 @@ var validator = $("#regForm").validate({
     errorClass: "invalid-feedback is-invalid"
 });
 
+var ethiopianCalendar = $.calendars.instance('ethiopian');
+var gregorianCalendar = $.calendars.instance('gregorian');
+var dateInput = $("#date");
+dateInput.attr('placeholder', ethiopianCalendar.local.dateFormat);
+dateInput.calendarsPicker({calendar: ethiopianCalendar});
+onDateLoad();
+
+function onDateSubmit() {
+    var ethiopianDate = ethiopianCalendar.parseDate(ethiopianCalendar.local.dateFormat, dateInput.val());
+    if (ethiopianDate !== null) {
+        var gregorianDate = gregorianCalendar.fromJD(ethiopianDate.toJD());
+        var isoFormattedDate = gregorianCalendar.formatDate(gregorianCalendar.ISO_8601, gregorianDate);
+        console.log(isoFormattedDate);
+        dateInput.val(isoFormattedDate);
+    }
+}
+function onDateLoad(){
+    if(dateInput.val()!== null){
+        var gregorianDate = gregorianCalendar.parseDate('yyyy-mm-dd', dateInput.val());
+        var ethiopianDate = ethiopianCalendar.fromJD(gregorianDate.toJD());
+        var ethiopianLocalFormattedDate = ethiopianCalendar.formatDate(ethiopianCalendar.local.dateFormat, ethiopianDate);
+        dateInput.val(ethiopianLocalFormattedDate);
+        console.log('Ethiopian date set ' + ethiopianLocalFormattedDate);
+    }
+}
+
 function showTab(n) {
     // This function will display the specified tab of the form...
     var x = document.getElementsByClassName("tab");
@@ -55,6 +81,7 @@ function nextPrev(n) {
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
         // ... the form gets submitted:
+        onDateSubmit();
         document.getElementById("regForm").submit();
         return false;
     }
