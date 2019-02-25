@@ -24,29 +24,77 @@ var validator = $("#regForm").validate({
     errorClass: "invalid-feedback is-invalid"
 });
 
+var calendarType = 'gregorian';
 var ethiopianCalendar = $.calendars.instance('ethiopian');
 var gregorianCalendar = $.calendars.instance('gregorian');
 var dateInput = $("#date");
-dateInput.attr('placeholder', ethiopianCalendar.local.dateFormat);
-dateInput.calendarsPicker({calendar: ethiopianCalendar});
+dateInput.attr('placeholder', gregorianCalendar.local.dateFormat);
+dateInput.calendarsPicker({calendar: gregorianCalendar});
 onDateLoad();
 
 function onDateSubmit() {
-    var ethiopianDate = ethiopianCalendar.parseDate(ethiopianCalendar.local.dateFormat, dateInput.val());
-    if (ethiopianDate !== null) {
-        var gregorianDate = gregorianCalendar.fromJD(ethiopianDate.toJD());
-        var isoFormattedDate = gregorianCalendar.formatDate(gregorianCalendar.ISO_8601, gregorianDate);
-        console.log(isoFormattedDate);
-        dateInput.val(isoFormattedDate);
+    if(calendarType === 'ethiopian'){
+        var ethiopianDate = ethiopianCalendar.parseDate(ethiopianCalendar.local.dateFormat, dateInput.val());
+        if (ethiopianDate !== null) {
+            var gregorianDate = gregorianCalendar.fromJD(ethiopianDate.toJD());
+            var isoFormattedDate = gregorianCalendar.formatDate(gregorianCalendar.ISO_8601, gregorianDate);
+            //console.log('iso formatted date is ' + isoFormattedDate);
+            dateInput.val(isoFormattedDate);
+        }
+    }
+    else if(calendarType === 'gregorian'){
+        var gregorianDate = gregorianCalendar.parseDate(gregorianCalendar.local.dateformat, dateInput.val());
+        if(gregorianDate !== null){
+            var isoFormattedDate = gregorianCalendar.formatDate(gregorianCalendar.ISO_8601, gregorianDate);
+            //console.log('iso formatted date is ' + isoFormattedDate);
+            dateInput.val(isoFormattedDate);
+        }
     }
 }
 function onDateLoad(){
-    var gregorianDate = gregorianCalendar.parseDate('yyyy-mm-dd', dateInput.val());
+    var gregorianDate = gregorianCalendar.parseDate(gregorianCalendar.ISO_8601, dateInput.val());
     if(gregorianDate !== null){
-        var ethiopianDate = ethiopianCalendar.fromJD(gregorianDate.toJD());
-        var ethiopianLocalFormattedDate = ethiopianCalendar.formatDate(ethiopianCalendar.local.dateFormat, ethiopianDate);
-        dateInput.val(ethiopianLocalFormattedDate);
-        console.log('Ethiopian date set ' + ethiopianLocalFormattedDate);
+        var isoFormattedGregorianDate = gregorianCalendar.formatDate(gregorianCalendar.local.dateFormat, gregorianDate);
+        dateInput.val(isoFormattedGregorianDate);
+    }
+}
+
+function changeCalendar() {
+    var dateSelectorButton = $("#dateSelector");
+
+    //change to ethiopian
+    if(calendarType === 'gregorian'){
+        calendarType = 'ethiopian';
+        dateSelectorButton.text("To Gregorian");
+        //console.log('change date to ...' + calendarType);
+        dateInput.attr('placeholder', ethiopianCalendar.local.dateFormat);
+        dateInput.calendarsPicker('option',{calendar: ethiopianCalendar});
+
+        //if date input is not null convert the selected date
+        var gregorianDate = gregorianCalendar.parseDate(gregorianCalendar.local.dateFormat, dateInput.val());
+        if (gregorianDate !== null) {
+            var ethiopianDate = ethiopianCalendar.fromJD(gregorianDate.toJD());
+            var formattedDate = ethiopianCalendar.formatDate(ethiopianCalendar.local.dateFormat, ethiopianDate);
+            //console.log('ethiopian formatted date is ' + formattedDate);
+            dateInput.val(formattedDate);
+        }
+    }
+    //change to gregorian
+    else if(calendarType === 'ethiopian'){
+        calendarType = 'gregorian';
+        dateSelectorButton.text("To Ethiopian");
+        //console.log('change date to ...' + calendarType);
+        dateInput.attr('placeholder', gregorianCalendar.local.dateFormat);
+        dateInput.calendarsPicker('option',{calendar: gregorianCalendar});
+
+        //if date input is not null convert the selected date
+        var ethiopianDate = ethiopianCalendar.parseDate(ethiopianCalendar.local.dateFormat, dateInput.val());
+        if (ethiopianDate !== null) {
+            var gregorianDate = gregorianCalendar.fromJD(ethiopianDate.toJD());
+            var formattedDate = gregorianCalendar.formatDate(gregorianCalendar.local.dateFormat, gregorianDate);
+            //console.log('gregorian formatted date is ' + formattedDate);
+            dateInput.val(formattedDate);
+        }
     }
 }
 
