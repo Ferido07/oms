@@ -41,8 +41,8 @@ function onDateSubmit() {
     }
 }
 function onDateLoad(){
-    if(dateInput.val()!== null){
-        var gregorianDate = gregorianCalendar.parseDate('yyyy-mm-dd', dateInput.val());
+    var gregorianDate = gregorianCalendar.parseDate('yyyy-mm-dd', dateInput.val());
+    if(gregorianDate !== null){
         var ethiopianDate = ethiopianCalendar.fromJD(gregorianDate.toJD());
         var ethiopianLocalFormattedDate = ethiopianCalendar.formatDate(ethiopianCalendar.local.dateFormat, ethiopianDate);
         dateInput.val(ethiopianLocalFormattedDate);
