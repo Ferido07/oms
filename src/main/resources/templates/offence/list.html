@@ -47,6 +47,7 @@
                         <tr th:each="offenceModel : ${offenceModels}">
                             <td th:text="${offenceModel.driverModel.getFullName()}"></td>
                             <td th:text="${offenceModel.date}"></td>
+                            <td class="d-none" th:text="${offenceModel.getEthiopianDateString()}"></td>
                             <td th:text="${offenceModel.time}"></td>
                             <td th:text="${offenceModel.location}"></td>
                             <td th:text="${offenceModel.penaltyAmount}"></td>

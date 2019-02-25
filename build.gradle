@@ -46,4 +46,6 @@ dependencies {
 	implementation('ma.glasnost.orika:orika-core:1.5.2')
 	// https://mvnrepository.com/artifact/org.webjars/jquery-ui
 	compile group: 'org.webjars', name: 'jquery-ui', version: '1.12.1'
+	// https://mvnrepository.com/artifact/org.threeten/threeten-extra
+	compile group: 'org.threeten', name: 'threeten-extra', version: '1.5.0'
 }
