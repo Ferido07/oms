@@ -13,8 +13,7 @@ import java.util.List;
 @DiscriminatorValue(value = "VEHICLE_OWNERSHIP")
 public class VehicleOwnership extends AbstractEntity{
 
-    @NotEmpty
-    @Column(unique = true, length = 30, nullable = false)
+    @Column(unique = true, length = 30)
     private String libreNo;
 
     @NotNull
@@ -62,7 +61,7 @@ public class VehicleOwnership extends AbstractEntity{
     }
 
     public void setLibreNo(String libreNo) {
-        this.libreNo = libreNo;
+        this.libreNo = libreNo == null ? null : libreNo.isEmpty() ? null : libreNo;
     }
 
     public Vehicle getVehicle() {

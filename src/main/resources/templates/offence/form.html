@@ -77,7 +77,7 @@
                             <input type="hidden" th:field="*{vehicleModel.vehicleOwnershipModels[0].id}">
                             <div class="form-group">
                                 <label for="vo-libreNo" class="" th:text="#{libre.No}">Libre No</label>
-                                <input id="vo-libreNo" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{vehicleModel.vehicleOwnershipModels[0].libreNo}" th:errorclass="is-invalid" required maxlength="20">
+                                <input id="vo-libreNo" class="form-control" placeholder="Libre No" th:placeholder="#{libre.No}" th:field="*{vehicleModel.vehicleOwnershipModels[0].libreNo}" th:errorclass="is-invalid" maxlength="20">
                                 <label for="vo-libreNo" class="invalid-feedback " th:if="${#fields.hasErrors('vehicleModel.vehicleOwnershipModels[0].libreNo')}" th:errors="*{vehicleModel.vehicleOwnershipModels[0].libreNo}">Libre No Error</label>
                             </div>
                             <!-- Vehicle Owner Name-->

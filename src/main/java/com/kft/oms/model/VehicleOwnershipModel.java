@@ -7,7 +7,7 @@ import java.util.List;
 
 public class VehicleOwnershipModel {
     private Integer id;
-    @NotEmpty
+
     @Size(max = 30)
     private String libreNo;
     private Integer vehicleModelId;
