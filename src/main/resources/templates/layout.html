@@ -14,13 +14,12 @@
     <link rel="stylesheet" href="../static/vendor/material-icons/css/material-icons.css" th:href="@{/vendor/material-icons/css/material-icons.css}">
     <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="../static/libs/css/shards-dashboards.1.1.0.min.css" th:href="@{/libs/css/shards-dashboards.1.1.0.min.css}" id="main-stylesheet" data-version="1.1.0">
-    <link rel="stylesheet" href="../static/libs/css/extras.1.1.0.min.css" th:href="@{/libs/css/extras.1.1.0.min.css}">
 
     <!--/* Per-page placeholder for additional links */-->
-    <!--/*/ <th:block th:replace="${links}"></th:block> /*/-->
+    <th:block th:replace="${links}">links</th:block>
     
     <!--/* Per-page placeholder for header scripts */-->
-    <!--/*/ <th:block th:replace="${header_scripts}"></th:block> /*/-->
+    <th:block th:replace="${header_scripts}">header_scripts</th:block>
 </head>
 
 <body class="h-100">
@@ -32,7 +31,6 @@
                     <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
                         <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
                             <div class="d-table m-auto">
-                                <!--<img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="#" alt="">-->
                                 <span class="d-none d-md-inline ml-1">OMS Dashboard</span>
                             </div>
                         </a>
@@ -54,7 +52,7 @@
                 <div class="nav-wrapper">
                     <ul class="nav flex-column" id="pages">
                         <li class="nav-item" data-page="offence">
-                            <a class="nav-link active" href="#offence-submenu" data-toggle="collapse">
+                            <a class="nav-link" href="#offence-submenu" data-toggle="collapse">
                                 <i class="material-icons">description</i>
                                 <span th:text="#{offence}">Offence</span>
                             </a>
@@ -75,6 +73,12 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item" data-page="offence-codes">
+                            <a class="nav-link" href="offence-code/list.html" th:href="@{/offence-codes}">
+                                <i class="material-icons">book</i>
+                                <span th:text="#{offence.codes}">Offence Codes</span>
+                            </a>
+                        </li>
                         <li class="nav-item" data-page="drivers">
                             <a class="nav-link" href="driver/list.html" th:href="@{/drivers}">
                                 <i class="material-icons">person</i>
@@ -91,12 +95,6 @@
                             <a class="nav-link" href="association/list.html" th:href="@{/associations}">
                                 <i class="material-icons">group</i>
                                 <span th:text="#{associations}">Associations</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" data-page="offence-codes">
-                            <a class="nav-link" href="offence-code/list.html" th:href="@{/offence-codes}">
-                                <i class="material-icons">book</i>
-                                <span th:text="#{offence.codes}">Offence Codes</span>
                             </a>
                         </li>
                     </ul>
@@ -118,39 +116,6 @@
                             </div>
                         </form>
                         <ul class="navbar-nav border-left flex-row ">
-                            <!--<li class="nav-item border-right dropdown notifications">-->
-                                <!--<a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                                    <!--<div class="nav-link-icon__wrapper">-->
-                                        <!--<i class="material-icons">&#xE7F4;</i>-->
-                                        <!--<span class="badge badge-pill badge-danger">2</span>-->
-                                    <!--</div>-->
-                                <!--</a>-->
-                                <!--<div class="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">-->
-                                    <!--<a class="dropdown-item" href="#">-->
-                                        <!--<div class="notification__icon-wrapper">-->
-                                            <!--<div class="notification__icon">-->
-                                                <!--<i class="material-icons">&#xE6E1;</i>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="notification__content">-->
-                                            <!--<span class="notification__category">Analytics</span>-->
-                                            <!--<p>Your website’s active users count increased by <span class="text-success text-semibold">28%</span> in the last week. Great job!</p>-->
-                                        <!--</div>-->
-                                    <!--</a>-->
-                                    <!--<a class="dropdown-item" href="#">-->
-                                        <!--<div class="notification__icon-wrapper">-->
-                                            <!--<div class="notification__icon">-->
-                                                <!--<i class="material-icons">&#xE8D1;</i>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="notification__content">-->
-                                            <!--<span class="notification__category">Sales</span>-->
-                                            <!--<p>Last week your store’s sales count decreased by <span class="text-danger text-semibold">5.52%</span>. It could have been worse!</p>-->
-                                        <!--</div>-->
-                                    <!--</a>-->
-                                    <!--<a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>-->
-                                <!--</div>-->
-                            <!--</li>-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     <img class="user-avatar rounded-circle mr-2" src="../static/images/avatar.png" th:src="@{/images/avatar.png}" alt="User Avatar">
@@ -158,8 +123,6 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-small">
                                     <a class="dropdown-item" href="#"><i class="material-icons">&#xE7FD;</i> Profile</a>
-                                    <!--<a class="dropdown-item" href="#"><i class="material-icons">vertical_split</i> Blog Posts</a>-->
-                                    <!--<a class="dropdown-item" href="#"><i class="material-icons">note_add</i> Add New Post</a>-->
                                     <div class="dropdown-divider">
                                     </div>
                                     <a class="dropdown-item text-danger" href="#">
@@ -180,7 +143,6 @@
                     <!-- Page Header -->
                     <div class="page-header row no-gutters py-4 mb-3 border-bottom">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                            <!--<span class="text-uppercase page-subtitle">Overview</span>-->
                             <h3 class="page-title" th:insert="${page_header}">Page Header</h3>
                         </div>
                     </div>
@@ -188,9 +150,6 @@
                     <div class="row">
                         <div class="col-lg-12 mb-4">
                             <div class="card card-small mb-4">
-                                <!--<div class="card-header border-bottom">-->
-                                    <!--<h6 class="m-0">Form Inputs</h6>-->
-                                <!--</div>-->
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item p-0 px-3 py-3">
                                         <div class="row">
@@ -231,36 +190,11 @@
     <script src="../static/vendor/jquery/jquery-3.3.1.min.js" th:src="@{/vendor/jquery/jquery-3.3.1.min.js}"></script>
     <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
     <script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
-    <script src="../static/vendor/chart/Chart.min.js" th:src="@{/vendor/chart/Chart.min.js}"></script>
     <script src="../static/libs/js/shards.min.js" th:src="@{/libs/js/shards.min.js}"></script>
-    <script src="../static/vendor/sharrre/jquery.sharrre.min.js" th:src="@{/vendor/sharrre/jquery.sharrre.min.js}"></script>
-    <script src="../static/libs/js/extras.1.1.0.min.js" th:src="@{/libs/js/extras.1.1.0.min.js}"></script>
-    <script src="../static/libs/js/shards-dashboards.1.1.0.min.js" th:src="@{/libs/js/shards-dashboards.1.1.0.min.js}"></script>
-    <script src="../static/libs/js/app/app-components-overview.1.1.0.min.js" th:src="@{/libs/js/app/app-components-overview.1.1.0.min.js}"></script>
+    <script src="../static/js/layout.js" th:src="@{/js/layout.js}"></script>
 
     <!-- Per page placeholder for footer scripts -->
-    <!--/*/ <th:block th:insert="${footer_scripts}"></th:block> /*/-->
-
-    <script>
-        var templateToPageMap = {
-            "offence-list" : "list-offences",
-            "offence-form" : "add-offence",
-            "offence-show" : "offence",
-            "offence-status" : "offence",
-            "driver-list" : "drivers",
-            "vehicle-list" : "vehicles",
-            "association-list" : "associations",
-            "offender-offence-list" : "offence",
-            "offence-code-list" : "offence-codes"
-        };
-        var template = $("#page-header").attr("data-template");
-        var page = templateToPageMap[template];
-        var pageSelector = "li[data-page='" + page + "']";
-        var pages = $("#pages");
-        pages.find("a").removeClass("active");
-        var currentPage = pages.find(pageSelector);
-        currentPage.children("a").addClass("active");
-    </script>
+    <th:block th:insert="${footer_scripts}">footer_scripts</th:block>
 
 </body>
 </html>
