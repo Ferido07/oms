@@ -368,12 +368,16 @@
         <script src="../../static/vendor/calendars/js/jquery.plugin.js" th:src="@{/vendor/calendars/js/jquery.plugin.min.js}"></script>
         <script src="../../static/vendor/calendars/js/jquery.calendars.picker.js" th:src="@{/vendor/calendars/js/jquery.calendars.picker.min.js}"></script>
         <script src="../../static/vendor/calendars/js/jquery.calendars.ethiopian.js" th:src="@{/vendor/calendars/js/jquery.calendars.ethiopian.min.js}"></script>
-       <!--Script for autocomplete-->
+        <!-- amharic language scripts for localization-->
+        <script th:if="${#messages.msg('lang') == 'am'}" src="../../static/vendor/calendars/js/jquery.calendars-am.js" th:src="@{/vendor/calendars/js/jquery.calendars-am.js}"></script>
+        <script th:if="${#messages.msg('lang') == 'am'}" src="../../static/vendor/calendars/js/jquery.calendars.ethiopian-am.js" th:src="@{/vendor/calendars/js/jquery.calendars.ethiopian-am.js}"></script>
+        <script th:if="${#messages.msg('lang') == 'am'}" src="../../static/vendor/calendars/js/jquery.calendars.picker-am.js" th:src="@{/vendor/calendars/js/jquery.calendars.picker-am.js}"></script>
+        <!--Script for autocomplete-->
         <script src="../../static/vendor/jquery-ui/jquery-ui.min.js" th:src="@{/vendor/jquery-ui/jquery-ui.min.js}"></script>
         <!--script for placeholder & masks-->
         <script src="../../static/vendor/mask/jquery.mask.js" th:src="@{/vendor/mask/jquery.mask.js}"></script>
         <script src="../../static/vendor/jquery-validation-1.19.0/jquery.validate.min.js" th:src="@{/vendor/jquery-validation-1.19.0/jquery.validate.min.js}"></script>
-        <script src="../../static/js/offence-form.js" th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}" th:data-full-code="#{full.code}" th:data-description="#{description}"></script>
+        <script src="../../static/js/offence-form.js" th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}" th:data-full-code="#{full.code}" th:data-description="#{description}" th:data-lang="#{lang}"></script>
     </th:block>
 </body>
 </html>

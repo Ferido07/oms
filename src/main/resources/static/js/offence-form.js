@@ -3,6 +3,7 @@ var next = this_js_script.attr('data-next');
 var submit = this_js_script.attr('data-submit');
 var fullCode = this_js_script.attr('data-full-code');
 var description = this_js_script.attr('data-description');
+var lang = this_js_script.attr('data-lang');
 
 if (typeof next === "undefined" )
     next = 'Next';
@@ -12,6 +13,8 @@ if (typeof fullCode === "undefined" )
     fullCode = 'Full Code';
 if(typeof description === "undefined")
     description = 'Description';
+if(typeof lang === "undefined")
+    lang = 'en';
 
 
 /*
@@ -25,8 +28,8 @@ var validator = $("#regForm").validate({
 });
 
 var calendarType = 'gregorian';
-var ethiopianCalendar = $.calendars.instance('ethiopian');
-var gregorianCalendar = $.calendars.instance('gregorian');
+var ethiopianCalendar = $.calendars.instance('ethiopian', lang);
+var gregorianCalendar = $.calendars.instance('gregorian', lang);
 var dateInput = $("#date");
 dateInput.attr('placeholder', gregorianCalendar.local.dateFormat);
 dateInput.calendarsPicker({calendar: gregorianCalendar});
