@@ -410,6 +410,11 @@ function loadQualifiedName() {
                 offenceCodeNumberLabel.val();
             $(this).val(fullQualifiedOffenceCodeName);
         }
+        else{
+            $(this).val('');
+            var offenceCodeDescriptionInput = $(this).parent().next().children("input:nth-child(1)");
+            offenceCodeDescriptionInput.val('');
+        }
     });
 }
 
