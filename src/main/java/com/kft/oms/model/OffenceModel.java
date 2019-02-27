@@ -2,6 +2,7 @@ package com.kft.oms.model;
 
 import com.kft.oms.constants.OffenceStatus;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.threeten.extra.chrono.EthiopicDate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -32,6 +33,8 @@ public class OffenceModel {
     @PastOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
+
+    private EthiopicDate ethiopicDate;
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
@@ -151,6 +154,15 @@ public class OffenceModel {
 
     public void setDate(LocalDate date) {
         this.date = date;
+        ethiopicDate = EthiopicDate.from(date);
+    }
+
+    public EthiopicDate getEthiopicDate() {
+        return ethiopicDate;
+    }
+
+    public String getEthiopianDateString(){
+        return ethiopicDate.toString().split(" ")[2];
     }
 
     public LocalTime getTime() {

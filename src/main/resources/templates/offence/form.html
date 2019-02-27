@@ -11,6 +11,7 @@
 
     <th:block th:fragment="links">
         <link href="../../static/css/offence-form.css" th:href="@{/css/offence-form.css}" rel="stylesheet" media="screen">
+        <link href="../../static/vendor/calendars/css/jquery.calendars.picker.css" th:href="@{/vendor/calendars/css/jquery.calendars.picker.css}" rel="stylesheet">
         <link href="../../static/css/autocomplete.css" th:href="@{/css/autocomplete.css}" rel="stylesheet" media="screen">
     </th:block>
 </head>
@@ -186,8 +187,16 @@
                     <!--OffenceModel Date, Time and Location-->
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="date"  th:text="#{date}">Date</label>
-                            <input type="date" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}" th:errorclass="is-invalid" required>
+                            <div>
+                                <label for="date"  th:text="#{date}">Date</label>
+                                <span class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </span>
+                                <div class="dropdown-menu p-0">
+                                    <button id="dateSelector" class="dropdown-item" onclick="changeCalendar()">To Ethiopian</button>
+                                </div>
+                            </div>
+                            <input type="text" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}" th:errorclass="is-invalid" required autocomplete="off">
                             <label for="date" class="invalid-feedback " th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</label>
                         </div>
                         <div class="form-group col-md-4">
@@ -350,12 +359,25 @@
     <script src="../../static/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../../static/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
+    <!--Script Must be loaded at last-->
     <th:block th:fragment="footer_scripts">
-        <!--Script Must be loaded at last-->
+
+        <!--Scripts for date conversion-->
+        <script src="../../static/vendor/calendars/js/jquery.calendars.js" th:src="@{/vendor/calendars/js/jquery.calendars.min.js}"></script>
+        <script src="../../static/vendor/calendars/js/jquery.calendars.plus.js" th:src="@{/vendor/calendars/js/jquery.calendars.plus.min.js}"></script>
+        <script src="../../static/vendor/calendars/js/jquery.plugin.js" th:src="@{/vendor/calendars/js/jquery.plugin.min.js}"></script>
+        <script src="../../static/vendor/calendars/js/jquery.calendars.picker.js" th:src="@{/vendor/calendars/js/jquery.calendars.picker.min.js}"></script>
+        <script src="../../static/vendor/calendars/js/jquery.calendars.ethiopian.js" th:src="@{/vendor/calendars/js/jquery.calendars.ethiopian.min.js}"></script>
+        <!-- amharic language scripts for localization-->
+        <script th:if="${#messages.msg('lang') == 'am'}" src="../../static/vendor/calendars/js/jquery.calendars-am.js" th:src="@{/vendor/calendars/js/jquery.calendars-am.js}"></script>
+        <script th:if="${#messages.msg('lang') == 'am'}" src="../../static/vendor/calendars/js/jquery.calendars.ethiopian-am.js" th:src="@{/vendor/calendars/js/jquery.calendars.ethiopian-am.js}"></script>
+        <script th:if="${#messages.msg('lang') == 'am'}" src="../../static/vendor/calendars/js/jquery.calendars.picker-am.js" th:src="@{/vendor/calendars/js/jquery.calendars.picker-am.js}"></script>
+        <!--Script for autocomplete-->
         <script src="../../static/vendor/jquery-ui/jquery-ui.min.js" th:src="@{/vendor/jquery-ui/jquery-ui.min.js}"></script>
+        <!--script for placeholder & masks-->
         <script src="../../static/vendor/mask/jquery.mask.js" th:src="@{/vendor/mask/jquery.mask.js}"></script>
         <script src="../../static/vendor/jquery-validation-1.19.0/jquery.validate.min.js" th:src="@{/vendor/jquery-validation-1.19.0/jquery.validate.min.js}"></script>
-        <script src="../../static/js/offence-form.js" th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}" th:data-full-code="#{full.code}" th:data-description="#{description}"></script>
+        <script src="../../static/js/offence-form.js" th:src="@{/js/offence-form.js}" th:data-next="#{next}" th:data-submit="#{submit}" th:data-full-code="#{full.code}" th:data-description="#{description}" th:data-lang="#{lang}"></script>
     </th:block>
 </body>
 </html>
