@@ -217,9 +217,10 @@ function getVehicleByPlateNo(plateNo) {
 }
 
 function vehiclePlateNoInputChanged(event, ui){
-    var plateNo = $("#vehicle-plate-no").val();
-    if(ui.item === null)
+    if(ui.item === null) {
+        var plateNo = $("#vehicle-plate-no").val();
         getVehicleByPlateNo(plateNo);
+    }
 }
 
 $("#vehicle-plate-no").autocomplete({
@@ -269,9 +270,10 @@ function getDriverByLicenseNo(licenseNo){
 
 function driverLicenseNoInputChanged(event, ui){
     console.log('ui.item in driverLicenseNoInputChanged ' + ui.item);
-    var licenseNo = $("#driver-license-no").val();
-    if(ui.item === null)
+    if(ui.item === null) {
+        var licenseNo = $("#driver-license-no").val();
         getDriverByLicenseNo(licenseNo);
+    }
 }
 
 $("#driver-license-no").autocomplete({
@@ -301,40 +303,76 @@ function getOffenceCodesList(request,response){
     );
 }
 
-function populateOffenceCodeData(event,data){
+function populateOffenceCodeData(event,offenceCode){
+    console.log('populating offence code');
     var offenceCodeInputColumnTd = $(event.target).parent();
-
     var offenceCodeHiddenColumnTd = offenceCodeInputColumnTd.prev();
-    offenceCodeHiddenColumnTd.children("input:nth-child(1)").val(data["id"]);
-    offenceCodeHiddenColumnTd.children("input:nth-child(2)").val(data["sectionHeaderLabel"]);
-    offenceCodeHiddenColumnTd.children("input:nth-child(3)").val(data["level"]);
-    offenceCodeHiddenColumnTd.children("input:nth-child(4)").val(data["penaltyAmount"]);
-    offenceCodeHiddenColumnTd.children("input:nth-child(5)").val(data["numberLabel"]);
-    offenceCodeHiddenColumnTd.children("input:nth-child(6)").val(data["offenderType"]);
+    var offenceCodeDescriptionColumnTd = offenceCodeInputColumnTd.next();
 
-    offenceCodeInputColumnTd.next().children("input:nth-child(1)").val(data["description"]);
+    var id = offenceCodeHiddenColumnTd.children("input:nth-child(1)");
+    var sectionHeaderLabel = offenceCodeHiddenColumnTd.children("input:nth-child(2)");
+    var level = offenceCodeHiddenColumnTd.children("input:nth-child(3)");
+    var penaltyAmount = offenceCodeHiddenColumnTd.children("input:nth-child(4)");
+    var numberLabel = offenceCodeHiddenColumnTd.children("input:nth-child(5)");
+    var offenderType = offenceCodeHiddenColumnTd.children("input:nth-child(6)");
+    var description = offenceCodeDescriptionColumnTd.children("input:nth-child(1)");
+
+    if(offenceCode !== null) {
+        //populate hidden columns
+        id.val(offenceCode["id"]);
+        sectionHeaderLabel.val(offenceCode["sectionHeaderLabel"]);
+        level.val(offenceCode["level"]);
+        penaltyAmount.val(offenceCode["penaltyAmount"]);
+        numberLabel.val(offenceCode["numberLabel"]);
+        offenderType.val(offenceCode["offenderType"]);
+
+        //populate description
+        description.val(offenceCode["description"]);
+    }
+    else{
+        //populate hidden columns
+        id.val("");
+        sectionHeaderLabel.val("");
+        level.val("");
+        penaltyAmount.val("");
+        numberLabel.val("");
+        offenderType.val("");
+
+        //populate description
+        description.val("");
+    }
 }
 
-function getOffenceCode(event, ui) {
-    var fullyQualifiedOffenceCode = ui.item.value;
-    var offenceCodeParts =fullyQualifiedOffenceCode.split(' ', 4);
-    var sectionHeaderLabel = offenceCodeParts[0];
-    var level = offenceCodeParts[1];
-    var penaltyAmount = offenceCodeParts[2];
-    var numberLabel = offenceCodeParts[3];
+function getOffenceCode(event, fullyQualifiedOffenceCode) {
 
-    var url = "/oms/api/offence-code/get?sectionHeaderLabel=" + sectionHeaderLabel +
-        "&level=" + level + "&penaltyAmount=" + penaltyAmount +
-        "&numberLabel=" + numberLabel;
-    //alert("getting data from url : " + url);
-    $.getJSON(
-        url,
-        function (data) {
-            //set the id and also good for client side checks to see all offence codes
-            //have same offenderType and sectionHeaderLabel
-            populateOffenceCodeData(event, data);
-        }
-    )
+    var offenceCodeParts = fullyQualifiedOffenceCode.split(' ', 4);
+    //check if is really fully qualified
+    if(offenceCodeParts.length === 4) {
+        var sectionHeaderLabel = offenceCodeParts[0];
+        var level = offenceCodeParts[1];
+        var penaltyAmount = offenceCodeParts[2];
+        var numberLabel = offenceCodeParts[3];
+
+        var url = "/oms/api/offence-code/get?sectionHeaderLabel=" + sectionHeaderLabel +
+            "&level=" + level + "&penaltyAmount=" + penaltyAmount +
+            "&numberLabel=" + numberLabel;
+        $.getJSON(
+            url,
+            function (data) {
+                populateOffenceCodeData(event, data);
+            }
+        )
+    }
+    else{
+        populateOffenceCodeData(event, null);
+    }
+}
+
+function offenceCodeInputChanged(event, ui){
+    if (ui.item === null) {
+        var offenceCode = $(event.target).val();
+        getOffenceCode(event,offenceCode);
+    }
 }
 
 var offenceCodesBody = $("#offence-codes-body");
@@ -343,7 +381,10 @@ var offenceCodeInputs = offenceCodesBody.find("tr td:nth-child(2)").children("in
 var offenceCodeAutoComplete = {
     source :  getOffenceCodesList,
     minLength :6,
-    select : getOffenceCode
+    select : function (event, ui) {
+        getOffenceCode(event, ui.item.value);
+    },
+    change : offenceCodeInputChanged
 };
 
 offenceCodeInputs.autocomplete(offenceCodeAutoComplete);
@@ -389,7 +430,7 @@ function addOffenceCode(){
             "\t\t<input class=\"form-control ui-autocomplete-input\" placeholder=\"" + fullCode + "\">\n" +
             "\t</td>\n" +
             "\t<td class='col-sm-7 col-md-8'>\n" +
-            "\t\t<input class=\"form-control\" placeholder=\"" + description + "\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value=\"\">\n" +
+            "\t\t<input class=\"form-control\" placeholder=\"" + description + "\" readonly=\"readonly\" id=\"offenceCodeModels" + offenceCodes + ".description\" name=\"offenceCodeModels[" + offenceCodes + "].description\" value='' required>\n" +
             "\t</td>\n" +
             "\t<td class='col-sm-1 col-md-1'>\n" +
             "\t\t<button class=\"btn btn-outline-light\" type=\"button\" onclick=\"removeOffenceCode(event)\"><span class=\"fas fa-minus text-danger\"></span></button>\n" +

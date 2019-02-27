@@ -245,7 +245,7 @@
                                         <label class="invalid-feedback d-block" th:if="${#fields.hasErrors('offenceCodeModels[' + OCMStat.index + '].*')}" th:text="'1 or more errors please re-enter values'">Offence Codes Error</label>
                                     </td>
                                     <td class="col-sm-7 col-md-8">
-                                        <input class="form-control" placeholder="Description" th:placeholder="#{description}" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}">
+                                        <input class="form-control" placeholder="Description" th:placeholder="#{description}" readonly="readonly" th:field="*{offenceCodeModels[__${OCMStat.index}__].description}" required>
                                     </td>
                                     <td class="col-sm-1 col-md-1">
                                         <button class="btn btn-outline-light" th:if="${OCMStat.size > 1}" type="button" onclick="removeOffenceCode(event)"><span class="fas fa-minus text-danger"></span></button>
