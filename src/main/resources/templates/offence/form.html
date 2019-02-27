@@ -41,7 +41,7 @@
                         <!--Vehicle Plate-->
                         <div class="form-group col-md-4 ui-widget">
                             <label for="vehicle-plate-no" th:text="#{plate.no}">Plate No</label>
-                            <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}" th:errorclass="is-invalid" onkeyup="vehiclePlateNoKeyUp()" required>
+                            <input id="vehicle-plate-no" placeholder="Plate No" th:placeholder="#{plate.no}" class="form-control autocomplete" th:field="*{vehicleModel.plateNo}" th:errorclass="is-invalid" onkeyup="vehiclePlateNoKeyUp(event)" required>
                             <label  for="vehicle-plate-no" class="invalid-feedback" th:if="${#fields.hasErrors('vehicleModel.plateNo')}" th:text="#{error.vehicle.plateNo.regexp}">Plate No Error</label>
                         </div>
                         <!--Vehicle Type-->
@@ -277,7 +277,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-8 col-md-4 mb-sm-3">
-                                <input type="text" class="form-control" id="vehiclePlateTaken" placeholder="Plate No" th:placeholder="#{plate.no}" th:field="*{vehiclePlateTakenNo}" disabled="disabled">
+                                <input type="text" class="form-control" id="vehiclePlateTaken" placeholder="Plate No" th:placeholder="#{plate.no}" th:field="*{vehiclePlateTakenNo}" onkeyup="vehiclePlateNoKeyUp(event)" disabled="disabled">
                             </div>
                         </div>
 

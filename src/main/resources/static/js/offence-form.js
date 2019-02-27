@@ -46,7 +46,7 @@ function onDateSubmit() {
         }
     }
     else if(calendarType === 'gregorian'){
-        var gregorianDate = gregorianCalendar.parseDate(gregorianCalendar.local.dateformat, dateInput.val());
+        var gregorianDate = gregorianCalendar.parseDate(gregorianCalendar.local.dateFormat, dateInput.val());
         if(gregorianDate !== null){
             var isoFormattedDate = gregorianCalendar.formatDate(gregorianCalendar.ISO_8601, gregorianDate);
             //console.log('iso formatted date is ' + isoFormattedDate);
@@ -479,8 +479,18 @@ $(document).ready(function(){
         },
         placeholder : "1-A12345-AA"
     });
+    $("#vehiclePlateTaken").mask("1-A22222-BB", {
+        translation : {
+            1: {pattern: /[1-5]/},
+            A: {pattern: /[aA-zZ]/, optional: true},
+            2: {pattern: /[0-9]/},
+            B: {pattern: /[aA-zZ]/}
+        },
+        placeholder : "1-A12345-AA"
+    });
 
     $("#driver-license-no").mask("000000");
+    $("#driversLicenseTaken").mask("000000");
 
     // offenceCodeInputs.mask("0.0.0 0 A");//, {
     //     // translation: {
@@ -490,28 +500,36 @@ $(document).ready(function(){
     // //})
 });
 
-function vehiclePlateNoKeyUp(){
-    var vehiclePlateNo = $("#vehicle-plate-no");
-    vehiclePlateNo.val(vehiclePlateNo.val().toUpperCase());
+function vehiclePlateNoKeyUp(event){
+    switch(event.target.id){
+        case "vehicle-plate-no" :
+            var vehiclePlateNo = $("#vehicle-plate-no");
+            vehiclePlateNo.val(vehiclePlateNo.val().toUpperCase());
+            break;
+        case "vehiclePlateTaken" :
+            var vehiclePlateTaken = $("#vehiclePlateTaken");
+            vehiclePlateTaken.val(vehiclePlateTaken.val().toUpperCase());
+            break;
+    }
 }
 
 function proofDocumentOnChange(event){
     switch(event.target.id){
         case "isDriversLicenseTaken" :
             var driversLicenseTaken = $("#driversLicenseTaken");
-            $('#isDriversLicenseTaken').is(':checked')? driversLicenseTaken.removeAttr("disabled") : driversLicenseTaken.attr("disabled", "disabled");;
+            $('#isDriversLicenseTaken').is(':checked')? driversLicenseTaken.removeAttr("disabled").attr("required", "required") : driversLicenseTaken.attr("disabled", "disabled").removeAttr("required").val('');
             break;
         case "isVehiclePlateTaken" :
             var vehiclePlateTaken = $("#vehiclePlateTaken");
-            $('#isVehiclePlateTaken').is(':checked')? vehiclePlateTaken.removeAttr("disabled") : vehiclePlateTaken.attr("disabled", "disabled");;
+            $('#isVehiclePlateTaken').is(':checked')? vehiclePlateTaken.removeAttr("disabled").attr("required", "required") : vehiclePlateTaken.attr("disabled", "disabled").removeAttr("required").val('');
             break;
         case "isLibreTaken" :
             var libreTaken = $("#libreTaken");
-            $('#isLibreTaken').is(':checked')? libreTaken.removeAttr("disabled") : libreTaken.attr("disabled", "disabled");;
+            $('#isLibreTaken').is(':checked')? libreTaken.removeAttr("disabled").attr("required", "required") : libreTaken.attr("disabled", "disabled").removeAttr("required").val('');
             break;
         case "isVehicleBoloTaken" :
             var vehicleBoloTaken = $("#vehicleBoloTaken");
-            $('#isVehicleBoloTaken').is(':checked')? vehicleBoloTaken.removeAttr("disabled") : vehicleBoloTaken.attr("disabled", "disabled");;
+            $('#isVehicleBoloTaken').is(':checked')? vehicleBoloTaken.removeAttr("disabled").attr("required", "required") : vehicleBoloTaken.attr("disabled", "disabled").removeAttr("required").val('');
             break;
     }
 }
