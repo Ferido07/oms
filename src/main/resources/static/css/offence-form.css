@@ -55,3 +55,7 @@ input.form-control.invalid-feedback {
 div.calendars-ctrl{
     background-color: #444;
 }
+
+.border-bottom.bolder{
+    border-bottom: 1px solid #b9bec3!important;
+}

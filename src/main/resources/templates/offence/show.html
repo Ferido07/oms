@@ -40,7 +40,7 @@
                         <p id="ticket-no" class="form-control" th:text="${#strings.defaultString(offenceModel.ticketNo, #messages.msg('field.not.set'))}"></p>
                     </div>
 
-                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{vehicle.detail}">Vehicle Detail</strong>
+                    <strong class="mb-2 d-block border-bottom bolder py-2" th:text="#{vehicle.detail}">Vehicle Detail</strong>
 
                     <div class="form-row">
                         <!--Vehicle Plate-->
@@ -72,7 +72,7 @@
 
                     <!--Vehicle Owner Detail-->
                     <div>
-                        <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{vehicle.owner}">Vehicle Owner</strong>
+                        <strong class="mb-2 d-block border-bottom bolder py-2" th:text="#{vehicle.owner}">Vehicle Owner</strong>
                         <!--<div th:if="${#lists.size([__*{vehicleModel.vehicleOwnershipModels}__]) == 0 }">-->
                         <div class="form-group">
                             <label for="vo-libreNo" class="control-label" th:text="#{libre.No}">Libre No</label>
@@ -99,7 +99,7 @@
 
                 <!--Dispatch Detail-->
                 <div class="tab">
-                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{dispatch.detail}">Dispatch Detail</strong>
+                    <strong class="mb-2 d-block border-bottom bolder py-2" th:text="#{dispatch.detail}">Dispatch Detail</strong>
                     <div class="form-row">
                         <!--Dispatch No-->
                         <div class="form-group col-md-6">
@@ -128,7 +128,7 @@
                     </div>
 
                     <!-- Driver Detail -->
-                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{driver.detail}">Driver Detail</strong>
+                    <strong class="mb-2 d-block border-bottom bolder py-2" th:text="#{driver.detail}">Driver Detail</strong>
                     <!--Driver's License No and Type-->
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -161,7 +161,7 @@
 
                 <!--OffenceModel Detail-->
                 <div class="tab">
-                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{offence.detail}">Offence Detail</strong>
+                    <strong class="mb-2 d-block border-bottom bolder py-2" th:text="#{offence.detail}">Offence Detail</strong>
                     <div class="form-row">
                         <!--OffenceModel Date and Time-->
                         <div class="form-group col-md-4">
@@ -223,7 +223,7 @@
 
                     <!--Proof Documents Taken (Using Checkbox and Value Field)-->
                     <div class="form-group">
-                        <strong class="text-muted d-block mb-3 py-2 border-bottom" th:text="#{proof.documents.taken}">Proof Documents Taken</strong>
+                        <strong class="d-block mb-3 py-2 border-bottom bolder" th:text="#{proof.documents.taken}">Proof Documents Taken</strong>
 
                         <div class="form-row">
                             <div class="col-sm-4 col-md-2">
@@ -273,7 +273,7 @@
 
                 <!--Supervisor Detail-->
                 <div class="tab">
-                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{supervisor.detail}">Supervisor Detail</strong>
+                    <strong class="mb-2 d-block border-bottom bolder py-2" th:text="#{supervisor.detail}">Supervisor Detail</strong>
                     <!--Full Name-->
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -291,7 +291,7 @@
                     </div>
 
                     <!--Other Details-->
-                    <strong class="text-muted mb-2 d-block border-bottom py-2" th:text="#{other.details}">Other Details</strong>
+                    <strong class="mb-2 d-block border-bottom bolder py-2" th:text="#{other.details}">Other Details</strong>
                     <!--Reporting Location-->
                     <div class="form-group">
                         <label for="reporting-location" th:text="#{reporting.location}">Reporting Location</label>
