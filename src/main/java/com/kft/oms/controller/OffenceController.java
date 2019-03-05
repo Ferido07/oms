@@ -84,7 +84,7 @@ public class OffenceController {
     public String createOrUpdate(@Valid @ModelAttribute OffenceModel offenceModel, BindingResult bindingResult){
         if (!bindingResult.hasErrors()) {
             OffenceModel savedOffence = offenceService.save(offenceModel);
-            return "redirect:/offence/" + savedOffence.getId() + "/status";
+            return "redirect:/offence/status/" + savedOffence.getId();
         } else {
             return "offence/form";
         }
@@ -96,7 +96,7 @@ public class OffenceController {
         return "redirect:/offence";
     }
 
-    @GetMapping("/{id}/status")
+    @GetMapping("/status/{id}")
     public String status(@PathVariable("id") Integer offenceId, Model model){
         Optional<OffenceModel> offenceModel = offenceService.findOffenceModelById(offenceId);
         if(offenceModel.isPresent()){

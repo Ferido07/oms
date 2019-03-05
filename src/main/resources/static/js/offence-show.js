@@ -7,7 +7,7 @@ if (typeof next === "undefined" )
 if (typeof  done === "undefined")
     done = 'Done';
 
-var toListLink = "<a href='../offence'>" + done + "</a>"
+var toListLink = "<a href='../offence'>" + done + "</a>";
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
