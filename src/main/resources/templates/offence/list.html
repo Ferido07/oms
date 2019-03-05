@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{::footer_scripts})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(title=~{::title}, links=~{}, header_scripts=~{}, page_header=~{:: #page-header}, content=~{::content}, footer_scripts=~{})">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{offence.list}">Offence List</title>
@@ -35,15 +35,7 @@
                     <thead>
                         <tr>
                             <th th:text="#{driver.name}">Driver Name</th>
-                            <th>
-                                <span th:text="#{date}">Date</span>
-                                <span class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </span>
-                                <div class="dropdown-menu p-0">
-                                    <button id="dateSelector" class="dropdown-item" onclick="changeDate()">To Ethiopian</button>
-                                </div>
-                            </th>
+                            <th th:text="#{date}">Date</th>
                             <th th:text="#{time}">Time</th>
                             <th th:text="#{location}">Location</th>
                             <th th:text="#{penalty.amount}">Penalty Amount</th>
@@ -54,8 +46,7 @@
                     <tbody>
                         <tr th:each="offenceModel : ${offenceModels}">
                             <td th:text="${offenceModel.driverModel.getFullName()}"></td>
-                            <td class="gregorianDate" th:text="${offenceModel.date}"></td>
-                            <td class="ethiopianDate d-none" th:text="${offenceModel.getEthiopianDateString()}"></td>
+                            <td th:text="${offenceModel.getEthiopianDateString()}"></td>
                             <td th:text="${offenceModel.time}"></td>
                             <td th:text="${offenceModel.location}"></td>
                             <td th:text="${offenceModel.penaltyAmount}"></td>
@@ -102,9 +93,5 @@
         </div>
     </div>
 
-    <!--Script Must be loaded at last-->
-    <th:block th:fragment="footer_scripts">
-        <script src="../../static/js/offence-list.js" th:src="@{/js/offence-list.js}"></script>
-    </th:block>
 </body>
 </html>

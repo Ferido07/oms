@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class OffenceModel {
@@ -162,7 +163,7 @@ public class OffenceModel {
     }
 
     public String getEthiopianDateString(){
-        return ethiopicDate.toString().split(" ")[2];
+        return ethiopicDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public LocalTime getTime() {

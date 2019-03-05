@@ -187,15 +187,7 @@
                     <!--OffenceModel Date, Time and Location-->
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <div>
-                                <label for="date"  th:text="#{date}">Date</label>
-                                <span class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </span>
-                                <div class="dropdown-menu p-0">
-                                    <button id="dateSelector" class="dropdown-item" onclick="changeCalendar()">To Ethiopian</button>
-                                </div>
-                            </div>
+                            <label for="date"  th:text="#{date}">Date</label>
                             <input type="text" id="date" class="form-control" placeholder="Date" th:placeholder="#{date}" th:field="*{date}" th:errorclass="is-invalid" required autocomplete="off">
                             <label for="date" class="invalid-feedback " th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</label>
                         </div>
