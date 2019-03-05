@@ -185,13 +185,14 @@ function populateVehicleInput(vehicle){
     if(vehicle !== null) {
         $("#vehicle-id").val(vehicle["id"]);
         $("#vehicle-type").val(vehicle["type"]).attr("readonly", "readonly");
-        $("#vehicle-plate-no").val(vehicle["plateNo"]);
         $("#vo-libreNo").val(vehicle["vehicleOwnershipModels"][0]["libreNo"]).attr("readonly", "readonly");
         $("#vo-fName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["firstName"]).attr("readonly", "readonly");
         $("#vo-mName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["middleName"]).attr("readonly", "readonly");
         $("#vo-lName").val(vehicle["vehicleOwnershipModels"][0]["personModelOwners"][0]["lastName"]).attr("readonly", "readonly");
-        //$("#vehicle-association-id").val(vehicle["associationModel"]["id"]);
-        $("#vehicle-association-name").val(vehicle["associationModel"]["name"]).attr("readonly", "readonly");
+        if(vehicle["associationModel"] !== null) {
+            $("#vehicle-association-id").val(vehicle["associationModel"]["id"]);
+            $("#vehicle-association-name").val(vehicle["associationModel"]["name"]).attr("readonly", "readonly");
+        }
         $("#vehicle-side-no").val(vehicle["sideNo"]).attr("readonly", "readonly");
     }
     else{
@@ -201,7 +202,7 @@ function populateVehicleInput(vehicle){
         $("#vo-fName").val("").removeAttr("readonly");
         $("#vo-mName").val("").removeAttr("readonly");
         $("#vo-lName").val("").removeAttr("readonly");
-        //$("#vehicle-association-id").val(");
+        $("#vehicle-association-id").val("");
         $("#vehicle-association-name").val("").removeAttr("readonly");
         $("#vehicle-side-no").val("").removeAttr("readonly");
     }
@@ -294,7 +295,6 @@ function getOffenceCodesList(request,response){
 
     var url = "/oms/api/offence-code?sectionHeaderLabel=" + sectionHeaderLabel +
         "&level=" + level + "&penaltyAmount=" + penaltyAmount;
-    //alert("getting data from url : " + url);
     $.getJSON(
         url,
         function (data) {
@@ -533,3 +533,46 @@ function proofDocumentOnChange(event){
             break;
     }
 }
+
+
+function getAssociationsByName(request, response) {
+    $.getJSON(
+        "/oms/api/associations?name=" + request.term,
+        function (data) {
+            response(data);
+        });
+}
+
+function populateAssociationInput(association){
+    if(association !== null) {
+        $("#vehicle-association-id").val(association["id"]);
+    }
+    else{
+        $("#vehicle-association-id").val("");
+    }
+}
+
+function getAssociationByName(name){
+    $.getJSON(
+        "/oms/api/associations/name/" + name,
+        function (data) {
+            populateAssociationInput(data);
+        }
+    )
+}
+
+function associationNameInputChanged(event, ui){
+    if(ui.item === null) {
+        var name = $("#vehicle-association-name").val();
+        getAssociationByName(name);
+    }
+}
+
+$("#vehicle-association-name").autocomplete({
+    source : getAssociationsByName,
+    minLength : 3,
+    select : function(event,ui){
+        getAssociationByName(ui.item.value);
+    },
+    change : associationNameInputChanged
+});
