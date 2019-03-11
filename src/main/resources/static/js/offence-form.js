@@ -162,6 +162,10 @@ function populateVehicleInput(vehicle){
 }
 
 function getVehicleByPlateNo(plateNo) {
+    if(plateNo === "") {
+        populateVehicleInput(null);
+        return;
+    }
     $.getJSON(
         "/oms/api/vehicles/plate/" + plateNo,
         function (data) {
@@ -213,6 +217,10 @@ function populateDriverInput(driver){
 }
 
 function getDriverByLicenseNo(licenseNo){
+    if(licenseNo === "") {
+        populateDriverInput(null);
+        return;
+    }
     console.log("getting driver with license no " + licenseNo );
     $.getJSON(
         "/oms/api/drivers/" + licenseNo,
@@ -506,6 +514,10 @@ function populateAssociationInput(association){
 }
 
 function getAssociationByName(name){
+    if(name === "") {
+        populateAssociationInput(null);
+        return;
+    }
     $.getJSON(
         "/oms/api/associations/name/" + name,
         function (data) {
