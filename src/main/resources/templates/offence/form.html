@@ -30,7 +30,7 @@
                     <!--Ticket No-->
                     <div class="form-group">
                         <label for="ticket-no" class="" th:text="#{ticket.no}">Ticket No</label>
-                        <input id="ticket-no" class="form-control" placeholder="Ticket No" th:placeholder="#{ticket.no}" th:field="*{ticketNo}" th:errorclass="is-invalid">
+                        <input id="ticket-no" class="form-control" placeholder="Ticket No" th:placeholder="#{ticket.no}" th:field="*{ticketNo}" th:errorclass="is-invalid" required maxlength="12">
                         <label for="ticket-no" class="invalid-feedback " th:if="${#fields.hasErrors('ticketNo')}" th:errors="*{ticketNo}">Ticket No Error</label>
                     </div>
 

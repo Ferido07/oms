@@ -15,6 +15,7 @@ public class OffenceModel {
 
     private Integer id;
 
+    @NotEmpty
     @Size(max = 12)
     private String ticketNo;
 
