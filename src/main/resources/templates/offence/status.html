@@ -12,7 +12,7 @@
         <h3><span id="page-header" data-template="offence-status" th:text="#{offence.status}">Offence Status</span></h3>
         <div class="container" th:fragment="content">
             <!--/*@thymesVar id="offenceModel" type="com.kft.oms.model.OffenceModel"*/-->
-            <form th:action="@{/offence/{id}/clear(id=${offenceModel.id})}" method="post">
+            <form th:action="@{/offence/status/{id}(id=${offenceModel.id})}" method="post">
 
                 <div class="form-group">
                     <label th:text="#{driver.name}">Driver Name</label>
@@ -65,7 +65,8 @@
                     <p class="form-control" th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></p>
                 </div>
                 <div th:if="${offenceModel.status.toString()} == 'PENDING'">
-                    <button type="submit" class="btn btn-primary" th:text="#{pay}">Pay</button>
+                    <button type="submit" class="btn btn-primary" name="clear" th:text="#{pay}">Pay</button>
+                    <button type="submit" class="btn btn-danger" name="delete" th:text="#{delete}">Delete</button>
                 </div>
             </form>
         </div>

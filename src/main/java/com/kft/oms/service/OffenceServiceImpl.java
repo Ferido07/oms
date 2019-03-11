@@ -329,4 +329,32 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
     public Page<OffenceModel> findOffenceByTicketNo(String ticketNo, Pageable pageable) {
         return repository.findOffenceByTicketNoStartingWith(ticketNo,pageable).map(offence -> mapper.map(offence, OffenceModel.class));
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        Optional<Offence> offenceOptional = repository.findById(id);
+        /*
+         * Check if there are any offences with dates after the date of the offence to be deleted and the status of the offence
+         * to be deleted.
+         * This check together with the check in save method provide a way to safeguard the penalty amount always stays correct
+         * as well as maintain the integrity of the data for auditing purposes if it is needed to find out the total
+         * amount of money collected from penalties.
+         * Hence offences are only added to the top of the stack for an offender and removed from the top only if the
+         * penalty amount is not paid.
+         */
+        if(offenceOptional.isPresent()) {
+            Offence offence = offenceOptional.get();
+            Integer numberOfOffencesInDatabaseWithDateAfterTheDateOfCurrentOffence =
+                    repository.countOffencesByOffenderIdAndDateAfter(offence.getOffender().getId(), offence.getDate());
+            if(numberOfOffencesInDatabaseWithDateAfterTheDateOfCurrentOffence == 0 && offence.getStatus() == OffenceStatus.PENDING)
+                super.deleteById(id);
+            else {
+                if(numberOfOffencesInDatabaseWithDateAfterTheDateOfCurrentOffence != 0)
+                    throw new RuntimeException("Cannot delete offence with id of " + offence.getId() + " because there are "
+                        + numberOfOffencesInDatabaseWithDateAfterTheDateOfCurrentOffence + " offences with dates after the given one.");
+                if(offence.getStatus() == OffenceStatus.CLEARED)
+                    throw new RuntimeException("Cannot delete offence with id of " + offence.getId() + " because the offence is payed for.");
+            }
+        }
+    }
 }

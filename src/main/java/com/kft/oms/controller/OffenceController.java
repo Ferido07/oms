@@ -90,7 +90,7 @@ public class OffenceController {
         }
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping(value = "/status/{id}", params = "delete")
     public String delete(@PathVariable Integer id){
         offenceService.deleteById(id);
         return "redirect:/offence";
@@ -110,7 +110,7 @@ public class OffenceController {
         }
     }
 
-    @PostMapping("/{id}/clear")
+    @PostMapping(value = "/status/{id}", params = "clear")
     public String clearStatus(@PathVariable("id") Integer offenceId, Model model){
         OffenceModel offenceModel = offenceService.clearStatus(offenceId);
         model.addAttribute("offenceModel", offenceModel);
