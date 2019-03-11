@@ -51,7 +51,7 @@
                             <td th:text="${offenceModel.location}"></td>
                             <td th:text="${offenceModel.penaltyAmount}"></td>
                             <td>
-                                <a th:text="${offenceModel.status}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></a>
+                                <a th:text="${offenceModel.status.toString() == 'PENDING' ? #messages.msg('unpaid') : #messages.msg('paid')}" th:class="${offenceModel.status.toString()} == 'PENDING'? 'text-danger' : 'text-success'"></a>
                             </td>
                             <td>
                                 <a href="show.html" th:href="@{/offence/{id}(id=${offenceModel.id})}"><i class="material-icons">visibility</i></a>
