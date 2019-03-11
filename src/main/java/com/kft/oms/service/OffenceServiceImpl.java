@@ -138,6 +138,29 @@ public class OffenceServiceImpl extends CrudServiceImpl<Offence,Integer,OffenceR
         //check if offender is already registered if not save offence so that offender gets saved otherwise transientObjectException will be thrown
         if(offence.getOffender().getId() == null)
             offence = repository.save(offence);
+        else {
+            /* Note: By checking if there are offences in database with dates later than the given date
+             * we can make sure that the offences are entered in ascending chronological order.
+             * Hence avoiding wrong penalty amount - for those offences that are later than the date
+             * of the current offence that is about to be saved - caused due to inserting an offence
+             * in the middle hence invalidating the amount that was previously calculated when those
+             * offences where saved.
+             * An alternative approach to solve this problem is to recalculate the penalty amount of those later
+             * than the date of the current offence. But that results in a lot queries and background jobs.
+             * The recalculation could be done manually or automatically but manual is worse as the user has to
+             * look for those that are affected.
+             * An additional advantage of the current approach is that it prevents the users to add a date that
+             * is earlier than the last by mistake and also enforces chronological order of offences.
+             */
+            Integer numberOfOffencesInDatabaseWithDateAfterTheDateOfCurrentOffence =
+                    repository.countOffencesByOffenderIdAndDateAfter(offence.getOffender().getId(), offence.getDate());
+            //Check if there are offences by the offender that are later than the given date
+            if(numberOfOffencesInDatabaseWithDateAfterTheDateOfCurrentOffence > 0)
+                throw new RuntimeException(numberOfOffencesInDatabaseWithDateAfterTheDateOfCurrentOffence +
+                " offences exist in database for the offender with id of " + offence.getOffender().getId() +
+                " with dates later than the given date of " + offence.getDate() + " G.C. \n" +
+                "Any new offence must have date similar to or later than the last offence");
+        }
 
         //calculate the penalty amount before create or update
         offence.setPenaltyAmount(calculatePenaltyAmount(offence));

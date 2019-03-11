@@ -18,4 +18,5 @@ public interface OffenceRepository extends JpaRepository<Offence,Integer> {
     Page<Offence> findAllByOffenderIdAndOffenceCodesContains(Integer offenderId, OffenceCode offenceCode, Pageable pageable);
     List<Offence> findAllByOffenderIdAndOffenceCodesContainsAndDateBetween(Integer offenderId, OffenceCode offenceCode, LocalDate startDate, LocalDate endDate);
     Page<Offence> findOffenceByTicketNoStartingWith(String ticketNo, Pageable pageable);
+    Integer countOffencesByOffenderIdAndDateAfter(Integer id, LocalDate date);
 }
