@@ -19,4 +19,6 @@ public interface OffenceCodeService extends CrudService<OffenceCode,Integer,Offe
     List<OffenceCodeModel> findAllBySectionHeaderLabelAndLevelAndPenaltyAmount(String sectionHeaderLabel, Short level, Integer penaltyAmount);
 
     Page<OffenceCodeModel> findAllOffenceCodeModels(Pageable pageable);
+
+    List<OffenceCodeModel> findAllBySectionHeaderLabelStartingWith(String sectionHeaderLabel);
 }

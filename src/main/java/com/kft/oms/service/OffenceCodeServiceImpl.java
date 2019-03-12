@@ -38,4 +38,10 @@ public class OffenceCodeServiceImpl extends CrudServiceImpl<OffenceCode,Integer,
     public Page<OffenceCodeModel> findAllOffenceCodeModels(Pageable pageable) {
         return repository.findAll(pageable).map(offenceCode -> mapper.map(offenceCode, OffenceCodeModel.class));
     }
+
+    @Override
+    public List<OffenceCodeModel> findAllBySectionHeaderLabelStartingWith(String sectionHeaderLabel) {
+        List<OffenceCode> offenceCodeList = repository.findAllBySectionHeaderLabelStartingWith(sectionHeaderLabel);
+        return mapper.mapAsList(offenceCodeList, OffenceCodeModel.class);
+    }
 }

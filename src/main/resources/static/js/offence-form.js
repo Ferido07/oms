@@ -251,11 +251,25 @@ function getOffenceCodesList(request,response){
     var offenceCode = request.term;
     var offenceCodeParts = offenceCode.split(' ', 4);
     var sectionHeaderLabel = offenceCodeParts[0];
-    var level = offenceCodeParts[1];
+    var level = (offenceCodeParts[1] === undefined)? '' :offenceCodeParts[1];
     var penaltyAmount = (offenceCodeParts[2] === undefined)? '' : offenceCodeParts[2];
+    var numberLabel = offenceCodeParts[3] === undefined? '' : offenceCodeParts[3];
 
-    var url = "/oms/api/offence-code?sectionHeaderLabel=" + sectionHeaderLabel +
-        "&level=" + level + "&penaltyAmount=" + penaltyAmount;
+    var getSectionsUrl = "/oms/api/offence-code/section?sectionHeaderLabel=" + sectionHeaderLabel;
+    var getLevelsUrl = "/oms/api/offence-code?sectionHeaderLabel=" + sectionHeaderLabel;
+    var getPenaltyAmountsUrl = "/oms/api/offence-code?sectionHeaderLabel=" + sectionHeaderLabel + "&level=" +level;
+    var getNumbersUrl = "/oms/api/offence-code?sectionHeaderLabel=" + sectionHeaderLabel +
+                        "&level=" + level + "&penaltyAmount=" + penaltyAmount;
+
+    var url;
+
+    switch (offenceCodeParts.length){
+        case 1: url = getSectionsUrl; break;
+        case 2: if(level === '') url = getLevelsUrl; break;
+        case 3: if(penaltyAmount === '') url = getPenaltyAmountsUrl; break;
+        case 4: if(numberLabel === '') url = getNumbersUrl; break;
+    }
+
     $.getJSON(
         url,
         function (data) {
@@ -341,7 +355,7 @@ var offenceCodeInputs = offenceCodesBody.find("tr td:nth-child(2)").children("in
 
 var offenceCodeAutoComplete = {
     source :  getOffenceCodesList,
-    minLength :6,
+    minLength :1,
     select : function (event, ui) {
         getOffenceCode(event, ui.item.value);
     },

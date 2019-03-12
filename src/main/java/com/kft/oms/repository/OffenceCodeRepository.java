@@ -20,4 +20,6 @@ public interface OffenceCodeRepository extends JpaRepository<OffenceCode,Integer
     List<OffenceCode> findAllBySectionHeaderLabelAndLevelAndPenaltyAmount(@Param("sectionHeaderLabel") String sectionHeaderLabel,
                                                                     @Param("level") Short level,
                                                                     @Param("penaltyAmount") Integer penaltyAmount);
+
+    List<OffenceCode> findAllBySectionHeaderLabelStartingWith(String sectionHeaderLabel);
 }
