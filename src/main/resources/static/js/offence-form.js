@@ -492,15 +492,15 @@ function proofDocumentOnChange(event){
     switch(event.target.id){
         case "isDriversLicenseTaken" :
             var driversLicenseTaken = $("#driversLicenseTaken");
-            $('#isDriversLicenseTaken').is(':checked')? driversLicenseTaken.removeAttr("disabled").attr("required", "required") : driversLicenseTaken.attr("disabled", "disabled").removeAttr("required").val('');
+            $('#isDriversLicenseTaken').is(':checked')? driversLicenseTaken.removeAttr("disabled").attr("required", "required").val($("#driver-license-no").val()) : driversLicenseTaken.attr("disabled", "disabled").removeAttr("required").val('');
             break;
         case "isVehiclePlateTaken" :
             var vehiclePlateTaken = $("#vehiclePlateTaken");
-            $('#isVehiclePlateTaken').is(':checked')? vehiclePlateTaken.removeAttr("disabled").attr("required", "required") : vehiclePlateTaken.attr("disabled", "disabled").removeAttr("required").val('');
+            $('#isVehiclePlateTaken').is(':checked')? vehiclePlateTaken.removeAttr("disabled").attr("required", "required").val($("#vehicle-plate-no").val()) : vehiclePlateTaken.attr("disabled", "disabled").removeAttr("required").val('');
             break;
         case "isLibreTaken" :
             var libreTaken = $("#libreTaken");
-            $('#isLibreTaken').is(':checked')? libreTaken.removeAttr("disabled").attr("required", "required") : libreTaken.attr("disabled", "disabled").removeAttr("required").val('');
+            $('#isLibreTaken').is(':checked')? libreTaken.removeAttr("disabled").attr("required", "required").val($("#vo-libreNo").val()) : libreTaken.attr("disabled", "disabled").removeAttr("required").val('');
             break;
         case "isVehicleBoloTaken" :
             var vehicleBoloTaken = $("#vehicleBoloTaken");
